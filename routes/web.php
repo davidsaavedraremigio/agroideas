@@ -375,6 +375,8 @@ Route::get('sda/evaluacion/data-archivado', 'ExpedienteSdaUnController@showDataA
 #7.4. Módulo para el registro y mantenimiento de consejos directivos
 Route::resource('sda/cd', 'ConsejoDirectivoController')->except(['show', 'destroy']);
 Route::get('sda/cd/data', 'ConsejoDirectivoController@show')->name('cd.data');
+Route::get('sda/cd/{cd}/asigna', 'ConsejoDirectivoController@asignaSdaForm')->name('cd.asigna-sda-form');
+Route::post('sda/cd/asigna', 'ConsejoDirectivoController@asignaSda')->name('cd.asigna-sda');
 
 
 

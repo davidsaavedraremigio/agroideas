@@ -10,5 +10,9 @@ class ConsejoDirectivo extends Model
     protected 	$table 			=	'ConsejoDirectivo';
     public $timestamps          =   false;
 
-    #2. obtengo los datos del consejo directivo
+    #2. Obtengo la relación de Consejos directivos registrados
+    public static function getData()
+    {
+        return ConsejoDirectivo::orderBy('fecha', 'asc')->get();
+    }
 }

@@ -43,6 +43,21 @@
             </div>
         </div>		
     </div>
+    {{-- Modal para la asignación de registros --}}
+    <div class="modal fade" id="modalAsignaSda">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormAsignaSda">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>
+
+
 @stop
 @section('scripts')
 <script>
@@ -50,15 +65,17 @@
         $("#viewDataCd").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
         $("#viewDataCd").load("cd/data");
 
-        //#1.- Modal para crear un nuevo registro
+        //#1.- Modal para crear y modificar registros
         $('#modalCreateCd').on('show.bs.modal', function (e) {
             $('#divFormCreateCd').load("cd/create");
         });
-
-        //#2.- Modal para editar registros
         $('#modalUpdateCd').on('show.bs.modal', function (e) {
             var idCd = $(e.relatedTarget).attr('data-id');
             $('#divFormUpdateCd').load('cd/' + idCd + '/edit');
+        });
+        $('#modalAsignaSda').on('show.bs.modal', function (e) {
+            var idCd = $(e.relatedTarget).attr('data-id');
+            $('#divFormAsignaSda').load('cd/' + idCd + '/asigna');
         });
 
         //#3.- Procesamos el formulario para crear nuevos registros

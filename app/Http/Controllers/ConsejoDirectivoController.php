@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests\ConsejoDirectivoFormRequest;
 use App\ConsejoDirectivo;
+use App\Expediente;
+use App\ExpedienteSdaUn;
+use App\Proyecto;
+use App\PostulanteEstado;
+use App\Postulante;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -66,7 +71,9 @@ class ConsejoDirectivoController extends Controller
     #6.
     public function show()
     {
-        return view($this->path.'.data');
+        $data   =   ConsejoDirectivo::getData();
+        #2. Retornamos al menu principal
+        return view($this->path.'.data', compact('data'));
     }
 
     #7.
@@ -140,4 +147,17 @@ class ConsejoDirectivoController extends Controller
             ]);
         }
     }
+
+    #10. Muestro un formulario para la asignación de Solicitudes de apoyo a un consejo directivo
+    public function asignaSdaForm($id)
+    {
+        #1. Obtengo las variables requeridas
+        $cd         =   ConsejoDirectivo::findOrFail($id);
+        $estado     =   2;
+        $expediente =   ExpedienteSdaUn::getDataExpediente($estado);
+
+        #2. Retorno a la vista del formulario
+        return view($this->path.'.asigna', compact('cd', 'expediente'));
+    }
+
 }
