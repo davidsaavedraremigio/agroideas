@@ -370,16 +370,20 @@ Route::get('sda/evaluacion/data-pendiente', 'ExpedienteSdaUnController@showDataP
 Route::get('sda/evaluacion/data-aprobado', 'ExpedienteSdaUnController@showDataAprobado')->name('evaluacion.data-aprobado');
 Route::get('sda/evaluacion/data-observado', 'ExpedienteSdaUnController@showDataObservado')->name('evaluacion.data-observado');
 Route::get('sda/evaluacion/data-archivado', 'ExpedienteSdaUnController@showDataArchivado')->name('evaluacion.data-archivado');
-
-
-#7.4. Módulo para el registro y mantenimiento de consejos directivos
+#7.3. Módulo para el registro y mantenimiento de consejos directivos
 Route::resource('sda/cd', 'ConsejoDirectivoController')->except(['show', 'destroy']);
 Route::get('sda/cd/data', 'ConsejoDirectivoController@show')->name('cd.data');
 Route::get('sda/cd/{cd}/asigna', 'ConsejoDirectivoController@asignaSdaForm')->name('cd.asigna-sda-form');
 Route::post('sda/cd/asigna', 'ConsejoDirectivoController@asignaSda')->name('cd.asigna-sda');
 Route::get('sda/cd/{cd}/data-aprobado', 'ConsejoDirectivoController@showAsignaSda')->name('cd.data-aprobado');
+#7.4. Módulo para el registro y mantenimiento de Convenios Sda
+Route::resource('sda/convenio', 'ConvenioSdaController')->except(['show', 'destroy', 'create']);
+Route::get('sda/convenio/data', 'ConvenioSdaController@show')->name('convenio.data');
 
 
+Route::get('sda/convenio/{postulante}/create', 'ConvenioSdaController@create')->name('convenio.create');
+Route::get('sda/convenio/data-pendiente', 'ConvenioSdaController@showDataPendiente')->name('convenio.data-pendiente');
+Route::get('sda/convenio/data-aprobado', 'ConvenioSdaController@showDataAprobado')->name('convenio.data-aprobado');
 
 
 

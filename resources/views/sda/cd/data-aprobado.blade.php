@@ -9,6 +9,7 @@
         <thead class="bg-primary">
             <tr>
                 <th class="text-center"><small>Nº Expediente</small></th>
+                <th class="text-center"><small>Tipo</small></th>
                 <th class="text-center"><small>Nº RUC</small></th>
                 <th class="text-center"><small>Razon social</small></th>
                 <th class="text-center"><small>Cadena</small></th>
@@ -20,6 +21,7 @@
             @foreach ($data as $keyNumber => $fila)
             <tr>
                 <td class="text-center"><small>{{$fila->nro_expediente}}</small></td>
+                <td class="text-center"><small>{{$fila->tipo_incentivo}}</small></td>
                 <td class="text-center"><small>{{$fila->ruc}}</small></td>
                 <td class="text-uppercase"><small>{{$fila->razon_social}}</small></td>
                 <td class="text-center"><small>{{$fila->cadena}}</small></td>
