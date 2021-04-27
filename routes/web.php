@@ -377,6 +377,7 @@ Route::resource('sda/cd', 'ConsejoDirectivoController')->except(['show', 'destro
 Route::get('sda/cd/data', 'ConsejoDirectivoController@show')->name('cd.data');
 Route::get('sda/cd/{cd}/asigna', 'ConsejoDirectivoController@asignaSdaForm')->name('cd.asigna-sda-form');
 Route::post('sda/cd/asigna', 'ConsejoDirectivoController@asignaSda')->name('cd.asigna-sda');
+Route::get('sda/cd/{cd}/data-aprobado', 'ConsejoDirectivoController@showAsignaSda')->name('cd.data-aprobado');
 
 
 

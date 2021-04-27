@@ -7,8 +7,10 @@ use App\Http\Requests\ConsejoDirectivoFormRequest;
 use App\ConsejoDirectivo;
 use App\Expediente;
 use App\ExpedienteSdaUn;
+use App\ExpedienteSdaUaj;
 use App\Proyecto;
 use App\PostulanteEstado;
+use App\PostulanteAprobacion;
 use App\Postulante;
 use Carbon\Carbon;
 use DB;
@@ -158,6 +160,96 @@ class ConsejoDirectivoController extends Controller
 
         #2. Retorno a la vista del formulario
         return view($this->path.'.asigna', compact('cd', 'expediente'));
+    }
+
+    #11. Realizo la asignacion de un expediente a un consejo directivo
+    public function asignaSda(Request $request)
+    {
+        #1. Actualizo la información del expediente
+        try 
+        {
+            $expediente                 =   Expediente::findOrFail($request->get('expediente'));
+            $expediente->updated_auth   =   Auth::user()->id;
+            $expediente->update();
+
+            #2. Actualizo la información del expediente UAJ
+            try 
+            {
+                $uaj                        =   ExpedienteSdaUaj::where('codExpediente', $expediente->id)->first();
+                $uaj->fecha_derivacion      =   $request->get('fecha_aprobacion');
+                $uaj->cod_consejo_directivo =   $request->get('codigo');
+                $uaj->cod_estado_proceso    =   2;
+                $uaj->updated_auth          =   Auth::user()->id;
+                $uaj->update();
+
+                #3. Genero la aprobación del incentivo
+                try 
+                {
+                    $aprobacion                 =   new PostulanteAprobacion;
+                    $aprobacion->codPostulante  =   $expediente->codPostulante;
+                    $aprobacion->fechaAprobacion=   $request->get('fecha_aprobacion');
+                    $aprobacion->created_auth   =   Auth::user()->id;
+                    $aprobacion->updated_auth   =   Auth::user()->id;
+                    $aprobacion->save();
+                    
+                    #4. Actualizo el estado situacional de la iniciativa
+                    try 
+                    {
+                        $estado                         =   PostulanteEstado::where('codPostulante', $expediente->codPostulante)->first();
+                        $estado->codEstadoSituacional   =   1;
+                        $estado->updated_auth           =   Auth::user()->id;
+                        $estado->update();
+
+                        #5. Retorno al menu principal
+                        return response()->json([
+                            'estado'    =>  '1',
+                            'dato'      =>  '',
+                            'mensaje'   =>  'La información se procesó de manera exitosa.'
+                        ]);
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return response()->json([
+                            'estado'    =>  '2',
+                            'dato'      =>  $e->getMessage(),
+                            'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                        ]);
+                    }
+                } 
+                catch (Exception $e) 
+                {
+                    return response()->json([
+                        'estado'    =>  '2',
+                        'dato'      =>  $e->getMessage(),
+                        'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                    ]);
+                }
+            } 
+            catch (Exception $e) 
+            {
+                return response()->json([
+                    'estado'    =>  '2',
+                    'dato'      =>  $e->getMessage(),
+                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                ]);
+            }
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
+
+    #12. Muestro todas las entidades aprobadas
+    public function showAsignaSda($id)
+    {
+        $data   =   ConsejoDirectivo::getExpedientes($id);
+        #2. Retornamos a la vista  
+        return view($this->path.'.data-aprobado', compact('data'));
     }
 
 }

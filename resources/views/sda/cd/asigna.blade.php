@@ -1,4 +1,4 @@
-{!! Form::open(array('id'=>'FormAsignaSda','url'=>'sda/asigna','method'=>'POST','autocomplete'=>'off')) !!}
+{!! Form::open(array('id'=>'FormAsignaSda','url'=>'sda/cd/asigna','method'=>'POST','autocomplete'=>'off')) !!}
 <div class="modal-header">
     <h4 class="modal-title">Asignar expediente a Consejo directivo</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -8,12 +8,13 @@
 <div class="modal-body">
     {{-- Panel para mostrar alertas --}}
     <div id="AsignaSdaAlerts" class="alert alert-danger" style="display: none;"></div>
+    {!! Form::hidden('codigo', $cd->id, ['class' => 'form-control']) !!}
     {{-- Panel para mostrar alertas --}}
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">{!! Form::label('numero', 'Consejo directivo Nº') !!} {!! Form::number('numero', $cd->numero, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
-            <div class="col-md-4"></div>
             <div class="col-md-4">{!! Form::label('fecha', 'Fecha') !!} {!! Form::date('fecha', $cd->fecha, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_aprobacion', 'Fecha de aprobación') !!} {!! Form::date('fecha_aprobacion', '', ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}</div>
         </div>
         <div class="row">
             <div class="col-md-12">{!! Form::label('objetivo', 'Objetivo del Consejo directivo') !!} {!! Form::textarea('objetivo', $cd->descripcion, ['class' => 'form-control', 'readonly' => 'readonly', 'rows' => '2', 'cols' => '2']) !!}</div>
@@ -41,7 +42,6 @@
         <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
     </div>
 </div>
-{!! Form::close() !!}
 {!! Form::close() !!}
 <script>
     var urlApp          = "{{ env('APP_URL') }}";

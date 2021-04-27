@@ -16,7 +16,7 @@
             <td class="text-center">
                 <a href="#" title="Editar información" class="btn btn-sm btn-warning" id="btnmodalUpdateCd" data-toggle="modal" data-target="#modalUpdateCd" data-id="{{$fila->id}}"><i class="fas fa-edit"></i></a>
                 <a href="#" title="Asignar entidades al Consejo directivo" class="btn btn-sm btn-primary" id="btnmodalAsignaSda" data-toggle="modal" data-target="#modalAsignaSda" data-id="{{$fila->id}}"><i class="fas fa-user-plus"></i></a>
-                <a href="#" title="Mostrar entidades asignadas" class="btn btn-sm btn-success" id="btnmodalSda" data-toggle="modal" data-target="#modalSda" data-id="{{$fila->id}}"><i class="fas fa-users"></i></a>
+                <a href="#" title="Mostrar entidades asignadas" class="btn btn-sm btn-success" id="btnmodalShowAsignaSda" data-toggle="modal" data-target="#modalShowAsignaSda" data-id="{{$fila->id}}"><i class="fas fa-users"></i></a>
             </td>
         </tr>    
         @endforeach
