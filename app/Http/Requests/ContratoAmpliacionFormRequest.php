@@ -13,7 +13,7 @@ class ContratoAmpliacionFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class ContratoAmpliacionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo'              =>  'required',
+            'nro_ampliacion'    =>  'required|digits_between:1,9',
+            'fecha_ampliacion'  =>  'required|date',
+            'meses'             =>  'required|digits_between:1,12',
+            'objetivo'          =>  'nullable|max:900',
         ];
     }
 }

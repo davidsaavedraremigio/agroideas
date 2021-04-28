@@ -24,7 +24,8 @@
              <td class="text-center"><small>{{$fila->estado}}</small></td>
              <td class="text-center"><small>{{($fila->cod_estado == 3)? $fila->nro_dias:'-'}}</small></td>
              <td class="text-center">
-                 <a href="#" class="btn btn-sm btn-primary" id="btnmodalUpdateEstadoContrato" data-toggle="modal" data-target="#modalUpdateEstadoContrato" data-id="{{$fila->id}}"><i class="far fa-edit"></i></a>
+                 <a href="#" title="Actualizar estado situacional" class="btn btn-sm btn-success" id="btnmodalUpdateEstadoContrato" data-toggle="modal" data-target="#modalUpdateEstadoContrato" data-id="{{$fila->id}}"><i class="fas fa-toggle-on"></i></a>
+                 <a href="#" title="Generar adenda al convenio" class="btn btn-sm btn-primary" id="btnmodalCreateAdendaContrato" data-toggle="modal" data-target="#modalCreateAdendaContrato" data-id="{{$fila->id}}"><i class="fas fa-calendar-plus"></i></a>
                 <!--
                 <a href="#" class="btn btn-sm btn-warning" id="btnmodalUpdateRm" data-toggle="modal" data-target="#modalUpdateRm" data-id="{{$fila->id}}"><i class="fas fa-folder-open"></i></a>
                 <a href="#" class="btn btn-sm btn-primary" id="btnmodalCreateAmpliacion" data-toggle="modal" data-target="#modalCreateAmpliacion" data-id="{{$fila->id}}"><i class="fas fa-calendar-plus"></i></a>

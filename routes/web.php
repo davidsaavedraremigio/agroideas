@@ -331,8 +331,10 @@ Route::get('iniciativa/convenio/{postulante}/create', 'ContratoController@create
 Route::get('iniciativa/convenio/data', 'ContratoController@showDataPendiente')->name('contrato.data');
 Route::get('iniciativa/convenio/data-convenio', 'ContratoController@showData')->name('contrato.data-convenio');
 Route::get('iniciativa/convenio/{postulante}/estado', 'ContratoController@editEstadoContrato')->name('contrato.estado');
-Route::post('iniciativa/convenio/estado/{postulante}', 'ContratoController@updateEstadoContrato')->name('contrato.estado-update');
-
+Route::post('iniciativa/convenio/estado/{contrato}', 'ContratoController@updateEstadoContrato')->name('contrato.estado-update');
+#5.13. Módulo para el proceso de creación de adendas a Convenios
+Route::resource('iniciativa/convenio-ampliacion', 'ContratoAmpliacionController')->except(['destroy', 'create']);
+Route::get('iniciativa/convenio-ampliacion/{contrato}/create', 'ContratoAmpliacionController@create')->name('convenio-ampliacion.create');
 
 
 #6. Rutas para el módulo de Solicitudes de Apoyo

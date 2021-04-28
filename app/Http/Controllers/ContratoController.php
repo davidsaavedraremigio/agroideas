@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContratoFormRequest;
 use App\Contrato;
+use App\ContratoAmpliacion;
 use App\Postulante;
 use App\PostulanteEstado;
 use App\ResolucionMinisterial;

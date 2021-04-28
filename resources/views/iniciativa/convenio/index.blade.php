@@ -77,6 +77,22 @@
             </div>
         </div>		
     </div>
+    {{-- Modal para poder generar una adenda al contrato --}}
+    <div class="modal fade" id="modalCreateAdendaContrato">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormCreateAdendaContrato">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>
+
+
+
 @stop
 @section('scripts')
     <script>
@@ -85,7 +101,6 @@
             $("#viewDataContrato").load("convenio/data-convenio");
             $("#viewDataContratoPendiente").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
             $("#viewDataContratoPendiente").load("convenio/data");
-
             //#1.- Modal para crear un nuevo registro
             $('#modalCreateContrato').on('show.bs.modal', function (e) {
                 var idPostulante = $(e.relatedTarget).attr('data-id');
@@ -98,6 +113,10 @@
             $('#modalUpdateEstadoContrato').on('show.bs.modal', function (e) {
                 var idcontrato = $(e.relatedTarget).attr('data-id');
                 $('#divFormUpdateEstadoContrato').load('convenio/' + idcontrato + '/estado');
+            });
+            $('#modalCreateAdendaContrato').on('show.bs.modal', function (e) {
+                var idcontrato = $(e.relatedTarget).attr('data-id');
+                $('#divFormCreateAdendaContrato').load('convenio-ampliacion/' + idcontrato + '/create');
             });
             //#2.- Realizamos el procesamiento de la información
             $(document).on("click", '#btnCreateContrato', function (event) {
@@ -189,6 +208,52 @@
                         $("#UpdateEstadoContratoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
                         $("#Footer_UpdateEstadoContrato_Enabled").css("display", "block");
                         $("#Footer_UpdateEstadoContrato_Disabled").css("display", "none");
+                    }
+                });
+            });
+            $(document).on("click", '#btnCreateAdendaContrato', function (event) {
+                event.preventDefault();
+                var form = $("#FormCreateAdendaContrato");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_CreateAdendaContrato_Enabled").css("display", "none");
+                        $("#Footer_CreateAdendaContrato_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_CreateAdendaContrato_Enabled").css("display", "block");
+                        $("#Footer_CreateAdendaContrato_Disabled").css("display", "none");
+                        $("#modalCreateAdendaContrato").modal('hide');
+                        $("#viewDataContrato").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataContrato").load("convenio/data-convenio");
+                        $("#viewDataContratoPendiente").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataContratoPendiente").load("convenio/data");
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#CreateAdendaContratoAlerts").css("display", "block");
+                        $("#CreateAdendaContratoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_CreateAdendaContrato_Enabled").css("display", "block");
+                        $("#Footer_CreateAdendaContrato_Disabled").css("display", "none");
                     }
                 });
             });
