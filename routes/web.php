@@ -74,9 +74,6 @@ Route::get('admin/proceso-iniciativa/data', 'ProcesoIniciativaController@show')-
 #1.17. Módulo para el registro de procesos de los incentivos
 Route::resource('admin/indicador-resultado', 'IndicadorResultadoController')->except(['show']);
 Route::get('admin/indicador-resultado/data', 'IndicadorResultadoController@show')->name('indicador-resultado.data');
-#1.17. Módulo para la consulta reniec y sunat
-Route::get('dni/{dni}', 'WebServicesController@getDni')->name('servicio.dni');
-Route::get('ruc/{ruc}', 'WebServicesController@getRuc')->name('servicio.ruc');
 #1.18. Genero combos dinamicos a partir de lo solicitado por el Ubigeo
 Route::get('ubigeo/provincia/{codRegion}', 'UbigeoController@obtieneProvincias')->name('ubigeo.provincia');
 Route::get('ubigeo/distrito/{codProvincia}', 'UbigeoController@obtieneDistritos')->name('ubigeo.distrito');
@@ -84,6 +81,12 @@ Route::get('ubigeo/distrito/{codProvincia}', 'UbigeoController@obtieneDistritos'
 Route::get('tipologia/linea/{codSector}', 'ProductoController@obtieneLinea')->name('tipologia.linea');
 Route::get('tipologia/cadena/{codLinea}', 'ProductoController@obtieneCadena')->name('tipologia.cadena');
 Route::get('tipologia/producto/{codCadena}', 'ProductoController@obtieneProducto')->name('tipologia.producto');
+
+#1.17. Módulo para la consulta reniec y sunat
+Route::get('dni/{dni}', 'WebServicesController@getDni')->name('servicio.dni');
+Route::get('ruc/{ruc}', 'WebServicesController@getRuc')->name('servicio.ruc');
+Route::get('tc/{fecha}', 'WebServicesController@getTc')->name('servicio.tc');
+Route::get('sunat/{ruc}', 'WebServicesController@getDataSunat')->name('servicio.sunat');
 
 
 #2. Rutas para el módulo OPA

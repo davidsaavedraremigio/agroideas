@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a04e8eeb45e2c3380f8ca76fe6f6746",
+    "content-hash": "4379d80c4a709313bd94f736ead95a3b",
     "packages": [
         {
             "name": "arielmejiadev/larapex-charts",
@@ -628,6 +628,162 @@
                 "source": "https://github.com/fideloper/TrustedProxy/tree/4.4.1"
             },
             "time": "2020-10-22T13:48:01+00:00"
+        },
+        {
+            "name": "jossmp/datos-peru",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JossMP/datos-peru.git",
+                "reference": "5f3809ea3e7a0d7c82968be91548215195c84021"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JossMP/datos-peru/zipball/5f3809ea3e7a0d7c82968be91548215195c84021",
+                "reference": "5f3809ea3e7a0d7c82968be91548215195c84021",
+                "shasum": ""
+            },
+            "require": {
+                "jossmp/navigate": "^0.0.1",
+                "jossmp/response": "^0.0.1"
+            },
+            "require-dev": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jossmp\\reniec\\": "src/reniec/",
+                    "jossmp\\jne\\": "src/jne/",
+                    "jossmp\\essalud\\": "src/essalud/",
+                    "jossmp\\mtc\\": "src/mtc/",
+                    "jossmp\\servir\\": "src/servir/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Josue Mazco Puma",
+                    "email": "jossmp@gmail.com",
+                    "homepage": "https://github.com/JossMP",
+                    "role": "Developers"
+                }
+            ],
+            "description": "Clase para realizar consultas a reniec, essalud, ministrio del trabajo con el numero de DNI",
+            "homepage": "https://github.com/JossMP/datos-peru",
+            "keywords": [
+                "EsSalud",
+                "Mintra",
+                "consulta",
+                "curl",
+                "peru",
+                "php",
+                "reniec"
+            ],
+            "support": {
+                "issues": "https://github.com/JossMP/datos-peru/issues",
+                "source": "https://github.com/JossMP/datos-peru/tree/v4.0.0"
+            },
+            "time": "2020-03-09T18:08:51+00:00"
+        },
+        {
+            "name": "jossmp/navigate",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/JossMP/navigate.git",
+                "reference": "2be48f56c0546482f3a1944b1007f16edf821c90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/JossMP%2Fnavigate/repository/archive.zip?sha=2be48f56c0546482f3a1944b1007f16edf821c90",
+                "reference": "2be48f56c0546482f3a1944b1007f16edf821c90",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*"
+            },
+            "require-dev": {
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jossmp\\navigate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Josue Mazco Puma",
+                    "email": "jossmp@gmail.com",
+                    "homepage": "https://gitlab.com/JossMP",
+                    "role": "Developers"
+                }
+            ],
+            "description": "Libreria para el uso de cURL",
+            "homepage": "https://gitlab.com/JossMP/",
+            "keywords": [
+                "curl",
+                "navigate",
+                "scraping"
+            ],
+            "time": "2019-12-21T16:21:58+00:00"
+        },
+        {
+            "name": "jossmp/response",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/JossMP/response.git",
+                "reference": "adebd7ffa6b3c3ccfcf196404f900d9ca43010c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/JossMP%2Fresponse/repository/archive.zip?sha=adebd7ffa6b3c3ccfcf196404f900d9ca43010c7",
+                "reference": "adebd7ffa6b3c3ccfcf196404f900d9ca43010c7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*"
+            },
+            "require-dev": {
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jossmp\\response\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Josue Mazco Puma",
+                    "email": "jossmp@gmail.com",
+                    "homepage": "https://gitlab.com/JossMP",
+                    "role": "Developers"
+                }
+            ],
+            "description": "Convierte array en Objeto",
+            "homepage": "https://gitlab.com/JossMP/",
+            "keywords": [
+                "Object 2 Array",
+                "array",
+                "object"
+            ],
+            "time": "2019-12-21T16:19:32+00:00"
         },
         {
             "name": "laravel/framework",

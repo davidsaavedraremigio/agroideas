@@ -1,0 +1,34 @@
+{
+    "name": "jossmp/navigate",
+    "description": "Libreria para el uso de cURL",
+    "type": "library",
+    "keywords": [
+        "cURL",
+        "Navigate",
+        "Scraping"
+    ],
+    "homepage": "https://gitlab.com/JossMP/",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "dev",
+    "optimize-autoloader": true,
+    "authors": [
+        {
+            "name": "Josue Mazco Puma",
+            "email": "jossmp@gmail.com",
+            "homepage": "https://gitlab.com/JossMP",
+            "role": "Developers"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "lib-curl": "*"
+    },
+    "require-dev": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "jossmp\\navigate\\": "src/"
+        }
+    }
+}

@@ -191,7 +191,8 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = urlApp+'/ruc/'+ruc;
+                    //var urlAction = urlApp+'/ruc/'+ruc;
+                    var urlAction = urlApp+'/sunat/'+ruc;
                     $.ajax({
                         url:    urlAction,
                         method: "GET",

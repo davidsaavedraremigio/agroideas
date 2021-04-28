@@ -7,6 +7,13 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'jossmp\\servir\\' => array($vendorDir . '/jossmp/datos-peru/src/servir'),
+    'jossmp\\response\\' => array($vendorDir . '/jossmp/response/src'),
+    'jossmp\\reniec\\' => array($vendorDir . '/jossmp/datos-peru/src/reniec'),
+    'jossmp\\navigate\\' => array($vendorDir . '/jossmp/navigate/src'),
+    'jossmp\\mtc\\' => array($vendorDir . '/jossmp/datos-peru/src/mtc'),
+    'jossmp\\jne\\' => array($vendorDir . '/jossmp/datos-peru/src/jne'),
+    'jossmp\\essalud\\' => array($vendorDir . '/jossmp/datos-peru/src/essalud'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),

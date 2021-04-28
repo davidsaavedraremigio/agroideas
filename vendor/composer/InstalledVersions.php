@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'cd616d8a01cbeac49726e2ad1d40289128917659',
+    'reference' => '4f11c507ed586c88d6e41d0db953ad1fb852c3dc',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -394,6 +394,33 @@ private static $installed = array (
         0 => '*',
       ),
     ),
+    'jossmp/datos-peru' => 
+    array (
+      'pretty_version' => 'v4.0.0',
+      'version' => '4.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5f3809ea3e7a0d7c82968be91548215195c84021',
+    ),
+    'jossmp/navigate' => 
+    array (
+      'pretty_version' => 'v0.0.1',
+      'version' => '0.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2be48f56c0546482f3a1944b1007f16edf821c90',
+    ),
+    'jossmp/response' => 
+    array (
+      'pretty_version' => 'v0.0.1',
+      'version' => '0.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'adebd7ffa6b3c3ccfcf196404f900d9ca43010c7',
+    ),
     'kodova/hamcrest-php' => 
     array (
       'replaced' => 
@@ -417,7 +444,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'cd616d8a01cbeac49726e2ad1d40289128917659',
+      'reference' => '4f11c507ed586c88d6e41d0db953ad1fb852c3dc',
     ),
     'laravel/tinker' => 
     array (

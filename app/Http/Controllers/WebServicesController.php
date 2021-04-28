@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use jossmp\reniec\padron;
 use App\Persona;
 use Auth;
 
@@ -97,37 +98,54 @@ class WebServicesController extends Controller
             return json_encode($data);
         }
     }
-        /*
-            #1. Verificamos el estado del Proveedor
-            if ($codEstado != '00') 
-            {
-                $data = array(
-                    'estado'    =>  '0',
-                    'dato'      =>  $array->estadoContribuyente,
-                    'tipo'      =>  '',
-                    'direccion' =>  '',
-                    'telefono'  =>  '',
-                    'ubigeo'    =>  '',
-                    'regimen'   =>  '',
-                    'sigla'     =>  '',
-                    'domicilio' =>  '',
-                    'situacion' =>  '',
-                );
-            }
-            else 
-            {
-                $data = array(
-                    'estado'    =>  '1',
-                    'dato'      =>  trim(addslashes(str_replace($variables, "", $array->razonSocial))),
-                    'tipo'      =>  '',
-                    'direccion' =>  trim(addslashes(str_replace($variables, "", $array->domicilioLegal))),
-                    'telefono'  =>  trim($array->telefono1),
-                    'ubigeo'    =>  trim($array->ubicacionGeografica),
-                    'regimen'   =>  trim($array->tipoPersona),
-                    'sigla'     =>  trim($array->nombreComercial),
-                    'domicilio' =>  trim($array->condicionDomicilio),
-                    'situacion' =>  trim($array->estadoContribuyente),
-                );  
-            }
-        */
+
+    #4. Obtengo la información de Tipo de cambio
+    public function getTc($fecha)
+    {
+        $fecha              =   $fecha;
+        $url                =   'https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha='.$fecha;
+        $respuesta          =   file_get_contents($url);
+        $array              =   json_decode($respuesta);
+        $especialCaracter   =   array('"', "'"); #Nos permitirá guardar la información sin comillas simples
+
+        $data = array(
+            'origen'        =>  $array->origen,
+            'moneda'        =>  $array->moneda,
+            'compra'        =>  $array->compra,
+            'venta'         =>  $array->venta,
+        );
+
+        #3. Retornamos la información solicitada
+       return response()->json($data);
+    }
+
+    #5. Obtengo la información de acuerdo al RUC consultado
+    public function getDataSunat($valor)
+    {
+        $ruc                =   $valor;
+        $url                =   'https://api.apis.net.pe/v1/ruc?numero='.$ruc;
+        $respuesta          =   file_get_contents($url);
+        $array              =   json_decode($respuesta);
+        $especialCaracter   =   array('"', "'"); #Nos permitirá guardar la información sin comillas simples    
+        
+        #2. Obtengo los valores requeridos
+        $data   =   array(
+            'estado'        =>  '1',
+            'dato'          =>  trim(addslashes(str_replace($especialCaracter, "", $array->nombre))),
+            'tipo'          =>  '',
+            'direccion'     =>  trim(addslashes(str_replace($especialCaracter, "", $array->direccion))),
+            'telefono'      =>  '',
+            'ubigeo'        =>  trim($array->ubigeo),
+            'regimen'       =>  '',
+            'sigla'         =>  '-',
+            'domicilio'     =>  trim($array->condicion),
+            'situacion'     =>  trim($array->estado),
+            'fecha'         =>  date('Y-m-d'),
+            'codigo'        =>  '',
+        );
+
+        #3. Genero un archivo Json con los resultados de la consulta
+        //return response()->json($data);
+        return json_encode($data);
+    }
 }

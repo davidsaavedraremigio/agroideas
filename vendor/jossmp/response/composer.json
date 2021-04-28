@@ -1,0 +1,34 @@
+{
+    "name": "jossmp/response",
+    "description": "Convierte array en Objeto",
+    "type": "library",
+    "keywords": [
+        "Object",
+        "Array",
+        "Object 2 Array"
+    ],
+    "homepage": "https://gitlab.com/JossMP/",
+    "license": "GPL-3.0-or-later",
+    "minimum-stability": "dev",
+    "optimize-autoloader": true,
+    "authors": [
+        {
+            "name": "Josue Mazco Puma",
+            "email": "jossmp@gmail.com",
+            "homepage": "https://gitlab.com/JossMP",
+            "role": "Developers"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "lib-curl": "*"
+    },
+    "require-dev": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "jossmp\\response\\": "src/"
+        }
+    }
+}

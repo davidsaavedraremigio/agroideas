@@ -1,0 +1,41 @@
+{
+    "name": "jossmp/datos-peru",
+    "description": "Clase para realizar consultas a reniec, essalud, ministrio del trabajo con el numero de DNI",
+    "type": "library",
+    "keywords": [
+        "Reniec",
+        "EsSalud",
+        "Mintra",
+        "Peru",
+        "PHP",
+        "Consulta",
+        "cURL"
+    ],
+    "homepage": "https://github.com/JossMP/datos-peru",
+    "license": "GPL-3.0-or-later",
+    "optimize-autoloader": true,
+    "authors": [
+        {
+            "name": "Josue Mazco Puma",
+            "email": "jossmp@gmail.com",
+            "homepage": "https://github.com/JossMP",
+            "role": "Developers"
+        }
+    ],
+    "require": {
+        "jossmp/navigate": "^0.0.1",
+        "jossmp/response": "^0.0.1"
+    },
+    "require-dev": {
+        "php": ">=5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "jossmp\\reniec\\": "src/reniec/",
+            "jossmp\\jne\\": "src/jne/",
+            "jossmp\\essalud\\": "src/essalud/",
+            "jossmp\\mtc\\": "src/mtc/",
+            "jossmp\\servir\\": "src/servir/"
+        }
+    }
+}
