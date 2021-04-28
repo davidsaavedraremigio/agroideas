@@ -106,7 +106,7 @@
 
 $(document).ready(function () {
   var root = window.location.host;
-  var urlApp = 'http://localhost:8000';
+  var urlApp = "{{ env('APP_URL') }}";
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
