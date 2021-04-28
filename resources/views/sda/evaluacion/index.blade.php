@@ -16,9 +16,9 @@
                             <div class="card-header p-0 pt-1 border-bottom-0">
                                 <ul class="nav nav-tabs" id="TabProcesoUn" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" id="TabProcesoUn001" data-toggle="pill" href="#custom-tabs-proceso-pendiente" role="tab" aria-controls="custom-tabs-proceso-pendiente" aria-selected="true">1. En proceso</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn002" data-toggle="pill" href="#custom-tabs-proceso-aprobado" role="tab" aria-controls="custom-tabs-proceso-aprobado" aria-selected="false">2. Con opinion favorable</a></li>
-                                    <!--<li class="nav-item"><a class="nav-link" id="TabProcesoUn003" data-toggle="pill" href="#custom-tabs-proceso-observado" role="tab" aria-controls="custom-tabs-proceso-observado" aria-selected="false">3. Observado</a></li>-->
-                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn004" data-toggle="pill" href="#custom-tabs-proceso-archivado" role="tab" aria-controls="custom-tabs-proceso-archivado" aria-selected="false">3. Improcedente</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn002" data-toggle="pill" href="#custom-tabs-proceso-aprobado" role="tab" aria-controls="custom-tabs-proceso-aprobado" aria-selected="false">2. Con opinión favorable</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn003" data-toggle="pill" href="#custom-tabs-proceso-observado" role="tab" aria-controls="custom-tabs-proceso-observado" aria-selected="false">3. Observado</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn004" data-toggle="pill" href="#custom-tabs-proceso-archivado" role="tab" aria-controls="custom-tabs-proceso-archivado" aria-selected="false">4. Con opinión No favorable</a></li>
                                 </ul>
                             </div>
                             <div class="card-body">
@@ -166,7 +166,6 @@
                 }
             });
         });
-
         //3. muestro el modal para archivar un expediente
         $('#modalArchivaExpedienteUn').on('show.bs.modal', function (e) {
             var idExpediente = $(e.relatedTarget).attr('data-id');
@@ -222,7 +221,6 @@
                 }
             });
         });
-
         //4. muestro el modal para derivar un expediente
         $('#modalDerivaExpedienteUn').on('show.bs.modal', function (e) {
             var idExpediente = $(e.relatedTarget).attr('data-id');

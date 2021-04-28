@@ -18,9 +18,9 @@
                             <div class="card-header p-0 pt-1 border-bottom-0">
                                 <ul class="nav nav-tabs" id="TabProcesoUr" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" id="TabProcesoSdaUr001" data-toggle="pill" href="#custom-tabs-sda-pendiente" role="tab" aria-controls="custom-tabs-sda-pendiente" aria-selected="true">1. En Proceso</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="TabProcesoSdaUr002" data-toggle="pill" href="#custom-tabs-sda-aprobado" role="tab" aria-controls="custom-tabs-sda-aprobado" aria-selected="false">2. Derivados</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoSdaUr002" data-toggle="pill" href="#custom-tabs-sda-aprobado" role="tab" aria-controls="custom-tabs-sda-aprobado" aria-selected="false">2. Elegibilidad otorgada</a></li>
                                     <li class="nav-item"><a class="nav-link" id="TabProcesoSdaUr003" data-toggle="pill" href="#custom-tabs-sda-observado" role="tab" aria-controls="custom-tabs-sda-observado" aria-selected="false">3. Observados</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="TabProcesoSdaUr004" data-toggle="pill" href="#custom-tabs-sda-archivado" role="tab" aria-controls="custom-tabs-sda-archivado" aria-selected="false">4. Archivados</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoSdaUr004" data-toggle="pill" href="#custom-tabs-sda-archivado" role="tab" aria-controls="custom-tabs-sda-archivado" aria-selected="false">4. Improcedente</a></li>
                                 </ul>
                             </div>
                             <div class="card-body">

@@ -64,6 +64,19 @@
             </div>
         </div>		
     </div>
+    {{-- Modal para poder modificar los estados de la iniciativa --}}
+    <div class="modal fade" id="modalUpdateEstadoContrato">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormUpdateEstadoContrato">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>
 @stop
 @section('scripts')
     <script>
@@ -78,12 +91,15 @@
                 var idPostulante = $(e.relatedTarget).attr('data-id');
                 $('#divFormCreateContrato').load("convenio/"+idPostulante+"/create");
             });
-            //#2.- Modal para editar registros
             $('#modalUpdateContrato').on('show.bs.modal', function (e) {
                 var idcontrato = $(e.relatedTarget).attr('data-id');
                 $('#divFormUpdateContrato').load('convenio/' + idcontrato + '/edit');
             });
-            //#3.- Modal para proceder al registro de la información
+            $('#modalUpdateEstadoContrato').on('show.bs.modal', function (e) {
+                var idcontrato = $(e.relatedTarget).attr('data-id');
+                $('#divFormUpdateEstadoContrato').load('convenio/' + idcontrato + '/estado');
+            });
+            //#2.- Realizamos el procesamiento de la información
             $(document).on("click", '#btnCreateContrato', function (event) {
                 event.preventDefault();
                 var form = $("#FormCreateContrato");
@@ -130,6 +146,56 @@
                     }
                 });
             });
+            $(document).on("click", '#btnUpdateEstadoContrato', function (event) {
+                event.preventDefault();
+                var form = $("#FormUpdateEstadoContrato");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_UpdateEstadoContrato_Enabled").css("display", "none");
+                        $("#Footer_UpdateEstadoContrato_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_UpdateEstadoContrato_Enabled").css("display", "block");
+                        $("#Footer_UpdateEstadoContrato_Disabled").css("display", "none");
+                        $("#modalUpdateEstadoContrato").modal('hide');
+                        $("#viewDataContrato").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataContrato").load("convenio/data-convenio");
+                        $("#viewDataContratoPendiente").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataContratoPendiente").load("convenio/data");
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#UpdateEstadoContratoAlerts").css("display", "block");
+                        $("#UpdateEstadoContratoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_UpdateEstadoContrato_Enabled").css("display", "block");
+                        $("#Footer_UpdateEstadoContrato_Disabled").css("display", "none");
+                    }
+                });
+            });
+
+
+
+
         });
     </script>
 @stop

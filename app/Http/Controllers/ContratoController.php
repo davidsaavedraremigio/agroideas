@@ -10,6 +10,7 @@ use App\PostulanteEstado;
 use App\ResolucionMinisterial;
 use App\Proyecto;
 use App\Entidad;
+use App\TablaValor;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -135,5 +136,61 @@ class ContratoController extends Controller
     {
         $data       =   Contrato::getDataPrp();
         return view($this->path.'.data-convenio', compact('data'));
+    }
+
+    #8. Muestro el formulario de edicion de estados de convenios
+    public function editEstadoContrato($id)
+    {
+        #1. Obtengo los datos requeridos
+        $contrato           =   Contrato::findOrFail($id);
+        $postulante         =   Postulante::findOrFail($contrato->codPostulante);
+        $estado             =   PostulanteEstado::where('codPostulante', $postulante->id)->first();
+        $estados            =   TablaValor::getDetalleTabla('EstadoSituacional');
+        #2. Retorno al formulario
+        return view($this->path.'.estado', compact('postulante', 'contrato', 'estado', 'estados'));
+    }
+
+    #9. Actualizo el estado situacional del Convenio
+    public function updateEstadoContrato(Request $request, $id)
+    {
+        #1. Actualizo la información de Postulante
+        try 
+        {
+            $postulante                 =   Postulante::findOrFail($id);
+            $postulante->updated_auth   =   Auth::user()->id;
+            $postulante->update();
+
+            #2. Actualizo el estado situacional
+            try 
+            {
+                $estado                         =   PostulanteEstado::where('codPostulante', $postulante->id)->first();
+                $estado->codEstadoSituacional   =   $request->get('estado');
+                $estado->updated_auth           =   Auth::user()->id;
+                $estado->update();
+
+                #3. Retorno al menu principal
+                return response()->json([
+                    'estado'    =>  '1',
+                    'dato'      =>  '',
+                    'mensaje'   =>  'La información se procesó de manera exitosa.'
+                ]);                
+            } 
+            catch (Exception $e) 
+            {
+                return response()->json([
+                    'estado'    =>  '2',
+                    'dato'      =>  $e->getMessage(),
+                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                ]);
+            }
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
     }
 }
