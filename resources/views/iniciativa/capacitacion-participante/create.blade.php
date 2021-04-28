@@ -39,7 +39,7 @@
                 <select name="actividad_productor" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($actividad_productor  as $fila)
-                        <option value="{{$fila->Orden}}">{{$fila->Descripcion}}</option>    
+                        <option value="{{$fila->Orden}}">{{$fila->Nombre}}</option>    
                     @endforeach
                 </select>
             </div>
