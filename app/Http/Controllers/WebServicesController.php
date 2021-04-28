@@ -23,7 +23,8 @@ class WebServicesController extends Controller
             {
                 $dni        =   $valor;
                 #$url        =   config('app.service_url').'/ApiPide/api/reniec/dni2/'.$dni;
-                $url        =   'http://192.190.42.128/ApiPide/api/reniec/dni2/'.$dni;
+                $url        =   'http://200.48.54.126/ApiPide/api/reniec/dni2/'.$dni;
+                //$url        =   'http://192.190.42.128/ApiPide/api/reniec/dni2/'.$dni;
                 $respuesta  =   file_get_contents($url);
                 $array      =   json_decode($respuesta);
                 $estado     =   $array->operationCode;
