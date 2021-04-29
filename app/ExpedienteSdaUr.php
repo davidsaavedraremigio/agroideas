@@ -17,6 +17,7 @@ class ExpedienteSdaUr extends Model
             a.codExpediente id,
             b.nro_expediente,
             b.nro_cut,
+            b.tipo_incentivo,
 	        b.fecha_presentacion,
             b.especialista_asignado,
             b.ruc,
@@ -39,7 +40,8 @@ class ExpedienteSdaUr extends Model
             a.nro_carta_archivamiento,
             a.fecha_carta_archivamiento,
             a.fecha_derivacion,
-            a.estado_proceso
+            a.estado_proceso,
+            DATEDIFF(DAY,a.fecha_carta_observacion, GETDATE()) nro_dias_observacion
         FROM vw_data_expediente_sda_ur a
         LEFT JOIN (
             SELECT * FROM vw_data_expediente

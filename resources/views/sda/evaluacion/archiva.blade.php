@@ -1,6 +1,6 @@
 {!!Form::model($expediente,['id'=>'FormArchivaExpedienteUn', 'method'=>'POST', 'files' => 'true', 'enctype' => 'multipart/form-data', 'route'=>['evaluacion.procesa-archivo',$expediente->id]])!!}
 <div class="modal-header">
-    <h4 class="modal-title">Formulario para declarar improcedente el expediente Nº {{$expediente->nroExpediente}}</h4>
+    <h4 class="modal-title">Formulario para dar Opinión No Favorable al expediente Nº {{$expediente->nroExpediente}}</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     </button>
@@ -26,8 +26,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº informe') !!} {!! Form::number('nro_carta', $un->nro_informe, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha') !!} {!! Form::date('fecha_carta', $un->fecha_informe, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº informe') !!} {!! Form::number('nro_informe', $un->nro_informe, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha') !!} {!! Form::date('fecha_informe', $un->fecha_informe, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
         </div>
     </div> 
     <div class="form-group">
@@ -41,7 +41,7 @@
 <div class="modal-footer">
     <div id="Footer_ArchivaExpedienteUn_Enabled">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i> Cerrar</button>
-        <a href="#" id="btnArchivaExpedienteUPFP" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Guardar cambios</a>
+        <a href="#" id="btnArchivaExpedienteUn" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Guardar cambios</a>
     </div>
     <div id="Footer_ArchivaExpedienteUn_Disabled" style="display:none;">
         <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>

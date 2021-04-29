@@ -1089,6 +1089,65 @@
             "install-path": "../jossmp/response"
         },
         {
+            "name": "jossmp/sunatphp",
+            "version": "v4.0.0",
+            "version_normalized": "4.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JossMP/sunatphp.git",
+                "reference": "2c5e842cd9b0fc0525aa32fc78208ff76848d4f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JossMP/sunatphp/zipball/2c5e842cd9b0fc0525aa32fc78208ff76848d4f1",
+                "reference": "2c5e842cd9b0fc0525aa32fc78208ff76848d4f1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*"
+            },
+            "require-dev": {
+                "php": ">=5.2"
+            },
+            "time": "2019-06-18T05:33:39+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Sunat\\": "src/",
+                    "CURL\\": "src/",
+                    "response\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Josue Mazco Puma",
+                    "email": "jossmp@gmail.com",
+                    "homepage": "https://peruanosenlinea.com/",
+                    "role": "Developers"
+                }
+            ],
+            "description": "Clase para realizar consultas a sunat Peru mediante el numero de ruc o dni",
+            "homepage": "https://github.com/JossMP/sunatphp",
+            "keywords": [
+                "consulta",
+                "curl",
+                "peru",
+                "php",
+                "sunat"
+            ],
+            "support": {
+                "issues": "https://github.com/JossMP/sunatphp/issues",
+                "source": "https://github.com/JossMP/sunatphp/tree/master"
+            },
+            "install-path": "../jossmp/sunatphp"
+        },
+        {
             "name": "laravel/framework",
             "version": "v5.8.38",
             "version_normalized": "5.8.38.0",

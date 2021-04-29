@@ -8,7 +8,7 @@ class Expediente extends Model
 {
     #1. Obtenemos el numero de expediente
     protected 	$table 			=	'InicExpedientePostulante';
-    public $timestamps          =   false; 
+    //public $timestamps          =   false; 
 
     #2. Obtengo la información de los expediente de acuerdo al área origen y el tipo de incentivo
     public static function getData($area, $incentivo)

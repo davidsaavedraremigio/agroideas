@@ -19,6 +19,7 @@ class ExpedienteSdaUn extends Model
             b.nro_cut,
             b.fecha_presentacion,
             b.especialista_asignado,
+            b.tipo_incentivo,
             b.ruc,
             b.razon_social,
             b.region,

@@ -88,6 +88,8 @@ class InicSdaController extends Controller
                     $proyecto->nro_beneficiarios_varones    =   $request->get('productores_varones');
                     $proyecto->nro_beneficiarios_mujeres    =   $request->get('productores_mujeres');
                     $proyecto->inversion_total              =   $request->get('inversion');
+                    $proyecto->inversion_pcc                =   $request->get('inversion');
+                    $proyecto->inversion_entidad            =   0;
                     $proyecto->estado                       =   1;
                     $proyecto->created_auth                 =   Auth::user()->id;
                     $proyecto->updated_auth                 =   Auth::user()->id;
@@ -222,8 +224,7 @@ class InicSdaController extends Controller
                 try 
                 {
                     $proyecto                               =   Proyecto::where('codPostulante', $postulante->id)->first();
-                    $proyecto->tituloProyecto               =   $request->get('titulo');
-                    $proyecto->area                         =   $request->get('nro_ha');
+                    $proyecto->area                         =   $request->get('nro_ha_total');
                     $proyecto->nro_beneficiarios            =   $request->get('productores');
                     $proyecto->nro_beneficiarios_varones    =   $request->get('productores_varones');
                     $proyecto->nro_beneficiarios_mujeres    =   $request->get('productores_mujeres');
@@ -237,8 +238,6 @@ class InicSdaController extends Controller
                         $cadena->codCadena      =   $request->get('cadena');
                         $cadena->nroHas         =   $request->get('nro_ha');
                         $cadena->nroProductores =   $request->get('productores');
-                        $cadena->tipoProduccion =   $request->get('tipo_produccion');
-                        $cadena->variedad       =   $request->get('variedad');
                         $cadena->updated_auth   =   Auth::user()->id;
                         $cadena->update();
 

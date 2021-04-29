@@ -22,8 +22,8 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-12">{!! Form::label('expediente', 'Seleccione un expediente de la lista') !!}
-                <select name="expediente" class="form-control select2">
+            <div class="col-md-12">{!! Form::label('expediente', 'Seleccionar expedientes que se aprobaron en el presente Consejo directivo') !!}
+                <select name="expediente[]" class="form-control select2" multiple="multiple">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($expediente as $fila)
                         <option value="{{$fila->id}}">{{$fila->nro_expediente}} - {{$fila->razon_social}}</option>

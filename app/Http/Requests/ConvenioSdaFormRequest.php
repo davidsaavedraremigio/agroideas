@@ -28,8 +28,6 @@ class ConvenioSdaFormRequest extends FormRequest
             'fecha'             =>  'required|date',
             'duracion'          =>  'required|digits_between:1,99',
             'responsable'       =>  'required',
-            'nro_informe'       =>  'nullable|digits_between:1,9999',
-            'fecha_informe'     =>  'nullable|date',
             'nro_memo'          =>  'required|digits_between:1,9999',
             'fecha_memo'        =>  'required|date',
         ];

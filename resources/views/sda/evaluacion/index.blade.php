@@ -221,7 +221,62 @@
                 }
             });
         });
-        //4. muestro el modal para derivar un expediente
+        //4. muestro el modal para observar un expediente
+        $('#modalObservaExpedienteUn').on('show.bs.modal', function (e) {
+            var idExpediente = $(e.relatedTarget).attr('data-id');
+            $('#divFormObservaExpedienteUn').load("evaluacion/"+idExpediente+"/observa");
+        });
+        $(document).on("click", '#btnObservaExpedienteUn', function (event) {
+            event.preventDefault();
+            var form = $("#FormObservaExpedienteUn");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_ObservaExpedienteUn_Enabled").css("display", "none");
+                    $("#Footer_ObservaExpedienteUn_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_ObservaExpedienteUn_Enabled").css("display", "block");
+                    $("#Footer_ObservaExpedienteUn_Disabled").css("display", "none");
+                    $("#modalObservaExpedienteUn").modal('hide');
+                    $("#viewDataExpedienteUn").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataExpedienteUn").load("evaluacion/data-pendiente");
+                    $("#viewDataExpedienteUnAprobado").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataExpedienteUnAprobado").load("evaluacion/data-aprobado");
+                    $("#viewDataExpedienteUnObservado").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataExpedienteUnObservado").load("evaluacion/data-observado");
+                    $("#viewDataExpedienteUnArchivado").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataExpedienteUnArchivado").load("evaluacion/data-archivado");
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ObservaExpedienteUnAlerts").css("display", "block");
+                    $("#ObservaExpedienteUnAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_ObservaExpedienteUn_Enabled").css("display", "block");
+                    $("#Footer_ObservaExpedienteUn_Disabled").css("display", "none");
+                }
+            });
+        });
+        //5. muestro el modal para derivar un expediente
         $('#modalDerivaExpedienteUn').on('show.bs.modal', function (e) {
             var idExpediente = $(e.relatedTarget).attr('data-id');
             $('#divFormDerivaExpedienteUn').load("evaluacion/"+idExpediente+"/deriva");

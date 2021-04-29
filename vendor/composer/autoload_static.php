@@ -88,6 +88,10 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
     );
 
     public static $prefixLengthsPsr4 = array (
+        'r' => 
+        array (
+            'response\\' => 9,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -147,6 +151,7 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Sunat\\' => 6,
         ),
         'R' => 
         array (
@@ -220,6 +225,7 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
             'Complex\\' => 8,
             'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
+            'CURL\\' => 5,
         ),
         'B' => 
         array (
@@ -233,6 +239,10 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
     );
 
     public static $prefixDirsPsr4 = array (
+        'response\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jossmp/sunatphp/src',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -391,6 +401,10 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
+        'Sunat\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jossmp/sunatphp/src',
+        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -539,6 +553,10 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'CURL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jossmp/sunatphp/src',
         ),
         'BeyondCode\\DumpServer\\' => 
         array (
@@ -5374,6 +5392,7 @@ class ComposerStaticInitab46775c28c26b492043755d00f7b92d
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
+        'response\\obj' => __DIR__ . '/..' . '/jossmp/sunatphp/src/obj.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

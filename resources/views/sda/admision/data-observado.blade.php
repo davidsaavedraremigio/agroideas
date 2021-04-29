@@ -2,6 +2,7 @@
     <thead class="bg-success">
         <tr>
             <th class="text-center"><small>Nº Expediente</small></th>
+            <th class="text-center"><small>Incentivo</small></th>
             <th class="text-center"><small>Nº RUC</small></th>
             <th class="text-center"><small>Razón Social</small></th>
             <th class="text-center"><small>Ubigeo</small></th>
@@ -17,6 +18,7 @@
         @foreach ($data as $keyNumber => $fila)
         <tr>
             <td class="text-center"><small>{{$fila->nro_expediente}}</small></td>
+            <td class="text-center"><small>{{$fila->tipo_incentivo}}</small></td>
             <td class="text-center"><small>{{$fila->ruc}}</small></td>
             <td class="text-uppercase"><small>{{$fila->razon_social}}</small></td>
             <td class="text-center"><small>{{$fila->region}}/{{$fila->provincia}}/{{$fila->distrito}}</small></td>
@@ -24,9 +26,9 @@
             <td class="text-center"><small>{{$fila->nro_informe}}</small></td>
             <td class="text-center"><small>{{$fila->nro_carta_observacion}}</small></td>
             <td class="text-center"><small>{{ \Carbon\Carbon::parse($fila->fecha_carta_observacion)->format('d/m/Y')}}</small></td>
-            <td class="text-center"><small></small></td>
+            <td class="text-center"><small>{{$fila->nro_dias_observacion}}</small></td>
             <td class="text-center">
-                <a href="#" class="btn btn-sm btn-default" id="btnmodalSubsanaObservacionSda" data-toggle="modal" data-target="#modalSubsanaObservacionSda" data-id="{{$fila->id}}" title="Subsana observaciones"><i class="fas fa-clipboard-check"></i></a>
+                <a href="#" class="btn btn-sm btn-success" id="btnmodalSubsanaObservacionSda" data-toggle="modal" data-target="#modalSubsanaObservacionSda" data-id="{{$fila->id}}" title="Subsana observaciones"><i class="fas fa-thumbs-up"></i></a>
             </td>
         </tr>    
         @endforeach

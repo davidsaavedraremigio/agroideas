@@ -11,6 +11,8 @@ use App\Proyecto;
 use App\Entidad;
 use App\Expediente;
 use App\ExpedienteSdaUaj;
+use App\ConsejoDirectivo;
+use App\Usuario;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -36,12 +38,16 @@ class ConvenioSdaController extends Controller
     public function create($id)
     {
         #1. Obtengo las variables solicitadas
-        $postulante     =   Postulante::findOrFail($id);
-        $proyecto       =   Proyecto::where('codPostulante', $id)->first();
-        $expediente     =   Expediente::where('codPostulante', $id)->first();
+        $expediente     =   Expediente::findOrFail($id);
+        $postulante     =   Postulante::findOrFail($expediente->codPostulante);
+        $proyecto       =   Proyecto::where('codPostulante', $postulante->id)->first();
+        $entidad        =   Entidad::findOrFail($postulante->codEntidad);
         $uaj            =   ExpedienteSdaUaj::where('codExpediente', $expediente->id)->first();
+        $cd             =   ConsejoDirectivo::findOrFail($uaj->cod_consejo_directivo);
+        $area           =   3;
+        $personal       =   Usuario::getArea($area);
         #2. Retorno a la vista
-        return view($this->path.'.create', compact('postulante', 'proyecto', 'expediente', 'uaj'));
+        return view($this->path.'.create', compact('postulante', 'proyecto', 'expediente', 'uaj', 'cd', 'entidad', 'personal'));
     }
 
     #5.
@@ -71,8 +77,6 @@ class ConvenioSdaController extends Controller
                 {
                     $uaj                                        =   ExpedienteSdaUaj::where('codExpediente', $expediente->id)->first();
                     $uaj->cod_responsable                       =   $request->get('responsable');
-                    $uaj->nro_informe                           =   $request->get('nro_informe');
-                    $uaj->fecha_informe                         =   $request->get('fecha_informe');
                     $uaj->nro_memo_disponibilidad_presupuestal  =   $request->get('nro_memo');
                     $uaj->fecha_memo_disponibilidad_presupuestal=   $request->get('fecha_memo');
                     $uaj->cod_estado_proceso                    =   2;
@@ -134,13 +138,20 @@ class ConvenioSdaController extends Controller
     #6.
     public function showDataPendiente()
     {
-        return view($this->path.'.data-pendiente');
+        #1. Obtengo la relación de Expedientes aprobados
+        $estado     =   2;
+        $data       =   ExpedienteSdaUaj::getDataExpediente($estado);
+        #2. Retorno a la vista
+        return view($this->path.'.data-pendiente', compact('data'));
     }
 
     #7. 
     public function showDataAprobado()
     {
-        return view($this->path.'.data-aprobado');
+        #1. Obtengo la relación de convenios generados
+        $data       =   Contrato::getDataSda();
+        #2. Retorno a la vista
+        return view($this->path.'.data-aprobado', compact('data'));
     }
 
 
@@ -156,12 +167,7 @@ class ConvenioSdaController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    #10. 
     public function destroy($id)
     {
         //

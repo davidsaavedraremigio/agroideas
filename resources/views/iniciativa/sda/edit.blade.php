@@ -8,8 +8,7 @@
             <div class="card-header p-0 pt-1 border-bottom-0">
                 <ul class="nav nav-tabs" id="TabSda" role="tablist">
                     <li class="nav-item"><a class="nav-link active" id="TabSda001" data-toggle="pill" href="#custom-tabs-sda" role="tab" aria-controls="custom-tabs-sda" aria-selected="true">1. Información general</a></li>
-                    <li class="nav-item"><a class="nav-link" id="TabSda002" data-toggle="pill" href="#custom-tabs-ambito" role="tab" aria-controls="custom-tabs-ambito" aria-selected="false">2. Ámbito de intervención</a></li>
-                    <li class="nav-item"><a class="nav-link" id="TabSda003" data-toggle="pill" href="#custom-tabs-productor" role="tab" aria-controls="custom-tabs-productor" aria-selected="false">3. Productores</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabSda002" data-toggle="pill" href="#custom-tabs-productor" role="tab" aria-controls="custom-tabs-productor" aria-selected="false">2. Productores</a></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -48,7 +47,6 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-9">{!! Form::label('titulo', 'Nombre del Plan de negocio') !!} {!! Form::text('titulo', $proyecto->tituloProyecto, ['class' =>'form-control']) !!}</div>
                                 <div class="col-md-3">{!! Form::label('tipo', 'Tipo de incentivo') !!}
                                     <select name="tipo" class="form-control select2">
                                         <option value="" selected="selected">Seleccionar</option>
@@ -59,10 +57,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
                                 <div class="col-md-3">{!! Form::label('cadena', 'Cultivo / Crianza') !!}
                                     <select name="cadena" class="form-control select2" id ="inputCadena">
                                         <option value="" selected="selected">Seleccionar</option>
@@ -71,24 +65,16 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-3">{!! Form::label('variedad', 'Variedad') !!} {!! Form::text('variedad', $producto->variedad, ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('tipo_produccion', 'Tipo de producción') !!}
-                                    <select name="tipo_produccion" class="form-control select2">
-                                        <option value="" selected="selected">Seleccionar</option>
-                                        @foreach ($tipoProduccion as $fila)
-                                            <option value="{{$fila->Orden}}" {{($fila->Orden == $producto->tipoProduccion)?'selected':''}}>{{$fila->Nombre}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-3">{!! Form::label('nro_ha', 'Nº Has') !!} {!! Form::text('nro_ha', number_format($proyecto->area,2,'.',''), ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('nro_ha_total', 'Nº Has total') !!} {!! Form::text('nro_ha_total', $proyecto->area, ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('nro_ha', 'Nº Has destinadas al cultivo') !!} {!! Form::text('nro_ha', $producto->nroHas, ['class' => 'form-control']) !!}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-3">{!! Form::label('productores_varones', 'Nº hombres') !!} {!! Form::number('productores_varones', $proyecto->nro_beneficiarios_varones, ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('productores_mujeres', 'Nº mujeres') !!} {!! Form::number('productores_mujeres', $proyecto->nro_beneficiarios_mujeres, ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('productores', 'Total') !!} {!! Form::number('productores', $proyecto->nro_beneficiarios, ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('inversion', 'Inversión (S/.)') !!} {!! Form::text('inversion', number_format($proyecto->inversion_total,2,'.',''), ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('productores_varones', 'Nº hombres') !!} {!! Form::number('productores_varones', $proyecto->nro_beneficiarios_varones, ['class' => 'form-control beneficiario', 'min' => '1', 'max' => '100', 'onChange' => 'sumaBeneficiarios();']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('productores_mujeres', 'Nº mujeres') !!} {!! Form::number('productores_mujeres', $proyecto->nro_beneficiarios_mujeres, ['class' => 'form-control beneficiario', 'min' => '1', 'max' => '100', 'onChange' => 'sumaBeneficiarios();']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('productores', 'Total') !!} {!! Form::number('productores', $proyecto->nro_beneficiarios, ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'input_beneficiarios_total']) !!}</div>
+                                <div class="col-md-3">{!! Form::label('inversion', 'Inversión (S/.)') !!} {!! Form::text('inversion', $proyecto->inversion_pcc, ['class' => 'form-control']) !!}</div>
                             </div>
                         </div>
                         {{-- Botonera  --}}
@@ -106,6 +92,25 @@
                             </div>
                         </div>
                         {!! Form::close() !!}
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-productor" role="tabpanel" aria-labelledby="TabSda002">
+                        {{-- Contenido del módulo Beneficiarios--}}
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="card card-default color-palette-box">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Productores que conforman el padrón de beneficiarios</h3>
+                                        <div class="card-tools">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateProductor"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="viewDataProductor" class="table-responsive" data-id="{{$postulante->id}}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {{-- Contenido del módulo Beneficiarios--}}
                     </div>
                 </div>
             </div>
@@ -222,5 +227,16 @@
             });
         });
     });
+
+    //a. Sumanos la cantidad de productores
+    function sumaBeneficiarios() {
+        var add = 0;
+        $('.beneficiario').each(function() {
+            if (!isNaN($(this).val())) {
+                add += Number($(this).val());
+            }
+        });
+        $('#input_beneficiarios_total').val(add);
+    };
 </script>
 @stop

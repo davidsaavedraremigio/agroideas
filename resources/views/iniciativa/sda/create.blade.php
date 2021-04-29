@@ -115,7 +115,7 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = urlApp+'/ruc/'+ruc;
+                    var urlAction = urlApp+'/sunat/'+ruc;
                     $.ajax({
                         url:    urlAction,
                         method: "GET",
@@ -207,7 +207,6 @@
             });
         });
     });
-
     //a. Sumanos la cantidad de productores
     function sumaBeneficiarios() {
         var add = 0;

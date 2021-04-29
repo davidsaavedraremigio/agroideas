@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use jossmp\reniec\padron;
 use App\Persona;
 use Auth;
 
@@ -116,7 +115,7 @@ class WebServicesController extends Controller
         );
 
         #3. Retornamos la información solicitada
-       return response()->json($data);
+        return json_encode($data);
     }
 
     #5. Obtengo la información de acuerdo al RUC consultado
@@ -145,7 +144,6 @@ class WebServicesController extends Controller
         );
 
         #3. Genero un archivo Json con los resultados de la consulta
-        //return response()->json($data);
         return json_encode($data);
     }
 }

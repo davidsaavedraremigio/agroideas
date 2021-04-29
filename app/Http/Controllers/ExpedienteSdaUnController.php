@@ -98,7 +98,7 @@ class ExpedienteSdaUnController extends Controller
         $expediente         =   Expediente::findOrFail($id);
         $area               =   5;
         $personal           =   Usuario::getArea($area);
-        $un                 =   ExpedienteSdaUn::where('codExpediente', $expediente->id);  
+        $un                 =   ExpedienteSdaUn::where('codExpediente', $expediente->id)->first();  
         #2. Retorno al formulario
         return view($this->path.'.observa', compact('expediente', 'area', 'personal', 'un'));
     }

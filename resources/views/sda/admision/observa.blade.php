@@ -29,8 +29,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::text('nro_informe', $ur->nro_informe, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha') !!} {!! Form::date('fecha_informe', $ur->fecha_informe, ['class' => 'form-control', 'max' => date('Y-m-d'), 'readonly' => 'readonly']) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::text('nro_informe', $ur->nro_informe, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha') !!} {!! Form::date('fecha_informe', $ur->fecha_informe, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
         </div>
     </div>
     <div class="form-group">

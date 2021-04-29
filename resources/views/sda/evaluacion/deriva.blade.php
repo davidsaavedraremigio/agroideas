@@ -46,9 +46,9 @@
             <div class="col-md-12"><label for="">COFINANCIAMIENTO DEL PLAN DE NEGOCIOS</label></div>
         </div>
         <div class="row">
-            <div class="col-md-4">{!! Form::label('aporte_pcc', 'PCC (S/.)') !!} {!! Form::text('aporte_pcc', $proyecto->inversion_pcc, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-4">{!! Form::label('aporte_entidad', 'Entidad (S/)') !!} {!! Form::text('aporte_entidad', $proyecto->inversion_entidad, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-4">{!! Form::label('aporte_total', 'Total (S/.)') !!} {!! Form::text('aporte_total', $proyecto->inversion_total, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
+            <div class="col-md-4">{!! Form::label('aporte_pcc', 'PCC (S/.)') !!} {!! Form::text('aporte_pcc', number_format($proyecto->inversion_pcc,2,'.',''), ['class' => 'form-control importe', 'onChange' => 'sumaImporte();']) !!}</div>
+            <div class="col-md-4">{!! Form::label('aporte_entidad', 'Entidad (S/)') !!} {!! Form::text('aporte_entidad', number_format($proyecto->inversion_entidad,2,'.',''), ['class' => 'form-control importe',  'onChange' => 'sumaImporte();']) !!}</div>
+            <div class="col-md-4">{!! Form::label('aporte_total', 'Total (S/.)') !!} {!! Form::text('aporte_total', number_format($proyecto->inversion_total,2,'.',''), ['class' => 'form-control', 'id' => 'input_importe_total', 'readonly' => 'readonly']) !!}</div>
         </div>
     </div>
 </div>
@@ -67,4 +67,14 @@
     $('.select2').select2({
         theme: 'bootstrap4'
     });
+    //a. Sumanos la cantidad de productores
+    function sumaImporte() {
+        var add = 0;
+        $('.importe').each(function() {
+            if (!isNaN($(this).val())) {
+                add += Number($(this).val());
+            }
+        });
+        $('#input_importe_total').val(add);
+    };    
 </script>

@@ -82,11 +82,7 @@ Route::get('tipologia/linea/{codSector}', 'ProductoController@obtieneLinea')->na
 Route::get('tipologia/cadena/{codLinea}', 'ProductoController@obtieneCadena')->name('tipologia.cadena');
 Route::get('tipologia/producto/{codCadena}', 'ProductoController@obtieneProducto')->name('tipologia.producto');
 
-#1.17. Módulo para la consulta reniec y sunat
-Route::get('dni/{dni}', 'WebServicesController@getDni')->name('servicio.dni');
-Route::get('ruc/{ruc}', 'WebServicesController@getRuc')->name('servicio.ruc');
-Route::get('tc/{fecha}', 'WebServicesController@getTc')->name('servicio.tc');
-Route::get('sunat/{ruc}', 'WebServicesController@getDataSunat')->name('servicio.sunat');
+
 
 
 #2. Rutas para el módulo OPA
@@ -356,7 +352,7 @@ Route::get('sda/admision/data-pendiente', 'ExpedienteSdaUrController@showDataPen
 Route::get('sda/admision/data-aprobado', 'ExpedienteSdaUrController@showDataAprobado')->name('admision.data-aprobado');
 Route::get('sda/admision/data-observado', 'ExpedienteSdaUrController@showDataObservado')->name('admision.data-observado');
 Route::get('sda/admision/data-archivado', 'ExpedienteSdaUrController@showDataArchivado')->name('admision.data-archivado');
-Route::get('sda/admision/{expediente}/archivo', 'ExpedienteSdaUrController@formArchivo')->name('admision.archivo');
+Route::get('sda/admision/{expediente}/archiva', 'ExpedienteSdaUrController@formArchivo')->name('admision.archiva');
 Route::post('sda/admision/procesa-archivo/{expediente}', 'ExpedienteSdaUrController@procesaArchivo')->name('admision.procesa-archivo');
 Route::get('sda/admision/{expediente}/observa', 'ExpedienteSdaUrController@formObserva')->name('admision.observa');
 Route::post('sda/admision/procesa-observacion/{expediente}', 'ExpedienteSdaUrController@procesaObservacion')->name('admision.procesa-observacion');
@@ -368,8 +364,11 @@ Route::post('sda/admision/procesa-derivacion/{expediente}', 'ExpedienteSdaUrCont
 Route::get('sda/evaluacion', 'ExpedienteSdaUnController@index')->name('evaluacion.index');
 Route::get('sda/evaluacion/{expediente}/create', 'ExpedienteSdaUnController@create')->name('evaluacion.create');
 Route::post('sda/evaluacion/{expediente}', 'ExpedienteSdaUnController@update')->name('evaluacion.update');
+
 Route::get('sda/evaluacion/{expediente}/observa', 'ExpedienteSdaUnController@formObserva')->name('evaluacion.observa');
 Route::post('sda/evaluacion/procesa-observacion/{expediente}', 'ExpedienteSdaUnController@procesaObservacion')->name('evaluacion.procesa-observacion');
+
+
 Route::get('sda/evaluacion/{expediente}/archivo', 'ExpedienteSdaUnController@formArchivo')->name('evaluacion.archivo');
 Route::post('sda/evaluacion/procesa-archivo/{expediente}', 'ExpedienteSdaUnController@procesaArchivo')->name('evaluacion.procesa-archivo');
 Route::get('sda/evaluacion/{expediente}/deriva', 'ExpedienteSdaUnController@formDeriva')->name('evaluacion.deriva');
@@ -387,8 +386,6 @@ Route::get('sda/cd/{cd}/data-aprobado', 'ConsejoDirectivoController@showAsignaSd
 #7.4. Módulo para el registro y mantenimiento de Convenios Sda
 Route::resource('sda/convenio', 'ConvenioSdaController')->except(['show', 'destroy', 'create']);
 Route::get('sda/convenio/data', 'ConvenioSdaController@show')->name('convenio.data');
-
-
 Route::get('sda/convenio/{postulante}/create', 'ConvenioSdaController@create')->name('convenio.create');
 Route::get('sda/convenio/data-pendiente', 'ConvenioSdaController@showDataPendiente')->name('convenio.data-pendiente');
 Route::get('sda/convenio/data-aprobado', 'ConvenioSdaController@showDataAprobado')->name('convenio.data-aprobado');
@@ -530,3 +527,10 @@ Route::post('proceso-pdn/proceso-ur/improcedente', 'ProcesoSdaUrController@impro
 Route::get('proceso-pdn/proceso-ur/{expediente}/elegible', 'ProcesoSdaUrController@elegibleForm')->name('sda-ur.elegible-form');
 Route::post('proceso-pdn/proceso-ur/elegible', 'ProcesoSdaUrController@elegibleProcess')->name('sda-ur.elegible-proceso');
 
+
+
+#1.17. Módulo para la consulta reniec y sunat
+Route::get('dni/{dni}', 'WebServicesController@getDni')->name('servicio.dni');
+Route::get('ruc/{ruc}', 'WebServicesController@getRuc')->name('servicio.ruc');
+Route::get('tc/{fecha}', 'WebServicesController@getTc')->name('servicio.tc');
+Route::get('sunat/{ruc}', 'WebServicesController@getDataSunat')->name('servicio.sunat');

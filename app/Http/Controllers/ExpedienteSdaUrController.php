@@ -214,7 +214,8 @@ class ExpedienteSdaUrController extends Controller
             try 
             {
                 $ur                             =   ExpedienteSdaUr::where('codExpediente', $expediente->id)->first();
-                $ur->observacion                =   $request->get('justificacion');
+                $ur->nro_informe                =   $request->get('nro_informe');
+                $ur->fecha_informe              =   $request->get('fecha_informe');
                 $ur->nro_carta_archivamiento    =   $request->get('nro_carta');
                 $ur->fecha_carta_archivamiento  =   $request->get('fecha_carta');
                 $ur->fecha_derivacion           =   $request->get('fecha_carta');
@@ -291,6 +292,8 @@ class ExpedienteSdaUrController extends Controller
             try 
             {
                 $ur                             =   ExpedienteSdaUr::where('codExpediente', $expediente->id)->first();
+                $ur->nro_informe                =   $request->get('nro_informe');
+                $ur->fecha_informe              =   $request->get('fecha_informe');
                 $ur->nro_carta_observacion      =   $request->get('nro_carta');
                 $ur->fecha_carta_observacion    =   $request->get('fecha_carta');
                 $ur->observacion                =   $request->get('observacion');
@@ -446,6 +449,8 @@ class ExpedienteSdaUrController extends Controller
             try 
             {
                 $ur                         =   ExpedienteSdaUr::where('codExpediente', $expediente->id)->first();
+                $ur->nro_informe            =   $request->get('nro_informe');
+                $ur->fecha_informe          =   $request->get('fecha_informe');
                 $ur->nro_carta_aprobacion   =   $request->get('nro_carta');
                 $ur->fecha_carta_aprobacion =   $request->get('fecha_carta');
                 $ur->fecha_derivacion       =   $request->get('fecha_derivacion');
