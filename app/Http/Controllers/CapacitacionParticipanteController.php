@@ -249,42 +249,23 @@ class CapacitacionParticipanteController extends Controller
                 'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
             ]);
         }
-        
+    }
 
-    /*        
-        #1. Actualizamos la información del participante
+    #8. Realizo la eliminación de registros
+    public function destroy($id)
+    {
+        #1. Realizo la eliminación de la informacion
         try 
         {
-            $participante                               =   CapacitacionParticipante::findOrFail($id);
-            $participante->dni                          =   $request->get('dni');
-            $participante->nombres                      =   $request->get('nombres');
-            $participante->paterno                      =   $request->get('paterno');
-            $participante->materno                      =   $request->get('materno');
-            $participante->fecha                        =   $request->get('fecha');
-            $participante->sexo                         =   $request->get('sexo');
-            $participante->codTipo                      =   $request->get('tipo');
-            $participante->codActividadProductor        =   $request->get('actividad_productor');
-            $participante->codActividadParticipante     =   $request->get('actividad_participante');
-            $participante->detallaOtraActividad         =   $request->get('detalla_otro');
-            $participante->codCadenaAgricola            =   $request->get('cadena_agricola');
-            $participante->codCadenaPecuaria            =   $request->get('cadena_pecuaria');
-            $participante->codCadenaForestal            =   $request->get('cadena_forestal');
-            $participante->updated_auth                 =   Auth::user()->id;
-            $participante->update();
+            $participante           =   CapacitacionParticipante::find($id);
+            $participante->delete();
 
-            #2. Actualizo la información de la entidad
-            try 
-            {
-                //code...
-            } 
-            catch (Exception $e) 
-            {
-                return response()->json([
-                    'estado'    =>  '2',
-                    'dato'      =>  $e->getMessage(),
-                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                ]);
-            }
+            #2. Retorno al menu principal
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
         } 
         catch (Exception $e) 
         {
@@ -294,6 +275,5 @@ class CapacitacionParticipanteController extends Controller
                 'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
             ]);
         }
-    */
     }
 }

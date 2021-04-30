@@ -92,56 +92,6 @@ class CapacitacionEjecucionController extends Controller
                 'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
             ]);
         }
-
-    /*
-        try 
-        {
-            $implementacion                         =   new CapacitacionEjecucion;
-            $implementacion->codInicCapacitacion    =   $request->get('capacitacion');
-            $implementacion->fechaRendicion         =   $request->get('fecha');
-            $implementacion->hora_inicio            =   $request->get('hora_inicio');
-            $implementacion->hora_termino           =   $request->get('hora_termino');
-            $implementacion->estado                 =   1;
-            $implementacion->created_auth           =   Auth::user()->id;
-            $implementacion->updated_auth           =   Auth::user()->id;
-            $implementacion->save();
-
-            #2. Actualizamos la información del evento de capacitacion
-            try 
-            {
-                $capacitacion                       =   Capacitacion::findOrFail($implementacion->codInicCapacitacion);
-                $capacitacion->resultados           =   $request->get('resultados');
-                $capacitacion->acuerdos             =   $request->get('acuerdos');
-                $capacitacion->comentarios          =   $request->get('comentarios');
-                $capacitacion->codEstado            =   2;
-                $capacitacion->updated_auth         =   Auth::user()->id;
-                $capacitacion->update();
-
-                #3. Retorno al menu principal
-                return response()->json([
-                    'estado'    =>  '1',
-                    'dato'      =>  $implementacion->id,
-                    'mensaje'   =>  'La información se procesó de manera exitosa.'
-                ]);
-            } 
-            catch (Exception $e) 
-            {
-                return response()->json([
-                    'estado'    =>  '2',
-                    'dato'      =>  $e->getMessage(),
-                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                ]);
-            }
-        } 
-        catch (Exception $e) 
-        {
-            return response()->json([
-                'estado'    =>  '2',
-                'dato'      =>  $e->getMessage(),
-                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-            ]);
-        }
-    */
     }
 
     #6.

@@ -465,6 +465,52 @@
                 }
             });
         }); 
+        $(document).on("click", '.btnDeleteParticipanteCapacitacion', function (event) {
+            event.preventDefault();
+            var codigo = $(this).data("id");
+            var urlAction = urlApp+'/iniciativa/capacitacion-participante/'+codigo+'/destroy';
+            // Antes de procesar realizamos una confirmación del proceso
+            alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
+                function () {
+                    $.ajax({
+                        url: urlAction,
+                        method: "POST",
+                        data: codigo,
+                        beforeSend: function () {},
+                        success: function (response) {
+                            var cadena = response;
+                            var mensaje = cadena.mensaje;
+                            alertify.alert("Proceso concluido", mensaje, function () {
+                                $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                                $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                            });
+                        },
+                        statusCode: {
+                            404: function () {
+                                ertify.error('El sistema presenta problemas de funcionamiento.');
+                            }
+                        },
+                        error: function (x, xs, xt) {
+                            var errors = x.responseJSON;
+                            var errorsHtml = '';
+                            $.each(errors['errors'], function (index, value) {
+                                errorsHtml += '<ul>';
+                                errorsHtml += '<li>' + value + "</li>";
+                                errorsHtml += '</ul>';
+                            });
+                            alertify.alert("Error de validación", errorsHtml, function () {
+                                form[0].reset();
+                            });
+                        }
+                    });
+                },
+                function () {
+                    alertify.error('Proceso cancelado');
+                    $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                }
+            );
+        });
         //8. Cargo la información de extensionistas del evento de capacitacion
         $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
         $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
@@ -565,14 +611,6 @@
                 }
             });
         });
-
-
-
-
-
-
-
-
     });
 </script>
 @stop
