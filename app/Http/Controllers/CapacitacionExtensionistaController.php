@@ -121,10 +121,8 @@ class CapacitacionExtensionistaController extends Controller
     {
         try 
         {
-            $extensionista              =   CapacitacionExtensionista::findOrFail($id);
-            $extensionista->estado      =   0;
-            $extensionista->updated_auth=   Auth::user()->id;
-            $extensionista->update();
+            $extensionista              =   CapacitacionExtensionista::find($id);
+            $extensionista->delete();
 
             #3. Retorno al menu principal
             return response()->json([
