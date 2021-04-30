@@ -225,6 +225,7 @@ class PivotController extends Controller
         {
             $data[]     =   [
                 'Region'                            =>  $fila->sede,
+                'Modalidad Presencial / Virtual'    =>  $fila->modalidad,
                 'DNI'                               =>  $fila->dni,
                 'Beneficiado - Apellidos'           =>  $fila->apellidos,
                 'Beneficiado - Nombres'             =>  $fila->nombres,

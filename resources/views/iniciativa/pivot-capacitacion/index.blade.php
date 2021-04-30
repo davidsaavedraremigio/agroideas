@@ -34,6 +34,7 @@
                 filename: appUrl+"/iniciativa/pivot-capacitacion/data",
                 mapping: {
                     "Region":  {"type": "string"},
+                    "Modalidad Presencial / Virtual":  {"type": "string"},
                     "DNI":  {"type": "string"},
                     "Beneficiado - Apellidos":  {"type": "string"},
                     "Beneficiado - Nombres":  {"type": "string"},
@@ -59,12 +60,10 @@
                     "Tipo de evento":  {"type": "string"},
                     "Fecha":  {"type": "date string"},
                     "Periodo del evento":  {"type": "string"},
-
                     "Fuente de financiamiento":  {"type": "string"},
                     "Categoria presupuestal":  {"type": "string"},
                     "Programa presupuestal":  {"type": "string"},
                     "Responsable":  {"type": "string"},
-
                 }
             },
             formats: [
@@ -92,7 +91,7 @@
             },
             slice:{                
                 columns: [
-                    {uniqueName: "Region"}, {uniqueName: "DNI"}, {uniqueName: "Beneficiado - Apellidos"}, {uniqueName: "Beneficiado - Nombres"}, {uniqueName: "Sexo"}, {uniqueName: "Edad"}, {uniqueName: "Actividad del productor"}, {uniqueName: "Principal cultivo agricola"}, {uniqueName: "Principal crianza"}, {uniqueName: "Principal plantacion forestal"}, {uniqueName: "Actividad del participante"}, {uniqueName: "Detalle del tipo de participante"},
+                    {uniqueName: "Region"}, {uniqueName: "Modalidad Presencial / Virtual"}, {uniqueName: "DNI"}, {uniqueName: "Beneficiado - Apellidos"}, {uniqueName: "Beneficiado - Nombres"}, {uniqueName: "Sexo"}, {uniqueName: "Edad"}, {uniqueName: "Actividad del productor"}, {uniqueName: "Principal cultivo agricola"}, {uniqueName: "Principal crianza"}, {uniqueName: "Principal plantacion forestal"}, {uniqueName: "Actividad del participante"}, {uniqueName: "Detalle del tipo de participante"},
                     {uniqueName: "Pertenece a alguna organizacion"}, {uniqueName: "Tipo de organizacion"}, {uniqueName: "Nombre de la organizacion"}, {uniqueName: "Ubigeo"}, {uniqueName: "Departamento"}, {uniqueName: "Provincia"}, {uniqueName: "Distrito"}, {uniqueName: "Sector"},
                     {uniqueName: "Tematica"}, {uniqueName: "Nombre del evento"}, {uniqueName: "Horas de capacitacion"}, {uniqueName: "Tipo de evento"}, {uniqueName: "Fecha"}, {uniqueName: "Periodo del evento"},
                     {uniqueName: "Fuente de financiamiento"}, {uniqueName: "Categoria presupuestal"}, {uniqueName: "Programa presupuestal"}, {uniqueName: "Responsable"}
