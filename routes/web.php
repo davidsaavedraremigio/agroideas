@@ -128,9 +128,11 @@ Route::get('iniciativa/compromiso-reporte/{region}/{estado}/data', 'CompromisoCo
 Route::get('iniciativa/compromiso-reporte/{region}/{estado}/excel', 'ExportaExcelController@exportaCompromisoResumen')->name('compromiso-reporte.excel');
 
 #4. Módulo para el registro de convenios marco
-Route::resource('de/convenio', 'ConvenioMarcoController')->except(['show', 'update']);
+Route::resource('de/convenio', 'ConvenioMarcoController')->except(['show', 'update', 'delete']);
 Route::get('de/convenio/data', 'ConvenioMarcoController@show')->name('convenio.data');
 Route::post('de/convenio/{convenio}', 'ConvenioMarcoController@update')->name('convenio-marco.update');
+Route::post('de/convenio/{convenio}/destroy', 'ConvenioMarcoController@destroy')->name('convenio-marco.delete');
+
 #4.1. Módulo para el registro de entidades cooperantes del convenio
 Route::resource('de/convenio-cooperante', 'ConvenioMarcoCooperanteController')->except(['show', 'create', 'destroy']);
 Route::get('de/convenio-cooperante/{convenio}/data', 'ConvenioMarcoCooperanteController@show')->name('convenio-cooperante.data');

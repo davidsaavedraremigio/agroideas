@@ -29,13 +29,13 @@
             $(document).on("click", '.btnDeleteConvenioMarco', function (event) {
                 event.preventDefault();
                 var codigo = $(this).data("id");
-                var urlAction = 'convenio/'+codigo;
+                var urlAction = 'convenio/'+codigo+'/destroy';
                 // Antes de procesar realizamos una confirmación del proceso
                 alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
                     function () {
                         $.ajax({
                             url: urlAction,
-                            method: "DELETE",
+                            method: "POST",
                             data: codigo,
                             beforeSend: function () {},
                             success: function (response) {
