@@ -245,7 +245,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateCoordinadorPcc">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -270,7 +269,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateCoordinadorEntidad">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -295,7 +293,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateCompromisoConvenio">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -320,7 +317,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateCompromisoImplementacion">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -345,7 +341,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateEntidadIdentificada">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -370,7 +365,6 @@
         </div>
     </div>		
 </div>
-
 <div class="modal fade" id="modalCreateConvenioAmpliacion">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
@@ -395,7 +389,6 @@
         </div>
     </div>		
 </div>
-
 {{-- Fin del contenido --}}
 @stop
 @section('scripts')
@@ -547,6 +540,59 @@
                     }
                 });
             });
+            $(document).on("click", '.btnDeleteEntidadCooperante', function (event) {
+                event.preventDefault();
+                var codigo = $(this).data("id");
+                var urlAction = urlApp+'/de/convenio-cooperante/'+codigo+'/destroy';
+                // Antes de procesar realizamos una confirmación del proceso
+                alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
+                    function () {
+                        $.ajax({
+                            url: urlAction,
+                            method: "POST",
+                            data: codigo,
+                            beforeSend: function () {},
+                            success: function (response) {
+                                var cadena = response;
+                                var mensaje = cadena.mensaje;
+                                alertify.alert("Proceso concluido", mensaje, function () {
+                                    $("#viewDataEntidadCooperante").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                                    $("#viewDataEntidadCooperante").load(urlApp+'/de/convenio-cooperante/'+ codConvenio +'/data');
+                                });
+                            },
+                            statusCode: {
+                                404: function () {
+                                    ertify.error('El sistema presenta problemas de funcionamiento.');
+                                }
+                            },
+                            error: function (x, xs, xt) {
+                                var errors = x.responseJSON;
+                                var errorsHtml = '';
+                                $.each(errors['errors'], function (index, value) {
+                                    errorsHtml += '<ul>';
+                                    errorsHtml += '<li>' + value + "</li>";
+                                    errorsHtml += '</ul>';
+                                });
+                                alertify.alert("Error de validación", errorsHtml, function () {
+                                    form[0].reset();
+                                });
+                            }
+                        });
+                    },
+                    function () {
+                        alertify.error('Proceso cancelado');
+                        $("#viewDataEntidadCooperante").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataEntidadCooperante").load(urlApp+'/de/convenio-cooperante/'+ codConvenio +'/data');
+                    }
+                );
+            });
+
+
+
+
+
+
+
             //5. Coordinadores PCC
             $("#viewDataCoordinadorPcc").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
             $("#viewDataCoordinadorPcc").load(urlApp+'/de/convenio-coordinador-pcc/'+ codConvenio +'/data');

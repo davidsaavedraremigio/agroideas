@@ -158,4 +158,30 @@ class ConvenioMarcoCooperanteController extends Controller
             ]);
         }
     }
+
+    #8. Eliminamos a la entidad seleccionada
+    public function destroy($id)
+    {
+        #1. Elimino a la entidad
+        try 
+        {
+            $cooperante         =   ConvenioMarcoCooperante::find($id);
+            $cooperante->delete();
+
+            #2. Retorno al menu principal
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
 }
