@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('auth/login');
 });
@@ -81,9 +70,6 @@ Route::get('ubigeo/distrito/{codProvincia}', 'UbigeoController@obtieneDistritos'
 Route::get('tipologia/linea/{codSector}', 'ProductoController@obtieneLinea')->name('tipologia.linea');
 Route::get('tipologia/cadena/{codLinea}', 'ProductoController@obtieneCadena')->name('tipologia.cadena');
 Route::get('tipologia/producto/{codCadena}', 'ProductoController@obtieneProducto')->name('tipologia.producto');
-
-
-
 
 #2. Rutas para el módulo OPA
 #2.1. Módulo para el registro de organizaciones
@@ -217,21 +203,12 @@ Route::post('proceso-prp/campo/{socio}', 'PostulanteProductorController@updateEv
 Route::get('proceso-prp/hidrico/{iniciativa}/data', 'PostulanteProductorController@showBalanceHidrico')->name('socio.data-hidrico');
 Route::get('proceso-prp/hidrico/{socio}/edit', 'PostulanteProductorController@editBalanceHidrico')->name('socio.edit-hidrico');
 Route::post('proceso-prp/hidrico/{socio}', 'PostulanteProductorController@updateBalanceHidrico')->name('socio.update-hidrico');
-#4.4. Módulo para el registro de Pasos criticos
-Route::resource('iniciativa/paso-critico', 'PasoCriticoController')->except(['show', 'create', 'destroy']);
-Route::get('iniciativa/paso-critico/{iniciativa}/data', 'PasoCriticoController@show')->name('paso-critico.data');
-Route::get('iniciativa/paso-critico/{iniciativa}/create', 'PasoCriticoController@create')->name('paso-critico.create');
-Route::post('iniciativa/paso-critico/{paso_critico}/destroy', 'PasoCriticoController@destroy')->name('paso-critico.destroy');
-#4.5. Módulo para el registro de la caracterizacion de la produccion
-Route::resource('iniciativa/producto-especifico', 'PostulanteProductoEspecificoController')->except(['show', 'create', 'destroy']);
-Route::get('iniciativa/producto-especifico/{iniciativa}/data', 'PostulanteProductoEspecificoController@show')->name('producto-especifico.data');
-Route::get('iniciativa/producto-especifico/{iniciativa}/create', 'PostulanteProductoEspecificoController@create')->name('producto-especifico.create');
-Route::post('iniciativa/producto-especifico/{producto_especifico}/destroy', 'PostulanteProductoEspecificoController@destroy')->name('producto-especifico.destroy');
-#4.6. Módulo para el registro de indicadores
-Route::resource('iniciativa/paso-critico-indicador', 'IndicadorPasoCriticoController')->except(['show', 'create', 'destroy']);
-Route::get('iniciativa/paso-critico-indicador/{iniciativa}/data', 'IndicadorPasoCriticoController@show')->name('paso-critico-indicador.data');
-Route::get('iniciativa/paso-critico-indicador/{iniciativa}/create', 'IndicadorPasoCriticoController@create')->name('paso-critico-indicador.create');
-Route::post('iniciativa/paso-critico-indicador/{paso_critico_indicador}/destroy', 'IndicadorPasoCriticoController@destroy')->name('paso-critico-indicador.destroy');
+#4.4. Módulo para el mantenimiento de Productores aprobados en el PRPA
+Route::resource('prpa/productor', 'ProductorPrpaController')->except(['index', 'create', 'show', 'destroy', 'update']);
+Route::get('prpa/productor/{postulante}/data', 'ProductorPrpaController@show')->name('productor-prpa.data');
+Route::get('prpa/productor/{postulante}/create', 'ProductorPrpaController@create')->name('productor-prpa.create');
+Route::post('prpa/productor/{productor}/destroy', 'ProductorPrpaController@destroy')->name('productor-prpa.destroy');
+Route::post('prpa/productor/{productor}', 'ProductorPrpaController@update')->name('productor-prpa.update');
 
 #5. Módulo para el proceso de evaluación de PRP
 #5.1. Admisión de expediente
@@ -286,6 +263,9 @@ Route::get('proceso-prp/un/{expediente}/informe', 'ExpedienteController@informeE
 Route::post('proceso-prp/un/procesa-informe/{expediente}', 'ExpedienteController@procesaExpedienteUn')->name('un.procesa-informe');
 Route::get('proceso-prp/un/{expediente}/archiva', 'ExpedienteController@formArchivaExpedienteUn')->name('un.archivo');
 Route::post('proceso-prp/un/archiva/{expediente}', 'ExpedienteController@archivaExpedienteUn')->name('un.procesa-archivo');
+Route::get('proceso-prp/un/{expediente}/observa', 'ExpedienteController@formObservaExpedienteUn')->name('un.observa');
+Route::post('proceso-prp/un/observa/{expediente}', 'ExpedienteController@observaExpedienteUn')->name('un.procesa-observacion');
+
 #5.5. Evaluación por parte de la UAJ
 Route::get('proceso-prp/uaj', 'ExpedienteController@indexUaj')->name('uaj.index');
 Route::get('proceso-prp/uaj/data-pendiente', 'ExpedienteController@showPrpUajPendiente')->name('uaj.data-pendiente');
@@ -340,6 +320,13 @@ Route::get('iniciativa/convenio-ampliacion/{contrato}/create', 'ContratoAmpliaci
 #6.1. Módulo para el registro de proyectos
 Route::resource('iniciativa/sda', 'InicSdaController')->except(['show']);
 Route::get('iniciativa/sda/data', 'InicSdaController@show')->name('sda.data');
+#6.2. Módulo para el registro de productores
+Route::resource('sda/productor', 'ProductorSdaController')->except(['index', 'create', 'show', 'destroy']);
+Route::get('sda/productor/{postulante}/data', 'ProductorSdaController@show')->name('productor-sda.data');
+Route::get('sda/productor/{postulante}/create', 'ProductorSdaController@create')->name('productor-sda.create');
+Route::post('sda/productor/{contrato}/destroy', 'ProductorSdaController@destroy')->name('productor-sda.destroy');
+
+
 
 #7. Módulo para el proceso de evaluación de SDA
 #7.1. Evaluación por parte de la UR
@@ -364,11 +351,8 @@ Route::post('sda/admision/procesa-derivacion/{expediente}', 'ExpedienteSdaUrCont
 Route::get('sda/evaluacion', 'ExpedienteSdaUnController@index')->name('evaluacion.index');
 Route::get('sda/evaluacion/{expediente}/create', 'ExpedienteSdaUnController@create')->name('evaluacion.create');
 Route::post('sda/evaluacion/{expediente}', 'ExpedienteSdaUnController@update')->name('evaluacion.update');
-
 Route::get('sda/evaluacion/{expediente}/observa', 'ExpedienteSdaUnController@formObserva')->name('evaluacion.observa');
 Route::post('sda/evaluacion/procesa-observacion/{expediente}', 'ExpedienteSdaUnController@procesaObservacion')->name('evaluacion.procesa-observacion');
-
-
 Route::get('sda/evaluacion/{expediente}/archivo', 'ExpedienteSdaUnController@formArchivo')->name('evaluacion.archivo');
 Route::post('sda/evaluacion/procesa-archivo/{expediente}', 'ExpedienteSdaUnController@procesaArchivo')->name('evaluacion.procesa-archivo');
 Route::get('sda/evaluacion/{expediente}/deriva', 'ExpedienteSdaUnController@formDeriva')->name('evaluacion.deriva');
@@ -463,8 +447,6 @@ Route::resource('iniciativa/capacitacion-extensionista', 'CapacitacionExtensioni
 Route::get('iniciativa/capacitacion-extensionista/{capacitacion}/data', 'CapacitacionExtensionistaController@show')->name('capacitacion-extensionista.data');
 Route::get('iniciativa/capacitacion-extensionista/{capacitacion}/create', 'CapacitacionExtensionistaController@create')->name('capacitacion-extensionista.create');
 Route::post('iniciativa/capacitacion-extensionista/{extensionista}/destroy', 'CapacitacionExtensionistaController@destroy')->name('capacitacion-extensionista.destroy');
-
-
 #14. Consolidado de información de Serviagro
 Route::get('iniciativa/pivot-capacitacion','PivotController@index_serviagro')->name('pivot-capacitacion.index');
 Route::get('iniciativa/pivot-capacitacion/data', 'PivotController@data_serviagro')->name('pivot-capacitacion.data');
@@ -489,7 +471,7 @@ Route::post('iniciativa/difusion-entidad-participante/{entidad}/destroy', 'Difus
 
 
 
-
+/*
 #21. Módulo para el registro de información general de SDAs
 Route::resource('proceso-pdn/proyecto', 'ProyectoSdaController')->except(['show', 'update']);
 Route::get('proceso-pdn/proyecto/data', 'ProyectoSdaController@show')->name('proyecto.data');
@@ -526,7 +508,7 @@ Route::get('proceso-pdn/proceso-ur/{expediente}/improcedente', 'ProcesoSdaUrCont
 Route::post('proceso-pdn/proceso-ur/improcedente', 'ProcesoSdaUrController@improcedenteProcess')->name('sda-ur.improcedente-proceso');
 Route::get('proceso-pdn/proceso-ur/{expediente}/elegible', 'ProcesoSdaUrController@elegibleForm')->name('sda-ur.elegible-form');
 Route::post('proceso-pdn/proceso-ur/elegible', 'ProcesoSdaUrController@elegibleProcess')->name('sda-ur.elegible-proceso');
-
+*/
 
 
 #1.17. Módulo para la consulta reniec y sunat

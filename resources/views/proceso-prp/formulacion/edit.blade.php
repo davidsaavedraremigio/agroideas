@@ -8,7 +8,8 @@
             <div class="card-header p-0 pt-1 border-bottom-0">
                 <ul class="nav nav-tabs" id="TabFormulacion" role="tablist">
                     <li class="nav-item"><a class="nav-link active" id="TabForm001" data-toggle="pill" href="#custom-tabs-general" role="tab" aria-controls="custom-tabs-general" aria-selected="true">1. Información general</a></li>
-                    <!--<li class="nav-item"><a class="nav-link" id="TabForm002" data-toggle="pill" href="#custom-tabs-ml" role="tab" aria-controls="custom-tabs-ml" aria-selected="false">2. Propuesta de PRPA</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabForm002" data-toggle="pill" href="#custom-tabs-productor" role="tab" aria-controls="custom-tabs-productor" aria-selected="false">2. Productores</a></li>
+                    <!--
                     <li class="nav-item"><a class="nav-link" id="TabForm003" data-toggle="pill" href="#custom-tabs-indicador" role="tab" aria-controls="custom-tabs-indicador" aria-selected="false">3. Resultados</a></li>
                     <li class="nav-item"><a class="nav-link" id="TabForm004" data-toggle="pill" href="#custom-tabs-presupuesto" role="tab" aria-controls="custom-tabs-presupuesto" aria-selected="false">4. Presupuesto</a></li>-->
                 </ul>
@@ -42,11 +43,6 @@
                             <div class="row">
                                 <div class="col-md-12">{!! Form::label('', 'II. Diagnóstico del PRPA') !!}</div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">{!! Form::label('titulo', 'Título del PRPA') !!} {!! Form::textarea('titulo', $proyecto->tituloProyecto, ['class' => 'form-control', 'rows' => '2', 'cols' => '2']) !!}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="row">  
                                 <div class="col-md-2">{!! Form::label('fecha_inicio', 'Inicio propuesto') !!} {!! Form::date('fecha_inicio', $proyecto->fecha_inicio, ['class' => 'form-control']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('duracion', 'duración (meses)') !!} {!! Form::number('duracion', $proyecto->duracion, ['class' => 'form-control', 'min' => '36', 'max' => '72']) !!}</div>
@@ -64,12 +60,12 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-12">{!! Form::label('objetivo', 'II. Objetivo general del PRPA') !!} {!! Form::textarea('objetivo', $proyecto->mlProposito, ['class' => 'form-control', 'rows' => '2', 'cols' => '2']) !!}</div>
+                                <div class="col-md-12">{!! Form::label('objetivo', 'III. Objetivo general del PRPA') !!} {!! Form::textarea('objetivo', $proyecto->mlProposito, ['class' => 'form-control', 'rows' => '2', 'cols' => '2']) !!}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-12">{!! Form::label('', 'III. Financiamiento del PRPA') !!}</div>
+                                <div class="col-md-12">{!! Form::label('', 'IV. Financiamiento del PRPA') !!}</div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">{!! Form::label('aporte_pcc', 'PCC (S/)') !!} {!! Form::text('aporte_pcc', $proyecto->inversion_pcc, ['class' => 'form-control']) !!}</div>
@@ -78,42 +74,6 @@
                                 <div class="col-md-6"><br></div>
                             </div>
                         </div>
-
-
-
-                        {{-- Contenido del módulo Objetivos Específicos 
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">{!! Form::label('', 'III. Objetivos especificos') !!}</div>
-                            </div>
-                        </div>
-                        <section class="content">
-                            <div class="container-fluid">
-                                <div class="card card-default color-palette-box">
-                                    <div class="card-header">
-                                        <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateObjetivoEspecifico"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="viewDataObjetivoEspecifico" class="table-responsive" data-id="{{$postulante->id}}"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                         Contenido del módulo Objetivos Específicos
-                        <div class="form-group">
-                            <div class="row"><div class="col-md-12">{!! Form::label('', 'IV. Análisis FODA') !!}</div></div>
-                            <div class="row">
-                                <div class="col-md-6">{!! Form::label('fortalezas', 'Fortalezas') !!} {!! Form::textarea('fortalezas', $proyecto->fortalezas, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'placeholder' => 'Atributos o destrezas que el PRPA contiene para alcanzar los objetivos']) !!}</div>
-                                <div class="col-md-6">{!! Form::label('oportunidades', 'Oportunidades') !!}  {!! Form::textarea('oportunidades', $proyecto->oportunidades, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'placeholder' => 'Condiciones externas, lo que está a la vista por todos o la popularidad y competitividad que tenga en PRPA útiles para alcanzar el objetivo']) !!}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">{!! Form::label('debilidades', 'Debilidades') !!} {!! Form::textarea('debilidades', $proyecto->debilidades, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'placeholder' => 'Lo que es perjudicial o factores desfavorables para la ejecución del objetivo']) !!}</div>
-                                <div class="col-md-6">{!! Form::label('amenazas', 'Amenazas') !!}  {!! Form::textarea('amenazas', $proyecto->amenazas, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'placeholder' => 'Lo que amenaza la supervivencia del PRPA que se encuentran externamente, las cuales, pudieran convertirse en oportunidades, para alcanzar el objetivo']) !!}</div>
-                            </div>
-                        </div>
-                        --}}
                         {{-- Botonera  --}}
                         <div class="form-group">
                             <div class="row">
@@ -130,76 +90,36 @@
                         </div>
                         {!! Form::close() !!}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-ml" role="tabpanel" aria-labelledby="TabForm002">
-                        {{-- Contenido del módulo componentes --}}
+                    <div class="tab-pane fade" id="custom-tabs-productor" role="tabpanel" aria-labelledby="TabForm002">
+                        {{-- Contenido del módulo productores --}}
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="card card-default color-palette-box">
                                     <div class="card-header">
-                                        <h3 class="card-title">Componentes del PRPA</h3>
+                                        <h3 class="card-title">Productores beneficiarios del PRPA</h3>
                                         <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateComponente"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateProductorPrpa"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div id="viewDataComponente" class="table-responsive" data-id="{{$postulante->id}}"></div>
+                                        <div id="viewDataProductorPrpa" class="table-responsive" data-id="{{$postulante->id}}"></div>
                                     </div>
                                 </div>
                             </div>
                         </section>
-                        {{-- Contenido del módulo componentes --}}
-
-                        {{-- Contenido del módulo Actividades --}}
-                        <section class="content">
-                            <div class="container-fluid">
-                                <div class="card card-default color-palette-box">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Metas físicas del PRPA</h3>
-                                        <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateActividad"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="viewDataActividad" class="table-responsive" data-id="{{$postulante->id}}"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        {{-- Contenido del módulo Actividades --}}
+                        {{-- Contenido del módulo productores --}}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-indicador" role="tabpanel" aria-labelledby="TabForm003">
-                        {{-- Contenido del módulo resultados --}}
-                        <section class="content">
-                            <div class="container-fluid">
-                                <div class="card card-default color-palette-box">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Resultados del PRPA</h3>
-                                        <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateIndicador"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="viewDataIndicador" class="table-responsive" data-id="{{$postulante->id}}"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        {{-- Contenido del módulo resultados --}}
-
-                    </div>
-                    <div class="tab-pane fade" id="custom-tabs-presupuesto" role="tabpanel" aria-labelledby="TabForm004"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{{-- Modals --}}
-{{-- Modal para la creación de registros --}}
-<div class="modal fade" id="modalCreateObjetivoEspecifico">
+{{-- Modals para la gestión de Productores --}}
+<div class="modal fade" id="modalCreateProductorPrpa">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
             {{-- Inicio del contenido del modal --}}
-            <div id="divFormCreateObjetivoEspecifico">
+            <div id="divFormCreateProductorPrpa">
                 <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
                 <span class="sr-only">Cargando...</span>
             </div>
@@ -207,90 +127,11 @@
         </div>
     </div>		
 </div>
-{{-- Modal para la actualización de registros --}}
-<div class="modal fade" id="modalUpdateObjetivoEspecifico">
+<div class="modal fade" id="modalUpdateProductorPrpa">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">
             {{-- Inicio del contenido del modal --}}
-            <div id="divFormUpdateObjetivoEspecifico">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la creación de registros --}}
-<div class="modal fade" id="modalCreateComponente">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormCreateComponente">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la actualización de registros --}}
-<div class="modal fade" id="modalUpdateComponente">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormUpdateComponente">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la creación de registros --}}
-<div class="modal fade" id="modalCreateActividad">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormCreateActividad">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la actualización de registros --}}
-<div class="modal fade" id="modalUpdateActividad">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormUpdateActividad">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la creación de registros --}}
-<div class="modal fade" id="modalCreateIndicador">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormCreateIndicador">
-                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
-                <span class="sr-only">Cargando...</span>
-            </div>
-            {{-- Fin del contenido del modal --}}
-        </div>
-    </div>		
-</div>
-{{-- Modal para la actualización de registros --}}
-<div class="modal fade" id="modalUpdateIndicador">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content animated fadeIn ">
-            {{-- Inicio del contenido del modal --}}
-            <div id="divFormUpdateIndicador">
+            <div id="divFormUpdateProductorPrpa">
                 <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
                 <span class="sr-only">Cargando...</span>
             </div>
@@ -303,7 +144,8 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var urlApp          = "{{ env('APP_URL') }}";
+        var urlApp              = "{{ env('APP_URL') }}";
+        var codPostulante       =   $("#viewDataProductorPrpa").attr('data-id');
         //1. Proceso la información del proyecto
         $(document).on("click", '#btnUpdateFormulacion', function (event) {
             event.preventDefault();
@@ -348,8 +190,109 @@
                 }
             });
         });
-        //2. Muestro los datos de los objetivos especificos
-        var codPostulante    =   $("#viewDataComponente").attr('data-id');
+        //2. Muestro los datos de los productores del PRPA
+        $("#viewDataProductorPrpa").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+        $("#viewDataProductorPrpa").load(urlApp+'/prpa/productor/'+ codPostulante +'/data');
+        //3. Genero los modals para añadir y editar productores
+        $('#modalCreateProductorPrpa').on('show.bs.modal', function (e) {
+            $('#divFormCreateProductorPrpa').load(urlApp+'/prpa/productor/' + codPostulante + '/create');
+        });
+        $('#modalUpdateProductorPrpa').on('show.bs.modal', function (e) {
+            var codProductor= $(e.relatedTarget).attr('data-id');
+            $('#divFormUpdateProductorPrpa').load(urlApp+'/prpa/productor/'+codProductor+'/edit');
+        });
+        //4. Proceso la información de productores del PRPA
+        $(document).on("click", '#btnCreateProductorPrpa', function (event) {
+            event.preventDefault();
+            var form = $("#FormCreateProductorPrpa");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_CreateProductorPrpa_Enabled").css("display", "none");
+                    $("#Footer_CreateProductorPrpa_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var cadena      =   response;
+                    var mensaje     =   cadena.mensaje;
+                    var codigo      =   cadena.dato;
+                    var url_edit    =   'edit';
+                    $("#Footer_CreateProductorPrpa_Enabled").css("display", "block");
+                    $("#Footer_CreateProductorPrpa_Disabled").css("display", "none");
+                    $(location).attr('href', url_edit);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ProductorPrpaAlerts").css("display", "block");
+                    $("#ProductorPrpaAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_CreateProductorPrpa_Enabled").css("display", "block");
+                    $("#Footer_CreateProductorPrpa_Disabled").css("display", "none");
+                }
+            });
+        });
+        $(document).on("click", '#btnUpdateProductorPrpa', function (event) {
+            event.preventDefault();
+            var form = $("#FormUpdateProductorPrpa");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_UpdateProductorPrpa_Enabled").css("display", "none");
+                    $("#Footer_UpdateProductorPrpa_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_UpdateProductorPrpa_Enabled").css("display", "block");
+                    $("#Footer_UpdateProductorPrpa_Disabled").css("display", "none");
+                    $("#modalUpdateProductorPrpa").modal('hide');
+                    $("#viewDataProductorPrpa").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataProductorPrpa").load(urlApp+'/prpa/productor/'+ codPostulante +'/data');
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ProductorPrpaAlerts").css("display", "block");
+                    $("#ProductorPrpaAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_UpdateProductorPrpa_Enabled").css("display", "block");
+                    $("#Footer_UpdateProductorPrpa_Disabled").css("display", "none");
+                }
+            });
+        });
+
+
+
+/*
         $("#viewDataObjetivoEspecifico").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
         $("#viewDataObjetivoEspecifico").load(urlApp+'/proceso-prp/objetivo-especifico/'+ codPostulante +'/data');
         //3. Muestro el formulario de registro y edición de objetivos especifico
@@ -748,7 +691,7 @@
                 }
             });
         });
-
+*/
 
 
 

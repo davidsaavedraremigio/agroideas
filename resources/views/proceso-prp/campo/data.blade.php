@@ -1,5 +1,5 @@
 <table id="TablaEvaluacionCampo" class="table table-bordered table-striped table-sm">
-    <thead>
+    <thead class="bg-success">
         <tr>
             <th class="text-center"><small>Nº DNI</small></th>
             <th class="text-center"><small>Nombres y apellidos</small></th>
@@ -28,7 +28,7 @@
             <td class="text-right"><small>{{number_format($fila->nro_ha,2)}}</small></td>
             <td class="text-right"><small>{{number_format($fila->nro_ha_plano,2)}}</small></td>
             <td class="text-right"><small>{{number_format($fila->nro_ha_riego,2)}}</small></td>
-            <td class="text-center"><small>{{($fila->eval_campo == 1)?'Favorable':'No aplica'}}</small></td>
+            <td class="text-center"><small>{{($fila->eval_campo == 1)?'Favorable':'No Evaluado'}}</small></td>
             <td class="text-center">
                 <a href="#" class="btn btn-sm btn-warning" id="btnmodalUpdateEvaluacionCampo" data-toggle="modal" data-target="#modalUpdateEvaluacionCampo" data-id="{{$fila->id}}"><i class="fas fa-user-check"></i></a>
             </td>

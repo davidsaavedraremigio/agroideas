@@ -688,13 +688,10 @@ class ExpedienteController extends Controller
         {
             $upfp                                   =   ExpedienteUpfp::getData($id);
             $upfp->fechaRecepcion                   =   $request->get('fecha_recepcion');
-            $upfp->cod_responsable_eva_campo        =   $request->get('responsable_eval_campo');
+            $upfp->cod_responsable_eva_campo        =   $request->get('especialista_responsable');
             $upfp->fecha_eva_campo                  =   $request->get('fecha_eval_campo');
-            $upfp->cod_responsable_analisis_suelo   =   $request->get('responsable_eval_suelo');
             $upfp->fecha_analisis_suelo             =   $request->get('fecha_eval_suelo');
-            $upfp->cod_responsable_analisis_agua    =   $request->get('responsable_eval_agua');
             $upfp->fecha_analisis_agua              =   $request->get('fecha_eval_agua');
-            $upfp->cod_responsable_balance_hidrico  =   $request->get('responsable_balance_hidrico');
             $upfp->fecha_balance_hidrico            =   $request->get('fecha_eval_balance_hidrico');
             $upfp->cod_responsable_form             =   $request->get('responsable_informe');
             $upfp->nro_informe_form                 =   $request->get('nro_informe');
@@ -1062,7 +1059,7 @@ class ExpedienteController extends Controller
         }
     }
 
-    #23. Observa Expediente
+    #23. Muestra un formulario para archivar Expediente
     public function formArchivaExpedienteUn($id)
     {
         #1. Obtengo las variables requeridas
@@ -1074,7 +1071,7 @@ class ExpedienteController extends Controller
         return view('proceso-prp.un.archiva', compact('expediente', 'un', 'personal'));
     }
 
-    #24. 
+    #24. Archiva el expediente
     public function archivaExpedienteUn(Request $request, $id)
     {
         try 
@@ -1120,6 +1117,31 @@ class ExpedienteController extends Controller
             ]);
         }
     }
+
+    #25. Muestro un formulario para observar un expediente
+    public function formObservaExpedienteUn($id)
+    {
+        #1. Obtengo las variables requeridas
+        $expediente         =   Expediente::findOrFail($id);
+        $un                 =   ExpedienteUn::getData($id);
+        $area               =   5;
+        $personal           =   Usuario::getArea($area);
+
+        #2. Retorno al formulario
+        return view('proceso-prp.un.observa', compact('expediente', 'un', 'personal'));
+    }
+
+    #26. Proceso los expedientes observados
+    public function observaExpedienteUn(Request $request, $id)
+    {
+        
+    }
+
+
+
+
+
+
 
     #25. Muestro la información que se deriva al área de UAJ
     public function indexUaj()

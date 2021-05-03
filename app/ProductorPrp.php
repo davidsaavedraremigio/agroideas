@@ -15,4 +15,10 @@ class ProductorPrp extends Model
     {
         return DB::select("SELECT * FROM vw_data_beneficiario_prp a WHERE a.codPostulante = $id");
     }
+
+    #3. Obtengo la relación de productores del PRPA (Ganadores)
+    public static function getAprobados($id)
+    {
+        return DB::select("SELECT * FROM vw_data_productor_prpa a WHERE a.codPostulante = $id");
+    }
 }

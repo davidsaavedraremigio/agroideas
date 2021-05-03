@@ -30,9 +30,6 @@ class EvaluacionCampoProductorFormRequest extends FormRequest
             'nro_ha_geo'            =>  'required|numeric',
             'nro_ha_riego'          =>  'required|numeric',
             'resultado_final'       =>  'required',
-            'latitud'               =>  'required',
-            'longitud'              =>  'required',
-            'altitud'               =>  'required|numeric',
             'comentario'            =>  'max:1000',
         ];
     }

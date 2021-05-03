@@ -48,26 +48,29 @@
         <div class="row">
             <div class="col-md-4">{!! Form::label('resultado_suelo', 'Resultado análisis de suelo') !!}
                 <select name="resultado_suelo" class="form-control">
-                    <option value="" selected="selected">No evaluado</option>
+                    <option value="" selected="selected">Seleccionar</option>
                     <option value="1" {{($productor->resultadoAnalisisSuelo == 1)?'selected':''}}>Favorable</option>
                     <option value="2" {{($productor->resultadoAnalisisSuelo == 2)?'selected':''}}>Observado</option>
-                    <option value="0" {{($productor->resultadoAnalisisSuelo == 0)?'selected':''}}>No aplica</option>
+                    <option value="3" {{($productor->resultadoAnalisisSuelo == 3)?'selected':''}}>No aplica</option>
+                    <option value="0" {{($productor->resultadoAnalisisSuelo == 0)?'selected':''}}>No Evaluado</option>
                 </select>
             </div>
             <div class="col-md-4">{!! Form::label('resultado_agua', 'Resultado análisis de agua') !!}
                 <select name="resultado_agua" class="form-control">
-                    <option value="" selected="selected">No evaluado</option>
+                    <option value="" selected="selected">Seleccionar</option>
                     <option value="1" {{($productor->resultadoAnalisisAgua == 1)?'selected':''}}>Favorable</option>
                     <option value="2" {{($productor->resultadoAnalisisAgua == 2)?'selected':''}}>Observado</option>
-                    <option value="0" {{($productor->resultadoAnalisisAgua == 0)?'selected':''}}>No aplica</option>
+                    <option value="3" {{($productor->resultadoAnalisisSuelo == 3)?'selected':''}}>No aplica</option>
+                    <option value="0" {{($productor->resultadoAnalisisAgua == 0)?'selected':''}}>No Evaluado</option>
                 </select>
             </div>
             <div class="col-md-4">{!! Form::label('resultado_hidrico', 'Resultado balance hídrico') !!}
                 <select name="resultado_hidrico" class="form-control">
-                    <option value="" selected="selected">No evaluado</option>
+                    <option value="" selected="selected">Seleccionar</option>
                     <option value="1" {{($productor->resultadoBalanceHidrico == 1)?'selected':''}}>Favorable</option>
                     <option value="2" {{($productor->resultadoBalanceHidrico == 2)?'selected':''}}>Observado</option>
-                    <option value="0" {{($productor->resultadoBalanceHidrico == 0)?'selected':''}}>No aplica</option>
+                    <option value="3" {{($productor->resultadoAnalisisSuelo == 3)?'selected':''}}>No aplica</option>
+                    <option value="0" {{($productor->resultadoBalanceHidrico == 0)?'selected':''}}>No Evaluado</option>
                 </select>
             </div>
         </div>

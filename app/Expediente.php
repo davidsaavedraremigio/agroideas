@@ -67,29 +67,35 @@ class Expediente extends Model
     public static function getDataExpedienteFormulacion()
     {
         return DB::select("SELECT
-            a.id,
-            LTRIM(RIGHT('0000' + CAST(a.nroExpediente AS varchar(4)), 4))+'-'+LTRIM(YEAR(a.fechaExpediente)) nro_expediente,
-            LTRIM(RIGHT('0000' + CAST(a.nroCut AS varchar(4)), 4))+'-'+LTRIM(YEAR(a.fechaCut)) nro_cut,
-            b.ruc,
-            b.razon_social,
-            b.region,
-            b.provincia,
-            b.distrito,
-            b.tituloProyecto,
-            b.cadena,
-            d.HabilitaFormulacion, 
-            c.nombres+' '+c.paterno+' '+c.materno responsable
-        FROM InicExpedientePostulante a
-        LEFT JOIN (
-            SELECT * FROM vw_data_incentivo
-        ) b ON b.id = a.codPostulante
-        LEFT JOIN (
-            SELECT * FROM MaestroStaff
-        ) c ON c.id = a.codPersonalAsignado
-        LEFT JOIN (
-            SELECT * FROM InicExpedienteUpfp
-        ) d ON d.codExpediente = a.id
-        WHERE d.HabilitaFormulacion = 1");
+                                a.id,
+                                LTRIM(RIGHT('0000' + CAST(a.nroExpediente AS varchar(4)), 4))+'-'+LTRIM(YEAR(a.fechaExpediente)) nro_expediente,
+                                LTRIM(RIGHT('0000' + CAST(a.nroCut AS varchar(4)), 4))+'-'+LTRIM(YEAR(a.fechaCut)) nro_cut,
+                                b.ruc,
+                                b.razon_social,
+                                b.region,
+                                b.provincia,
+                                b.distrito,
+                                b.cadena,
+                                d.nombres+' '+d.paterno+' '+d.materno responsable,
+                                e.area,
+                                e.nro_beneficiarios,
+                                e.inversion_total,
+                                c.codEstadoProceso,
+                                e.estado
+                            FROM InicExpedientePostulante a
+                            LEFT JOIN (
+                                SELECT * FROM vw_data_incentivo
+                            ) b ON b.id = a.codPostulante
+                            LEFT JOIN (
+                                SELECT * FROM InicExpedienteUpfp
+                            ) c ON c.codExpediente = a.id
+                            LEFT JOIN (
+                                SELECT * FROM vw_data_usuario
+                            ) d ON d.id = c.cod_responsable_form
+                            LEFT JOIN (
+                                        SELECT * FROM InicProyecto
+                            ) e ON e.codPostulante = a.codPostulante
+                            WHERE c.HabilitaFormulacion = 1");
     }
 
     #5. Obtengo la relación de expedientes con Resolución Ministerial

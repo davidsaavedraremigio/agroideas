@@ -18,7 +18,7 @@
                             <div class="card-header p-0 pt-1 border-bottom-0">
                                 <ul class="nav nav-tabs" id="TabProcesoUr" role="tablist">
                                     <li class="nav-item"><a class="nav-link active" id="TabProcesoUn001" data-toggle="pill" href="#custom-tabs-proceso-pendiente" role="tab" aria-controls="custom-tabs-proceso-pendiente" aria-selected="true">1. En proceso</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn002" data-toggle="pill" href="#custom-tabs-proceso-aprobado" role="tab" aria-controls="custom-tabs-proceso-aprobado" aria-selected="false">2. Favorables</a></li>
+                                    <li class="nav-item"><a class="nav-link" id="TabProcesoUn002" data-toggle="pill" href="#custom-tabs-proceso-aprobado" role="tab" aria-controls="custom-tabs-proceso-aprobado" aria-selected="false">2. Con opinión favorable</a></li>
                                     <li class="nav-item"><a class="nav-link" id="TabProcesoUn003" data-toggle="pill" href="#custom-tabs-proceso-observado" role="tab" aria-controls="custom-tabs-proceso-observado" aria-selected="false">3. Observado</a></li>
                                     <!--<li class="nav-item"><a class="nav-link" id="TabProcesoUn004" data-toggle="pill" href="#custom-tabs-proceso-archivado" role="tab" aria-controls="custom-tabs-proceso-archivado" aria-selected="false">3. Improcedente</a></li>-->
                                 </ul>
@@ -73,6 +73,19 @@
     </div>		
 </div> 
 {{-- Modal para la observación de registros --}}    
+<div class="modal fade" id="modalObservaExpedienteUn">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormObservaExpedienteUn">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+{{-- Modal para el archivamiento de registros --}}    
 <div class="modal fade" id="modalArchivaExpedienteUn">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn">
@@ -319,10 +332,6 @@
                 }
             });
         });
-
-
-
-
     });
 </script>
 @stop

@@ -50,7 +50,8 @@
                 <select name="resultado_final" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>
                     <option value="1" {{($productor->resultadoFinal == 1)?'selected':''}}>Califica</option>
-                    <option value="0" {{($productor->resultadoFinal == 0)?'selected':''}}>No califica</option>
+                    <option value="0" {{($productor->resultadoFinal == 2)?'selected':''}}>No califica</option>
+                    <option value="0" {{($productor->resultadoFinal == 0)?'selected':''}}>No evaluado</option>
                 </select>
             </div>
             <div class="col-md-4"></div>

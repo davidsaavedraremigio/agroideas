@@ -101,11 +101,11 @@
                                     <div class="card-header">
                                         <h3 class="card-title">Productores que conforman el padrón de beneficiarios</h3>
                                         <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateProductor"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateProductorSda"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div id="viewDataProductor" class="table-responsive" data-id="{{$postulante->id}}"></div>
+                                        <div id="viewDataProductorSda" class="table-responsive" data-id="{{$postulante->id}}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -117,12 +117,39 @@
         </div>
     </div>
 </div>
+{{-- Modal para el registro de nuevos productores--}}    
+<div class="modal fade" id="modalCreateProductorSda">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormCreateProductorSda">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+{{-- Modal para la edición de  registros --}}
+<div class="modal fade" id="modalUpdateProductorSda">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormUpdateProductorSda">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
 {{-- Fin del contenido--}}
 @stop
 @section('scripts')
 <script>
     $(document).ready(function () {
         var urlApp  = "{{ env('APP_URL') }}";
+        var codPostulante    =   $("#viewDataProductorSda").attr('data-id');
         //1. Obtengo los datos de SUNAT
         $("#input_nro_documento").keypress(function(e) {
             var tecla   = (e.keyCode ? e.keyCode : e.which);
@@ -225,6 +252,152 @@
                     $("#Footer_UpdateSda_Disabled").css("display", "none");
                 }
             });
+        });
+        //3. Mostramos la información de los Productores
+        $("#viewDataProductorSda").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+        $("#viewDataProductorSda").load(urlApp+'/sda/productor/'+codPostulante+'/data');
+        //4. Mostramos los formularios para añadir y eliminar registros
+        $('#modalCreateProductorSda').on('show.bs.modal', function (e) {
+            $('#divFormCreateProductorSda').load(urlApp+'/sda/productor/' + codPostulante + '/create');
+        });
+        $('#modalUpdateProductorSda').on('show.bs.modal', function (e) {
+            var codProductor= $(e.relatedTarget).attr('data-id');
+            $('#divFormUpdateProductorSda').load(urlApp+'/sda/productor/'+codProductor+'/edit');
+        });
+        //5. Procesamos la información de Productores
+        $(document).on("click", '#btnCreateProductorSda', function (event) {
+            event.preventDefault();
+            var form = $("#FormCreateProductorSda");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_CreateProductorSda_Enabled").css("display", "none");
+                    $("#Footer_CreateProductorSda_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_CreateProductorSda_Enabled").css("display", "block");
+                    $("#Footer_CreateProductorSda_Disabled").css("display", "none");
+                    $("#modalCreateProductorSda").modal('hide');
+                    $("#viewDataProductorSda").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataProductorSda").load(urlApp+'/sda/productor/'+codPostulante+'/data');
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ProductorSdaAlerts").css("display", "block");
+                    $("#ProductorSdaAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_CreateProductorSda_Enabled").css("display", "block");
+                    $("#Footer_CreateProductorSda_Disabled").css("display", "none");
+                }
+            });
+        });
+        $(document).on("click", '#btnUpdateProductorSda', function (event) {
+            event.preventDefault();
+            var form = $("#FormUpdateProductorSda");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_UpdateProductorSda_Enabled").css("display", "none");
+                    $("#Footer_UpdateProductorSda_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_UpdateProductorSda_Enabled").css("display", "block");
+                    $("#Footer_UpdateProductorSda_Disabled").css("display", "none");
+                    $("#modalUpdateProductorSda").modal('hide');
+                    $("#viewDataProductorSda").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataProductorSda").load(urlApp+'/sda/productor/'+codPostulante+'/data');
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ProductorSdaAlerts").css("display", "block");
+                    $("#ProductorSdaAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_UpdateProductorSda_Enabled").css("display", "block");
+                    $("#Footer_UpdateProductorSda_Disabled").css("display", "none");
+                }
+            });
+        });
+        $(document).on("click", '.btnDeleteProductorSda', function (event) {
+            event.preventDefault();
+            var codigo = $(this).data("id");
+            var urlAction = urlApp+'/sda/productor/'+codigo+'/destroy';
+            // Antes de procesar realizamos una confirmación del proceso
+            alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
+                function () {
+                    $.ajax({
+                        url: urlAction,
+                        method: "POST",
+                        data: codigo,
+                        beforeSend: function () {},
+                        success: function (response) {
+                            var cadena = response;
+                            var mensaje = cadena.mensaje;
+                            alertify.alert("Proceso concluido", mensaje, function () {
+                                $("#viewDataProductorSda").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                                $("#viewDataProductorSda").load(urlApp+'/sda/productor/'+codPostulante+'/data');
+                            });
+                        },
+                        statusCode: {
+                            404: function () {
+                                ertify.error('El sistema presenta problemas de funcionamiento.');
+                            }
+                        },
+                        error: function (x, xs, xt) {
+                            var errors = x.responseJSON;
+                            var errorsHtml = '';
+                            $.each(errors['errors'], function (index, value) {
+                                errorsHtml += '<ul>';
+                                errorsHtml += '<li>' + value + "</li>";
+                                errorsHtml += '</ul>';
+                            });
+                            alertify.alert("Error de validación", errorsHtml, function () {
+                                form[0].reset();
+                            });
+                        }
+                    });
+                },
+                function () {
+                    alertify.error('Proceso cancelado');
+                    $("#viewDataProductorSda").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataProductorSda").load(urlApp+'/sda/productor/'+codPostulante+'/data');
+                }
+            );
         });
     });
 

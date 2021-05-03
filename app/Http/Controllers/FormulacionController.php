@@ -80,7 +80,6 @@ class FormulacionController extends Controller
             try 
             {
                 $proyecto                       =   Proyecto::where('codPostulante', $expediente->codPostulante)->first();
-                $proyecto->tituloProyecto       =   $request->get('titulo');
                 $proyecto->mlProposito          =   $request->get('objetivo');
                 $proyecto->duracion             =   $request->get('duracion');
                 $proyecto->fecha_inicio         =   $request->get('fecha_inicio');

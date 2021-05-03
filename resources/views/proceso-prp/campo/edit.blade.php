@@ -31,11 +31,13 @@
     </div>
     <div class="form-group">
         <div class="row">{!! Form::label('', '2. Resultado de la evaluación') !!}</div>
+        <!--
         <div class="row">
             <div class="col-md-4">{!! Form::label('latitud', 'Latitud') !!} {!! Form::text('latitud', $productor->latitud, ['class' => 'form-control', 'placeholder' => '-00.0000']) !!}</div>
             <div class="col-md-4">{!! Form::label('longitud', 'Longitud') !!} {!! Form::text('longitud', $productor->longitud, ['class' => 'form-control', 'placeholder' => '-00.0000']) !!}</div>
             <div class="col-md-4">{!! Form::label('altitud', 'Altitud (m.s.n.m.)') !!} {!! Form::text('altitud', $productor->altitud, ['class' => 'form-control', 'placeholder' => '0000.00']) !!}</div>
         </div>
+        -->
         <div class="row">
             <div class="col-md-4">{!! Form::label('nro_ha_riego', 'Área bajo riego') !!} {!! Form::text('nro_ha_riego', number_format($productor->nroHaRiego,2), ['class' => 'form-control']) !!}</div>
             <div class="col-md-4">{!! Form::label('nro_ha_geo', 'Área medida') !!} {!! Form::text('nro_ha_geo', number_format($productor->nroHaDisponible,2), ['class' => 'form-control']) !!}</div>
@@ -44,7 +46,8 @@
                     <option value="" selected="selected">No evaluado</option>
                     <option value="1" {{($productor->resultadoEvaluacionCampo == 1)?'selected':''}}>Favorable</option>
                     <option value="2" {{($productor->resultadoEvaluacionCampo == 2)?'selected':''}}>Observado</option>
-                    <option value="0" {{($productor->resultadoEvaluacionCampo == 0)?'selected':''}}>No aplica</option>
+                    <option value="3" {{($productor->resultadoEvaluacionCampo == 3)?'selected':''}}>No aplica</option>
+                    <option value="0" {{($productor->resultadoEvaluacionCampo == 0)?'selected':''}}>No Evaluado</option>
                 </select>
             </div>
         </div>

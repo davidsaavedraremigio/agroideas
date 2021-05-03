@@ -337,9 +337,6 @@ class PostulanteProductorController extends Controller
             $productor->nroHaDisponible             =   $request->get('nro_ha_geo');
             $productor->resultadoEvaluacionCampo    =   $request->get('resultado_final');
             $productor->comentarioEvaluacionCampo   =   $request->get('comentario');
-            $productor->latitud                     =   $request->get('latitud');
-            $productor->longitud                    =   $request->get('longitud');
-            $productor->altitud                     =   $request->get('altitud');
             $productor->updated_auth                =   Auth::user()->id;
             $productor->update();
 
