@@ -111,36 +111,39 @@ class ConvenioMarcoCooperanteController extends Controller
     #7.
     public function update(ConvenioMarcoCooperanteFormRequest $request, $id)
     {
-        #1. Actualizo los datos de la entidad
+        #1. Actualizo la información de la entidad cooperante
         try 
         {
-            $entidad                =   EntidadCooperante::where('nro_documento', $request->get('ruc'))->first();
-            $entidad->tipo_entidad  =   $request->get('tipo');
-            $entidad->nombre        =   $request->get('razon_social');
-            $entidad->ubigeo        =   $request->get('ubigeo');
-            $entidad->direccion     =   $request->get('direccion');
-            $entidad->updated_auth  =   Auth::user()->id;
-            $entidad->update();
+            $cooperante                 =   ConvenioMarcoCooperante::findOrFail($id);
+            $cooperante->nro_documento  =   $request->get('dni');
+            $cooperante->nombres        =   $request->get('nombres');
+            $cooperante->paterno        =   $request->get('paterno');
+            $cooperante->materno        =   $request->get('materno');
+            $cooperante->cargo          =   $request->get('cargo');
+            $cooperante->principal      =   $request->get('principal');
+            $cooperante->updated_auth   =   Auth::user()->id;
+            $cooperante->updated_at     =   now();
+            $cooperante->update();
 
-            #2. Actualizo los datos del representante legal
+            #2. Actualizo la información  
             try 
             {
-                $cooperante                     =   ConvenioMarcoCooperante::findOrFail($id);
-                $cooperante->nro_documento      =   $request->get('dni');
-                $cooperante->nombres            =   $request->get('nombres');
-                $cooperante->paterno            =   $request->get('paterno');
-                $cooperante->materno            =   $request->get('materno');
-                $cooperante->cargo              =   $request->get('cargo');
-                $cooperante->principal          =   $request->get('principal');
-                $cooperante->updated_auth       =   Auth::user()->id;
-                $cooperante->update();
+                $entidad                =   EntidadCooperante::findOrFail($cooperante->codEntidadCooperante);
+                $entidad->tipo_entidad  =   $request->get('tipo');
+                $entidad->nombre        =   $request->get('razon_social');
+                $entidad->ubigeo        =   $request->get('ubigeo');
+                $entidad->direccion     =   $request->get('direccion');
+                $entidad->updated_auth  =   Auth::user()->id;
+                $entidad->updated_at    =   now();
+                $entidad->updated();
 
-                #2. Retorno al menu principal
+                #3. Retorno al menu principal
                 return response()->json([
                     'estado'    =>  '1',
                     'dato'      =>  '',
                     'mensaje'   =>  'La información se procesó de manera exitosa.'
                 ]);
+
             } 
             catch (Exception $e) 
             {

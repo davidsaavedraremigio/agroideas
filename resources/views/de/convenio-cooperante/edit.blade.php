@@ -23,8 +23,8 @@
             <div class="col-md-4">{!! Form::label('principal', 'Organización principal?') !!}
                 <select name="principal" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>
-                    <option value="1" {{($entidad->principal == 1)?'selected':''}}>Si</option>
-                    <option value="0" {{($entidad->principal == 0)?'selected':''}}>No</option>
+                    <option value="1" {{($cooperante->principal == 1)?'selected':''}}>Si</option>
+                    <option value="0" {{($cooperante->principal == 0)?'selected':''}}>No</option>
                 </select>
             </div>
         </div>

@@ -34,6 +34,7 @@ class ConvenioMarcoCooperanteFormRequest extends FormRequest
             'paterno'       =>  'required|max:255',
             'materno'       =>  'required|max:255',
             'cargo'         =>  'required|max:255',
+            'principal'     =>  'required',
         ];
     }
 }
