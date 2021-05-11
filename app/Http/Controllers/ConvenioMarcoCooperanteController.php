@@ -135,7 +135,7 @@ class ConvenioMarcoCooperanteController extends Controller
                 $entidad->direccion     =   $request->get('direccion');
                 $entidad->updated_auth  =   Auth::user()->id;
                 $entidad->updated_at    =   now();
-                $entidad->updated();
+                $entidad->update();
 
                 #3. Retorno al menu principal
                 return response()->json([
