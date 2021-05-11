@@ -61,6 +61,7 @@ class ConvenioMarcoCooperanteController extends Controller
                 $cooperante->materno                    =   $request->get('materno');
                 $cooperante->cargo                      =   $request->get('cargo');
                 $cooperante->estado                     =   1;
+                $cooperante->principal                  =   $request->get('principal');
                 $cooperante->created_auth               =   Auth::user()->id;
                 $cooperante->updated_auth               =   Auth::user()->id;
                 $cooperante->save();
@@ -130,6 +131,7 @@ class ConvenioMarcoCooperanteController extends Controller
                 $cooperante->paterno            =   $request->get('paterno');
                 $cooperante->materno            =   $request->get('materno');
                 $cooperante->cargo              =   $request->get('cargo');
+                $cooperante->principal          =   $request->get('principal');
                 $cooperante->updated_auth       =   Auth::user()->id;
                 $cooperante->update();
 

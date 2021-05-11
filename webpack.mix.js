@@ -39,7 +39,7 @@ const mix = require('laravel-mix');
         'resources/AdminLTE/plugins/select2/js/select2.js',
         'resources/AdminLTE/plugins/numeric/jquery.numeric.js',
     ], 'public/js/app.js');
-    mix.js('resources/js/config-app.js', 'public/js')
+    mix.js('resources/js/config-app.js', 'public/js');
     mix.copyDirectory('resources/AdminLTE/plugins/fontawesome-free/webfonts', 'public/webfonts');
     mix.copyDirectory('resources/AdminLTE/plugins/flexmonster/theme/assets', 'public/webfonts');
     mix.copyDirectory('resources/AdminLTE/dist/img', 'public/img');

@@ -12,7 +12,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6 col-lg-6 col-xs-6">{!! Form::label('tabla', 'Seleccione una tabla') !!}
-                <select name="tabla" class="form-control select2">
+                <select name="tabla" class="form-control select2" style="width: 100%;">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($tablas as $fila)
                         <option value="{{$fila->id}}">{{$fila->nombre}}</option>

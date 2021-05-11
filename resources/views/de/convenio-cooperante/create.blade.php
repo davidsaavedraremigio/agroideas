@@ -19,8 +19,15 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-8">{!! Form::label('tipo', 'Tipo de entidad') !!} {!! Form::text('tipo', '', ['class' => 'form-control', 'id' => 'input_tipo_entidad', 'readonly' => 'readonly']) !!}</div>
+            <div class="col-md-4">{!! Form::label('tipo', 'Tipo de entidad') !!} {!! Form::text('tipo', '', ['class' => 'form-control', 'id' => 'input_tipo_entidad', 'readonly' => 'readonly']) !!}</div>
             <div class="col-md-4">{!! Form::label('ubigeo', 'Ubigeo') !!} {!! Form::text('ubigeo', '', ['class' => 'form-control', 'id' => 'input_ubigeo', 'readonly' => 'readonly']) !!}</div>
+            <div class="col-md-4">{!! Form::label('principal', 'Organización principal?') !!}
+                <select name="principal" class="form-control">
+                    <option value="" selected="selected">Seleccionar</option>
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="form-group">

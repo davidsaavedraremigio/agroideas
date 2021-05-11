@@ -22,16 +22,24 @@
             <div class="col-md-8 col-lg-8 col-xs-8">{!! Form::label('nombre', 'Nombre') !!} {!! Form::text('nombre', $proceso->nombre, ['class' => 'form-control', 'placeholder' => 'Nombre del proceso']) !!}</div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-xs-12">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::text('descripcion', $proceso->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripción del módulo']) !!}</div>
-        </div>
-    </div>
+    
     <div class="form-group">
         <div class="row">
             <div class="col-md-4 col-lg-4 col-xs-4">{!! Form::label('orden', 'Nro Orden') !!} {!! Form::number('orden', $proceso->orden, ['class' => 'form-control', 'min' => '1', 'max' => '99']) !!}</div>
             <div class="col-md-4 col-lg-4 col-xs-4">{!! Form::label('ruta', 'Ubicación') !!} {!! Form::text('ruta', $proceso->ruta, ['class' => 'form-control', 'placeholder' => 'Ingrese la ruta del controlador']) !!}</div>
             <div class="col-md-4 col-lg-4 col-xs-4">{!! Form::label('icono', 'Icono') !!} {!! Form::text('icono', $proceso->icono, ['class' => 'form-control', 'placeholder' => 'Código de icono']) !!}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-8 col-lg-8 col-xs-8">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::text('descripcion', $proceso->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripción del módulo']) !!}</div>
+            <div class="col-md-4">{!! Form::label('estado', 'Situación') !!}
+                <select name="estado" class="form-control">
+                    <option value="" selected="selected">Seleccionar</option>
+                    <option value="1" {{($proceso->estado == 1)?'selected':''}}>Habilitado</option>
+                    <option value="0" {{($proceso->estado == 0)?'selected':''}}>Deshabilitado</option>
+                </select>
+            </div>
         </div>
     </div>
 

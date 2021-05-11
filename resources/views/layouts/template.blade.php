@@ -30,6 +30,7 @@
     <script src="{!! asset('js/config-app.js') !!}"></script>
     <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
     @yield('scripts')
+    @routes
     @show
 </body>
 </html>

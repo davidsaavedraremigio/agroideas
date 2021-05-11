@@ -375,6 +375,30 @@ Route::get('sda/convenio/data', 'ConvenioSdaController@show')->name('convenio.da
 Route::get('sda/convenio/{postulante}/create', 'ConvenioSdaController@create')->name('convenio.create');
 Route::get('sda/convenio/data-pendiente', 'ConvenioSdaController@showDataPendiente')->name('convenio.data-pendiente');
 Route::get('sda/convenio/data-aprobado', 'ConvenioSdaController@showDataAprobado')->name('convenio.data-aprobado');
+Route::get('sda/convenio/{postulante}/estado', 'ConvenioSdaController@editEstadoContrato')->name('convenio.estado');
+Route::post('sda/convenio/estado/{contrato}', 'ConvenioSdaController@updateEstadoContrato')->name('convenio.estado-update');
+
+#7.5. Módulo para el mantenimiento de información general
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

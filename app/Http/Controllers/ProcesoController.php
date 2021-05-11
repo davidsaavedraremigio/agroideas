@@ -122,6 +122,7 @@ class ProcesoController extends Controller
             $proceso->parent        =   $request->get('parent');
             $proceso->orden         =   $request->get('orden');
             $proceso->descripcion   =   $request->get('descripcion');
+            $proceso->estado        =   $request->get('estado');
             $proceso->update();
 
             #2. Retorno al servidor principal
