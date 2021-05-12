@@ -377,11 +377,25 @@ Route::get('sda/convenio/data-pendiente', 'ConvenioSdaController@showDataPendien
 Route::get('sda/convenio/data-aprobado', 'ConvenioSdaController@showDataAprobado')->name('convenio.data-aprobado');
 Route::get('sda/convenio/{postulante}/estado', 'ConvenioSdaController@editEstadoContrato')->name('convenio.estado');
 Route::post('sda/convenio/estado/{contrato}', 'ConvenioSdaController@updateEstadoContrato')->name('convenio.estado-update');
-
 #7.5. Módulo para el mantenimiento de información general
-
-
-
+Route::resource('sda/proyecto', 'ProyectoController')->except(['show','create', 'update', 'destroy']);
+Route::post('sda/proyecto/{proyecto}', 'ProyectoController@update')->name('proyecto.update');
+Route::get('sda/proyecto/data', 'ProyectoController@show')->name('proyecto.data');
+#7.6. Módulo para el mantenimiento de Indicadores de Linea de base
+Route::get('sda/linea-base', 'PostulanteResultadoController@indexLineaBase')->name('linea-base.index');
+Route::get('sda/linea-base/{postulante}/create', 'PostulanteResultadoController@createLineaBase')->name('linea-base.create');
+Route::post('sda/linea-base', 'PostulanteResultadoController@storeLineaBase')->name('linea-base.store');
+Route::get('sda/linea-base/{postulante}/data', 'PostulanteResultadoController@showLineaBase')->name('linea-base.data');
+Route::get('sda/linea-base/{indicador}/edit', 'PostulanteResultadoController@editLineaBase')->name('linea-base.edit');
+Route::post('sda/linea-base/{indicador}', 'PostulanteResultadoController@updateLineaBase')->name('linea-base.update');
+#7.7. Módulo para el registro de ejecución de indicadores
+Route::get('sda/resultado/{postulante}/data', 'PostulanteResultadoController@showEjecucion')->name('indicador-resultado.data');
+Route::get('sda/resultado/{indicador}/edit', 'PostulanteResultadoController@editEjecucion')->name('indicador-resultado.edit');
+Route::post('sda/resultado/{indicador}', 'PostulanteResultadoController@updateEjecucion')->name('indicador-resultado.update');
+#7.7. Módulo para el registro de Indicadores de Linea de cierre
+Route::get('sda/linea-cierre/{postulante}/data', 'PostulanteResultadoController@showLineaCierre')->name('linea-cierre.data');
+Route::get('sda/linea-cierre/{indicador}/edit', 'PostulanteResultadoController@editLineaCierre')->name('linea-cierre.edit');
+Route::post('sda/linea-cierre/{indicador}', 'PostulanteResultadoController@updateLineaCierre')->name('linea-cierre.update');
 
 
 
@@ -496,45 +510,6 @@ Route::get('iniciativa/difusion-entidad-participante/{difusion}/create', 'Difusi
 Route::post('iniciativa/difusion-entidad-participante/{entidad}/destroy', 'DifusionEntidadController@destroy')->name('difusion-entidad.destroy');
 
 
-
-/*
-#21. Módulo para el registro de información general de SDAs
-Route::resource('proceso-pdn/proyecto', 'ProyectoSdaController')->except(['show', 'update']);
-Route::get('proceso-pdn/proyecto/data', 'ProyectoSdaController@show')->name('proyecto.data');
-Route::post('proceso-pdn/proyecto/{proyecto}', 'ProyectoSdaController@update')->name('proyecto.update');
-#22. Módulo para el registro de información de desembolsos de SDAs
-Route::resource('proceso-pdn/desembolso', 'DesembolsoSdaController')->except(['show', 'create', 'destroy']);
-Route::get('proceso-pdn/desembolso/{proyecto}/data', 'DesembolsoSdaController@show')->name('desembolso.data');
-Route::get('proceso-pdn/desembolso/{proyecto}/create', 'DesembolsoSdaController@create')->name('desembolso.create');
-Route::post('proceso-pdn/desembolso/{desembolso}/destroy', 'DesembolsoSdaController@destroy')->name('desembolso.destroy');
-#23. Consolidado de información de Sda Aprobados
-Route::get('proceso-pdn/pivot-pdn','PivotController@index_sda_aprobado')->name('pivot-pdn.index');
-Route::get('proceso-pdn/pivot-pdn/data', 'PivotController@data_sda_aprobado')->name('pivot-pdn.data');
-#24. Módulo para importar información de Excel a una tabla
-Route::get('proceso-pdn/import-desembolso', 'ImportDesembolsoSdaController@index')->name('import-sda.index');
-Route::get('proceso-pdn/import-desembolso/data','ImportDesembolsoSdaController@show')->name('import-sda.data');
-Route::get('proceso-pdn/import-desembolso/create','ImportDesembolsoSdaController@importForm')->name('import-sda.importForm');
-Route::post('proceso-pdn/import-desembolso','ImportDesembolsoSdaController@import')->name('import-sda.import');
-Route::post('proceso-pdn/import-desembolso/{desembolso}/destroy', 'ImportDesembolsoSdaController@destroy')->name('desembolso.destroy');
-Route::get('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@formDelete')->name('import-sda.deleteForm');
-Route::post('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@procesaDelete')->name('import-sda.delete');
-#30. Realizamos la evaluación de los expedientes que llegan a la Unidad Regional
-Route::get('proceso-pdn/proceso-ur', 'ProcesoSdaUrController@index')->name('sda-ur.index');
-Route::get('proceso-pdn/proceso-ur/data', 'ProcesoSdaUrController@data')->name('sda-ur.data');
-Route::get('proceso-pdn/proceso-ur/data/observado', 'ProcesoSdaUrController@dataObservado')->name('sda-ur.data-observado');
-Route::get('proceso-pdn/proceso-ur/data/improcedente', 'ProcesoSdaUrController@dataImprocedente')->name('sda-ur.data-improcedente');
-Route::get('proceso-pdn/proceso-ur/data/elegible', 'ProcesoSdaUrController@dataElegible')->name('sda-ur.data-elegible');
-Route::get('proceso-pdn/proceso-ur/create', 'ProcesoSdaUrController@create')->name('sda-ur.create');
-Route::post('proceso-pdn/proceso-ur/create', 'ProcesoSdaUrController@createProcess')->name('sda-ur.create-proceso');
-Route::get('proceso-pdn/proceso-ur/{expediente}/edit', 'ProcesoSdaUrController@edit')->name('sda-ur.edit');
-Route::post('proceso-pdn/proceso-ur/edit', 'ProcesoSdaUrController@editProcess')->name('sda-ur.edit-proceso');
-Route::get('proceso-pdn/proceso-ur/{expediente}/observa', 'ProcesoSdaUrController@observaForm')->name('sda-ur.observa-form');
-Route::post('proceso-pdn/proceso-ur/observa', 'ProcesoSdaUrController@observaProcess')->name('sda-ur.observa-proceso');
-Route::get('proceso-pdn/proceso-ur/{expediente}/improcedente', 'ProcesoSdaUrController@improcedenteForm')->name('sda-ur.improcedente-form');
-Route::post('proceso-pdn/proceso-ur/improcedente', 'ProcesoSdaUrController@improcedenteProcess')->name('sda-ur.improcedente-proceso');
-Route::get('proceso-pdn/proceso-ur/{expediente}/elegible', 'ProcesoSdaUrController@elegibleForm')->name('sda-ur.elegible-form');
-Route::post('proceso-pdn/proceso-ur/elegible', 'ProcesoSdaUrController@elegibleProcess')->name('sda-ur.elegible-proceso');
-*/
 
 
 #1.17. Módulo para la consulta reniec y sunat

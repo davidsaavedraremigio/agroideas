@@ -24,7 +24,18 @@ class ProyectoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'titulo'            =>  'required|max:600',
+            'incentivo'         =>  'required',
+            'duracion'          =>  'required|digits_between:1,72',
+            'inicio'            =>  'required|date',
+            'aporte_pcc'        =>  'required|numeric',
+            'aporte_entidad'    =>  'required|numeric',
+            'aporte_total'      =>  'required|numeric',
+            'prod_var'          =>  'required|numeric',
+            'prod_muj'          =>  'required|numeric',
+            'prod_total'        =>  'required|integer',
+            'cadena'            =>  'required',
+            'area'              =>  'required|numeric',
         ];
     }
 }
