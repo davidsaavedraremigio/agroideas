@@ -18,7 +18,6 @@
                 <div class="tab-content" id="TabProyectoContent">
                     <div class="tab-pane fade show active" id="custom-tabs-proyecto" role="tabpanel" aria-labelledby="TabProyecto001">
                         {!!Form::model($postulante,['id'=>'FormUpdateProyecto', 'method'=>'POST', 'files' => 'true', 'enctype' => 'multipart/form-data', 'route'=>['proyecto.update',$postulante->id]])!!}
-                        {{Form::token()}}
                         {{-- Panel para mostrar alertas --}}
                         <div id="ProyectoAlerts" class="alert alert-danger" style="display: none;"></div>
                         <div class="form-group">
@@ -52,7 +51,7 @@
                                     <select name="cadena" class="form-control select2">
                                         <option value="" selected="selected">Seleccionar</option>
                                         @foreach ($cadenas as $fila)
-                                        <option value="{{$fila->id}}">{{$fila->descripcion}}</option>    
+                                        <option value="{{$fila->id}}" {{($fila->id == $cadena->codCadena)?'selected':''}}>{{$fila->descripcion}}</option>    
                                         @endforeach
                                     </select>
                                 </div>
@@ -64,7 +63,7 @@
                             <div class="row">
                                 <div class="col-md-2">{!! Form::label('prod_var', 'Productores varones') !!} {!! Form::number('prod_var', $proyecto->nro_beneficiarios_varones, ['class' => 'form-control productor', 'min' => '1', 'max' => '99', 'onChange' => 'sumaProductor();']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('prod_muj', 'Productores mujeres') !!} {!! Form::number('prod_muj', $proyecto->nro_beneficiarios_mujeres, ['class' => 'form-control productor', 'min' => '1', 'max' => '99', 'onChange' => 'sumaProductor();']) !!}</div>
-                                <div class="col-md-2">{!! Form::label('prod_beneficiarios', 'Productores total') !!} {!! Form::number('prod_beneficiarios', $proyecto->nro_beneficiarios, ['class' => 'form-control', 'id' => 'input_productor_total', 'min' => '1', 'max' => '99', 'readonly' => 'readonly']) !!}</div>
+                                <div class="col-md-2">{!! Form::label('prod_total', 'Productores total') !!} {!! Form::number('prod_total', $proyecto->nro_beneficiarios, ['class' => 'form-control', 'id' => 'input_productor_total', 'min' => '1', 'max' => '99', 'readonly' => 'readonly']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('aporte_pcc', 'Aporte PCC (S/.)') !!} {!! Form::text('aporte_pcc', number_format($proyecto->inversion_pcc,2,'.',''), ['class' => 'form-control importe', 'onChange' => 'sumaImporte();']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('aporte_entidad', 'Aporte Entidad (S/.)') !!} {!! Form::text('aporte_entidad', number_format($proyecto->inversion_entidad,2,'.',''), ['class' => 'form-control importe', 'onChange' => 'sumaImporte();']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('aporte_total', 'Aporte Total (S/.)') !!} {!! Form::text('aporte_total', number_format($proyecto->inversion_total,2,'.',''), ['class' => 'form-control', 'id' => 'input_importe_total', 'readonly' => 'readonly']) !!}</div>
@@ -87,7 +86,25 @@
                         {{-- Panel para mostrar alertas --}}
                         {!! Form::close() !!}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-productor" role="tabpanel" aria-labelledby="TabProyecto002"></div>
+                    <div class="tab-pane fade" id="custom-tabs-productor" role="tabpanel" aria-labelledby="TabProyecto002">
+                    {{-- Contenido del módulo Indicadores - Linea de base --}}
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="card card-default color-palette-box">
+                                <div class="card-header">
+                                    <h3 class="card-title">Productores que conforman el Plan de negocio</h3>
+                                    <div class="card-tools">
+                                        <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateProductor"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="viewDataProductor" class="table-responsive" data-id="{{$postulante->id}}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    {{-- Contenido del módulo Indicadores - Linea de base --}}    
+                    </div>
                     <div class="tab-pane fade" id="custom-tabs-lb" role="tabpanel" aria-labelledby="TabProyecto003">
                         {{-- Contenido del módulo Indicadores - Linea de base --}}
                         <section class="content">
@@ -195,6 +212,20 @@
         </div>
     </div>		
 </div>
+<div class="modal fade" id="modalCreateProductor">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormCreateProductor">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+{{-- Fin del contenido--}}
+
 
 {{-- Fin del contenido --}}
 @stop
@@ -253,7 +284,8 @@
         $("#viewDataResultado").load(route('indicador-resultado.data', codPostulante));
         $("#viewDataLineaCierre").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
         $("#viewDataLineaCierre").load(route('linea-cierre.data', codPostulante));
-
+        $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+        $("#viewDataProductor").load(route('productor-sda.data', codPostulante));
         //3. Muestro los modals
         $('#modalCreateLineaBase').on('show.bs.modal', function (e) {
             $("#divFormCreateLineaBase").load(route('linea-base.create', codPostulante));
@@ -269,6 +301,9 @@
         $('#modalUpdateLineaCierre').on('show.bs.modal', function (e) {
             var codLineaCierre= $(e.relatedTarget).attr('data-id');
             $("#divFormUpdateLineaCierre").load(route('linea-cierre.edit', codLineaCierre));
+        });
+        $('#modalCreateProductor').on('show.bs.modal', function (e) {
+            $("divFormCreateProductor").load(route('productor-sda.create', codPostulante));
         });
 
         //4. Proceso los formularios
@@ -470,6 +505,5 @@
         });
         $('#input_productor_total').val(add);
     }; 
-
 </script>
 @stop

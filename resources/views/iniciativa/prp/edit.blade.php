@@ -217,7 +217,7 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = urlApp+'/ruc/'+ruc;
+                    var urlAction = route('servicio.sunat', ruc);
                     $.ajax({
                         url:    urlAction,
                         method: "GET",

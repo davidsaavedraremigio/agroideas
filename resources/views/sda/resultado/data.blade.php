@@ -1,4 +1,4 @@
-<table id="tabla-linea-base" class="table table-sm table-bordered table-striped">
+<table id="tabla-ejecucion" class="table table-sm table-bordered table-striped">
     <thead class="bg-success">
         <tr>
             <th class="text-center"><small>Nº</small></th>
@@ -33,6 +33,6 @@
 @section('scripts')
 <script>
     $(function () {
-        $('#tabla-linea-base').DataTable();
+        $('#tabla-ejecucion').DataTable();
     });
 </script>
