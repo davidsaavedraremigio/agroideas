@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Evaluación Técnica')
+@section('title', 'Evaluación Técnica y Formulación')
 @section('content')
 {{-- Inicio del contenido--}}
 <section class="content">

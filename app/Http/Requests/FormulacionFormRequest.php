@@ -24,7 +24,6 @@ class FormulacionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo'            =>  'required|max:600',
             'fecha_inicio'      =>  'required|date',
             'duracion'          =>  'required|numeric',
             'objetivo'          =>  'required|max:900',

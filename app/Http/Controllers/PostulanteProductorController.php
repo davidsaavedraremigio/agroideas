@@ -86,7 +86,7 @@ class PostulanteProductorController extends Controller
                     $productor->nroHaSolicitaReconvertir=   $request->get('nro_ha_solicitada');
                     $productor->nroHaPropiedad          =   $request->get('nro_ha');
                     $productor->codPostulante           =   $postulante->id;
-                    $productor->estado                  =   1;
+                    $productor->cod_estado                  =   1;
                     $productor->created_auth            =   Auth::user()->id;
                     $productor->updated_auth            =   Auth::user()->id;
                     $productor->save();
@@ -253,7 +253,7 @@ class PostulanteProductorController extends Controller
             $productor->nroHaPropiedad              =   $request->get('nro_ha');
             $productor->nroHaReconvertir            =   $request->get('nro_ha_final');
             $productor->resultadoFinal              =   $request->get('resultado_final');
-            $productor->estado                      =   $request->get('resultado_final');
+            $productor->cod_estado                      =   $request->get('resultado_final');
             $productor->comentarioResultadoFinal    =   $request->get('comentarios');
             $productor->updated_auth                =   Auth::user()->id;
             $productor->update();
