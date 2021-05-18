@@ -82,9 +82,7 @@ class PostulanteResultadoController extends Controller
             $indicador->valor_linea_cierre      =   0;
             $indicador->estado                  =   1;
             $indicador->created_auth            =   Auth::user()->id;
-            $indicador->created_at              =   now();
             $indicador->updated_auth            =   Auth::user()->id;
-            $indicador->updated_at              =   now();
             $indicador->save();
 
             #2. Retorno al menu principal
@@ -145,7 +143,6 @@ class PostulanteResultadoController extends Controller
             $indicador->proyeccion_anio_9   =   $request->get('anio_9');
             $indicador->proyeccion_anio_10  =   $request->get('anio_10');
             $indicador->updated_auth        =   Auth::user()->id;
-            $indicador->updated_at          =   now();
             $indicador->update();
 
             #2. Retorno al menu principal
@@ -205,7 +202,6 @@ class PostulanteResultadoController extends Controller
             $indicador->ejecucion_anio_9        =   $request->get('anio_9');
             $indicador->ejecucion_anio_10       =   $request->get('anio_10');
             $indicador->updated_auth            =   Auth::user()->id;
-            $indicador->updated_at              =   now();
             $indicador->update();
 
             #2. Retorno al menu principal
@@ -256,7 +252,6 @@ class PostulanteResultadoController extends Controller
             $indicador                      =   PostulanteResultado::findOrFail($id);
             $indicador->valor_linea_cierre  =   $request->get('linea_cierre');
             $indicador->updated_auth        =   Auth::user()->id;
-            $indicador->updated_at          =   now();
             $indicador->update();
 
             #2. Retorno al menu principal
