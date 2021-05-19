@@ -27,7 +27,6 @@ class ExpedientePrpUrArchivaFormRequest extends FormRequest
             'responsable'       =>  'required',
             'nro_carta'         =>  'required',
             'fecha_carta'       =>  'date|required',
-            'estado_situacional'=>  'required',
         ];
     }
 }

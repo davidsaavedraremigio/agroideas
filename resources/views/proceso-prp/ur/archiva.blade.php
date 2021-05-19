@@ -18,10 +18,7 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-12"><label for="">ARCHIVAMIENTO - PRP</label></div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">{!! Form::label('responsable', 'Responsable de evaluación') !!}
+            <div class="col-md-4">{!! Form::label('responsable', 'Especialista responsable') !!}
                 <select name="responsable" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($personal as $fila)
@@ -29,21 +26,8 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-3">{!! Form::label('nro_carta', 'Nº carta') !!} {!! Form::text('nro_carta', $ur->nro_carta_archivo, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-3">{!! Form::label('fecha_carta', 'Fecha carta') !!} {!! Form::date('fecha_carta', $ur->fecha_carta_archivo, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">{!! Form::label('estado_situacional', 'Estado situacional') !!}
-                <select name="estado_situacional" class="form-control select2">
-                    <option value="" selected="selected">Seleccionar</option>
-                    @foreach ($estado as $fila)
-                    <option value="{{$fila->Orden}}" {{($fila->Orden == $ur->codEstadoProceso)?'selected':''}}>{{$fila->Nombre}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-4">{!! Form::label('nro_carta', 'Nº de carta') !!} {!! Form::number('nro_carta', $ur->nro_carta_archivo, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_carta', 'Fecha') !!} {!! Form::date('fecha_carta', $ur->fecha_carta_archivo, ['class' => 'form-control', 'min' => $expediente->fechaExpediente ]) !!}</div>
         </div>
     </div>
 </div>

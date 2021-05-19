@@ -19,6 +19,7 @@
                         {{Form::token()}}
                         {{-- Panel para mostrar alertas --}}
 						<div id="CapacitacionAlerts" class="alert alert-danger" style="display: none;"></div>
+                        
                         {{-- Panel para mostrar alertas --}}
                         <div class="form-group">
                             <div class="row">

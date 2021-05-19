@@ -411,11 +411,11 @@ class ExpedienteController extends Controller
         #1. Obtengo la información del expediente
         $expediente         =   Expediente::findOrFail($id);
         #2. Obtengo las variables que iran en los combos
-        $personal           =   Usuario::getDataOficina($expediente->codOficina);
-        $estado             =   TablaValor::getDetalleTabla('EstadoProceso');
+        $area               =   6;
+        $personal           =   Usuario::getArea($area);
         $ur                 =   ExpedienteUr::getData($id);
         #3. Retorno a la vista
-        return view('proceso-prp.ur.archiva', compact('expediente', 'personal', 'estado', 'ur'));        
+        return view('proceso-prp.ur.archiva', compact('expediente', 'personal', 'ur'));        
     }
 
     #12. Realizo el procesamiento de la archivamiento
@@ -435,7 +435,7 @@ class ExpedienteController extends Controller
                 $ur->cod_responsable_doc        =   $request->get('responsable');
                 $ur->nro_carta_archivo          =   $request->get('nro_carta');
                 $ur->fecha_carta_archivo        =   $request->get('fecha_carta');
-                $ur->codEstadoProceso           =   $request->get('estado_situacional');
+                $ur->codEstadoProceso           =   3;#Archivado
                 $ur->updated_auth               =   Auth::user()->id;
                 $ur->update();
 
