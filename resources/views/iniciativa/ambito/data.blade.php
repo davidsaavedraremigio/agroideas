@@ -1,5 +1,5 @@
 <table id="TablaUbigeo" class="table table-striped table-bordered">
-    <thead>
+    <thead class="bg-primary">
         <tr>
             <th class="text-center">Nº</th>
             <th class="text-center">Región</th>

@@ -1,5 +1,5 @@
 <table id="TablaProductor" class="table table-bordered table-striped table-sm">
-    <thead>
+    <thead class="bg-primary">
         <tr>
             <th class="text-center"><small>Nº DNI</small></th>
             <th class="text-center"><small>Nombres y apellidos</small></th>

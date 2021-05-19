@@ -27,8 +27,8 @@ class AmbitoIntervencionFormRequest extends FormRequest
             'region'        =>  'required',
             'provincia'     =>  'required',
             'distrito'      =>  'required',
-            'latitud'       =>  'required|max:255',
-            'longitud'      =>  'required|max:255',
+            'latitud'       =>  'nullable|max:255',
+            'longitud'      =>  'nullable|max:255',
             'descripcion'   =>  'max:600',
             'principal'     =>  'required',
         ];
