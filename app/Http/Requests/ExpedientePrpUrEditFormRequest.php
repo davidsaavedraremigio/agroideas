@@ -24,7 +24,6 @@ class ExpedientePrpUrEditFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'entidad'               =>  'required',
             'fecha_recepcion'       =>  'date|required',
             'nro_cut'               =>  'required|max:50',
             'nro_expediente'        =>  'required|max:50',

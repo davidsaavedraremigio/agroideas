@@ -49,16 +49,6 @@
             <div class="col-md-4">{!! Form::label('fecha_informe_geo', 'Fecha de informe') !!} {!! Form::date('fecha_informe_geo', $ur->fecha_informe_geo, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12"><label for="">INFORME DE OPINIÓN TECNICA FAVORABLE Y DERIVACIÓN</label></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">{!! Form::label('nro_informe_tec', 'Nº de informe') !!} {!! Form::number('nro_informe_tec', $ur->nro_informe_tec, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_informe_tec', 'Fecha de informe') !!} {!! Form::date('fecha_informe_tec', $ur->fecha_informe_tec, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_derivacion', 'Fecha de derivacion') !!} {!! Form::date('fecha_derivacion', $ur->fecha_derivacion, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-        </div>
-    </div>
 </div>
 <div class="modal-footer justify-content-between">
     <div id="Footer_DerivaExpedienteUR_Enabled">
