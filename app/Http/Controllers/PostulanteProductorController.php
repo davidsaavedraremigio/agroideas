@@ -220,7 +220,28 @@ class PostulanteProductorController extends Controller
     #9.
     public function destroy($id)
     {
-        //
+        try 
+        {
+            $productor              =   ProductorPrp::findOrFail($id);
+            $productor->cod_estado  =   0;
+            $productor->updated_auth=   Auth::user()->id;
+            $productor->update();
+
+            #2. Retorno al menu principal
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
     }
 
     #10. Muestro los datos de los resultados de evaluación final

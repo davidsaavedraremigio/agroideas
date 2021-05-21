@@ -412,13 +412,13 @@
         });
         //6. Módulo Productores
         $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-        $("#viewDataProductor").load(urlApp+'/iniciativa/socio/'+ codigo +'/data');
+        $("#viewDataProductor").load(route("socio.data", codigo));
         $('#modalCreateProductor').on('show.bs.modal', function (e) {
-            $('#divFormCreateProductor').load(urlApp+'/iniciativa/socio/' + codigo + '/create');
+            $("#divFormCreateProductor").load(route("socio.create", codigo));
         });
         $('#modalUpdateProductor').on('show.bs.modal', function (e) {
             var codProductor= $(e.relatedTarget).attr('data-id');
-            $('#divFormUpdateProductor').load(urlApp+'/iniciativa/socio/'+codProductor+'/edit');
+            $('#divFormUpdateProductor').load(route("socio.edit", codProductor));
         });
         $(document).on("click", '#btnCreateProductor', function (event) {
             event.preventDefault();
@@ -444,7 +444,7 @@
                     $("#Footer_CreateProductor_Disabled").css("display", "none");
                     $("#modalCreateProductor").modal('hide');
                     $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataProductor").load(urlApp+'/iniciativa/socio/'+ codigo +'/data');
+                    $("#viewDataProductor").load(route("socio.data", codigo));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -488,7 +488,7 @@
                     $("#Footer_UpdateProductor_Disabled").css("display", "none");
                     $("#modalUpdateProductor").modal('hide');
                     $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataProductor").load(urlApp+'/iniciativa/socio/'+ codigo +'/data');
+                    $("#viewDataProductor").load(route("socio.data", codigo));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -508,6 +508,52 @@
                 }
             });
         });
+        $(document).on("click", '.btnDeleteProductor', function (event) {
+            event.preventDefault();
+            var codigo = $(this).data("id");
+            var urlAction = route("socio.destroy", codigo);
+            // Antes de procesar realizamos una confirmación del proceso
+            alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
+                function () {
+                    $.ajax({
+                        url: urlAction,
+                        method: "POST",
+                        data: codigo,
+                        beforeSend: function () {},
+                        success: function (response) {
+                            var cadena = response;
+                            var mensaje = cadena.mensaje;
+                            alertify.alert("Proceso concluido", mensaje, function () {
+                                $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                                $("#viewDataProductor").load(route("socio.data", codigo));
+                            });
+                        },
+                        statusCode: {
+                            404: function () {
+                                ertify.error('El sistema presenta problemas de funcionamiento.');
+                            }
+                        },
+                        error: function (x, xs, xt) {
+                            var errors = x.responseJSON;
+                            var errorsHtml = '';
+                            $.each(errors['errors'], function (index, value) {
+                                errorsHtml += '<ul>';
+                                errorsHtml += '<li>' + value + "</li>";
+                                errorsHtml += '</ul>';
+                            });
+                            alertify.alert("Error de validación", errorsHtml, function () {
+                                 form[0].reset();
+                            });
+                        }
+                    });
+                },
+                function () {
+                    alertify.error('Proceso cancelado');
+                    $("#viewDataProductor").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                    $("#viewDataProductor").load(route("socio.data", codigo));
+                }
+            );
+        });        
     });
 </script>
 @stop
