@@ -1,13 +1,13 @@
 <table id="TablaParticipanteCapacitacion" class="table table-striped table-bordered">
-    <thead>
+    <thead class="bg-success">
         <tr>
-            <th class="text-center"><small>DNI</small></th>
-            <th class="text-center"><small>Nombres y apellidos</small></th>
-            <th class="text-center"><small>Edad</small></th>
-            <th class="text-center"><small>Actividad del Productor</small></th>
-            <th class="text-center"><small>Actividad del Participante</small></th>
-            <th class="text-center"><small>Nº RUC</small></th>
-            <th class="text-center"><small>Razon social</small></th>
+            <th class="text-center">DNI</th>
+            <th class="text-center">Nombres y apellidos</th>
+            <th class="text-center">Edad</th>
+            <th class="text-center">Actividad del productor</th>
+            <th class="text-center">Actividad del participante</th>
+            <th class="text-center">Nº RUC</th>
+            <th class="text-center">Razon Social</th>
             <th class="text-center" width="5%"><i class="fa fa-cog"></i></th>
         </tr>
     </thead>

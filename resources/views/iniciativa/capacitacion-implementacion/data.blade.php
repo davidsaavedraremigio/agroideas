@@ -1,15 +1,15 @@
 <table id="TablaImplementacionCapacitacion" class="table table-striped table-bordered">
     <thead class="bg-success">
         <tr>
-            <th class="text-center">Nº</th>
-            <th class="text-center">Tipo</th>
-            <th class="text-center">Nombre del evento</th>
-            <th class="text-center">Temática</th>
-            <th class="text-center">Fecha del implementación</th>
-            <th class="text-center">Región</th>
-            <th class="text-center">Provincia</th>
-            <th class="text-center">Distrito</th>
-            <th class="text-center">Especialista responsable</th>
+            <th class="text-center"><small>Nº</small></th>
+            <th class="text-center"><small>Tipo</small></th>
+            <th class="text-center" width="20%"><small>Nombre del evento</small></th>
+            <th class="text-center"><small>Temática</small></th>
+            <th class="text-center"><small>Fecha del implementación</small></th>
+            <th class="text-center"><small>Región</small></th>
+            <th class="text-center"><small>Provincia</small></th>
+            <th class="text-center"><small>Distrito</small></th>
+            <th class="text-center"><small>Especialista responsable</small></th>
             <th class="text-center" width="5%"><i class="fa fa-cog"></i></th>
         </tr>
     </thead>
@@ -34,29 +34,5 @@
 </table>
 @section('scripts')
 <script>
-        $(function () {
-            $('#TablaImplementacionCapacitacion').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'print',
-                    {
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        sheetName: 'Exported data'
-                    }
-                ]
-            });
-        });
+    $('#TablaImplementacionCapacitacion').DataTable();
 </script>

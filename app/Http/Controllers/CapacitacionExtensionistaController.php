@@ -39,13 +39,14 @@ class CapacitacionExtensionistaController extends Controller
     {
         try 
         {
+            $fecha                                  =   Carbon::now();
             $extensionista                          =   new CapacitacionExtensionista;
             $extensionista->codInicCapacitacion     =   $request->get('codigo');
             $extensionista->dni                     =   $request->get('dni');
             $extensionista->nombres                 =   $request->get('nombres');
             $extensionista->paterno                 =   $request->get('paterno');
             $extensionista->materno                 =   $request->get('materno');
-            $extensionista->fecha                   =   $request->get('fecha');
+            $extensionista->fecha                   =   $fecha->subYears($request->get('edad'));
             $extensionista->sexo                    =   $request->get('sexo');
             $extensionista->estado                  =   1;
             $extensionista->created_auth            =   Auth::user()->id;
@@ -81,7 +82,8 @@ class CapacitacionExtensionistaController extends Controller
     public function edit($id)
     {
         $extensionista      =   CapacitacionExtensionista::findOrFail($id);
-        return view($this->path.'.edit', compact('extensionista'));
+        $edad               =   Carbon::createFromDate($extensionista->fecha)->age;
+        return view($this->path.'.edit', compact('extensionista', 'edad'));
     }
 
     #7.
@@ -89,12 +91,13 @@ class CapacitacionExtensionistaController extends Controller
     {
         try 
         {
+            $fecha                      =   Carbon::now();
             $extensionista              =   CapacitacionExtensionista::findOrFail($id);
             $extensionista->dni         =   $request->get('dni');
             $extensionista->nombres     =   $request->get('nombres');
             $extensionista->paterno     =   $request->get('paterno');
             $extensionista->materno     =   $request->get('materno');
-            $extensionista->fecha       =   $request->get('fecha');
+            $extensionista->fecha       =   $fecha->subYears($request->get('edad'));
             $extensionista->sexo        =   $request->get('sexo');
             $extensionista->updated_auth=   Auth::user()->id;
             $extensionista->update();

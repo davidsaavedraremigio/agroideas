@@ -14,7 +14,7 @@
         <div class="row"><div class="col-md-12">{!! Form::label('', 'I. Datos del participante:') !!}</div></div>
         <div class="row">
             <div class="col-md-4">{!! Form::label('dni', 'Nº de DNI') !!} {!! Form::text('dni', '', ['class' => 'form-control', 'id' => 'input_nro_dni', 'placeholder' => '00000000']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha', 'Fecha de nacimiento') !!} {!! Form::date('fecha', '', ['class' => 'form-control', 'id' => 'input_fecha']) !!}</div>
+            <div class="col-md-4">{!! Form::label('edad', 'Edad') !!} {!! Form::number('edad', '', ['class' => 'form-control', 'min' => '18', 'max' => '99']) !!}</div>
             <div class="col-md-4">{!! Form::label('sexo', 'Sexo') !!} 
                 <select name="sexo" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>
@@ -93,7 +93,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">{!! Form::label('tipo_entidad', 'Tipo de entidad') !!}
-                <select name="tipo_entidad" class="form-control select2">
+                <select name="tipo_entidad" id="input_tipo_entidad" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($tipo_entidad as $fila)
                         <option value="{{$fila->Orden}}">{{$fila->Nombre}}</option>
@@ -136,7 +136,7 @@
             if (caracteres == 8)
             {
                 event.preventDefault();
-                var urlAction = urlApp+'/dni/'+dni;
+                var urlAction = route("servicio.dni", dni);
                 $.ajax({
                     url:    urlAction,
                     method: "GET",
@@ -182,55 +182,53 @@
     });
     //3. Validamos la información del RUC
     $("#input_ruc").keypress(function(e) {
-            var tecla = (e.keyCode ? e.keyCode : e.which);
-            if (tecla == 13) 
+        var tecla = (e.keyCode ? e.keyCode : e.which);
+        if (tecla == 13) 
+        {
+            var ruc         =   $("#input_ruc").val();
+            var caracteres  =   ruc.length;
+
+            if (caracteres == 11) 
             {
-                var ruc         =   $("#input_ruc").val();
-                var caracteres  =   ruc.length;
-
-                if (caracteres == 11) 
-                {
-                    event.preventDefault();
-                    //var urlAction = urlApp+'/ruc/'+ruc;
-                    var urlAction = urlApp+'/sunat/'+ruc;
-                    $.ajax({
-                        url:    urlAction,
-                        method: "GET",
-                        data:   ruc,
-                        beforeSend: function() {
-                            $("#input_razon_social").val("Consultando datos del proveedor ...");
-                        },
-                        success: function(response) {
-                            var cadena      =   jQuery.parseJSON(response);
-                            var estado      =   cadena.estado;
-                            if (estado == 1)
-                            {
-                                $("#input_razon_social").val(cadena.dato);
-                                $("#input_direccion").val(cadena.direccion);
-                                $("#input_ubigeo").val(cadena.ubigeo);
-                                $("#input_fecha_inicio").val(cadena.fecha);
-                            }
-                            else
-                            {
-                                alertify.error('El RUC consultado se encuenta en estado: '+cadena.dato);
-                                return false;
-                            }
-                        },
-                        statusCode: {
-                            404: function() {
-                                alertify.error('El sistema presenta problemas de funcionamiento.');
-                            }
+                event.preventDefault();
+                var urlAction = route("servicio.ruc", ruc);
+                $.ajax({
+                    url:    urlAction,
+                    method: "GET",
+                    data:   ruc,
+                    beforeSend: function() {
+                        $("#input_razon_social").val("Consultando datos del proveedor ...");
+                    },
+                    success: function(response) {
+                        var cadena      =   jQuery.parseJSON(response);
+                        var estado      =   cadena.estado;
+                        if (estado == 1)
+                        {
+                            $("#input_razon_social").val(cadena.dato);
+                            $("#input_direccion").val(cadena.direccion);
+                            $("#input_ubigeo").val(cadena.ubigeo);
+                            $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');
+                            $("#input_fecha_inicio").val(cadena.fecha);
                         }
-                    });
-                }
-                else
-                {
-                    alertify.error('Error. Ingrese un número de RUC válido.');
-                    $("#input_ruc").val("");
-                    return false;
-                }
+                        else
+                        {
+                            alertify.error('El RUC consultado se encuenta en estado: '+cadena.dato);
+                            return false;
+                        }
+                    },
+                    statusCode: {
+                        404: function() {
+                            alertify.error('El sistema presenta problemas de funcionamiento.');
+                        }
+                    }
+                });
             }
-        });
-
-
+            else
+            {
+                alertify.error('Error. Ingrese un número de RUC válido.');
+                $("#input_ruc").val("");
+                return false;
+            }
+        }
+    });
 </script>

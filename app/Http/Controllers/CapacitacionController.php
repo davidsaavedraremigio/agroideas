@@ -112,12 +112,20 @@ class CapacitacionController extends Controller
     }
 
     #6. Muestro la información generada
-    public function show()
+    public function showPendiente()
     {
-        $data       =   Capacitacion::getData();
+        $data       =   Capacitacion::getDataPendiente();
         #2. Retorno a la vista de datos
-        return view($this->path.'.data', compact('data'));
+        return view($this->path.'.data-pendiente', compact('data'));
     }
+
+    #7. Muestro la información de eventos en situación de ejecutado
+    public function showImplementado()
+    {
+        $data       =   Capacitacion::getDataImplementado();
+        return view($this->path.'.data-implementado', compact('data'));
+    }
+
 
     #7. Muestro el formulario para la edición de la información
     public function edit($id)

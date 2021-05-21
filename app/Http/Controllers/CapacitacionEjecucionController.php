@@ -33,13 +33,15 @@ class CapacitacionEjecucionController extends Controller
     }
 
     #4.
-    public function create()
+    public function create($id)
     {
         #1. obtengo la información de eventos de capacitacion pendientes
-        $capacitaciones     =   Capacitacion::getCapacitaciones(1);
-
+        $capacitacion       =   Capacitacion::findOrFail($id);
+        $tipoEvento         =   TablaValor::getDetalleTabla('TipoEventoCapacitacion');
+        $tematica           =   TablaValor::getDetalleTabla('TematicaCapacitacion');
+        $organizacion       =   TablaValor::getDetalleTabla('OrganizacionEvento');
         #2. Retorno al menu principal        
-        return view($this->path.'.create', compact('capacitaciones'));
+        return view($this->path.'.create', compact('capacitacion', 'tipoEvento', 'tematica', 'organizacion'));
     }
 
     #5.
@@ -49,7 +51,7 @@ class CapacitacionEjecucionController extends Controller
         try 
         {
             $implementacion                         =   new CapacitacionEjecucion;
-            $implementacion->codInicCapacitacion    =   $request->get('capacitacion');
+            $implementacion->codInicCapacitacion    =   $request->get('codigo');
             $implementacion->fechaRendicion         =   $request->get('fecha');
             $implementacion->hora_inicio            =   $request->get('hora_inicio');
             $implementacion->hora_termino           =   $request->get('hora_termino');
@@ -61,7 +63,7 @@ class CapacitacionEjecucionController extends Controller
             #2. Actualizamos la información del evento de capacitación
             try 
             {
-                $capacitacion               =   Capacitacion::findOrFail($request->get('capacitacion'));
+                $capacitacion               =   Capacitacion::findOrFail($implementacion->codInicCapacitacion);
                 $capacitacion->resultados   =   $request->get('resultados');
                 $capacitacion->acuerdos     =   $request->get('acuerdos');
                 $capacitacion->comentarios  =   $request->get('comentarios');
@@ -107,12 +109,14 @@ class CapacitacionEjecucionController extends Controller
     public function edit($id)
     {
         #1. obtengo la información a actualizar
-        $capacitaciones     =   Capacitacion::getCapacitaciones(2);
         $implementacion     =   CapacitacionEjecucion::findOrFail($id);
         $capacitacion       =   Capacitacion::findOrFail($implementacion->codInicCapacitacion);
+        $tipoEvento         =   TablaValor::getDetalleTabla('TipoEventoCapacitacion');
+        $tematica           =   TablaValor::getDetalleTabla('TematicaCapacitacion');
+        $organizacion       =   TablaValor::getDetalleTabla('OrganizacionEvento');
 
         #2. Retorno al formulario de edicion
-        return view($this->path.'.edit', compact('capacitaciones', 'implementacion', 'capacitacion'));
+        return view($this->path.'.edit', compact('implementacion', 'capacitacion', 'tipoEvento', 'tematica', 'organizacion'));
     }
 
     #8.

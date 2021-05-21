@@ -27,4 +27,16 @@ class Capacitacion extends Model
     {
         return DB::select("SELECT * FROM vw_data_serviagro a ORDER BY a.fecha ASC");
     }
+
+    #5. Obtengo los eventos de capacitación en estado pendiente
+    public static function getDataPendiente()
+    {
+        return DB::select("SELECT * FROM vw_data_capacitaciones a WHERE a.codEstado NOT IN (2)");
+    }
+
+    #6. Obtengo los eventos de capacitación en estado Implementado
+    public static function getDataImplementado()
+    {
+        return DB::select("SELECT * FROM vw_data_capacitaciones a WHERE a.codEstado = 2");
+    }
 }

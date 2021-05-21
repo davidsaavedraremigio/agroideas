@@ -19,36 +19,55 @@
                         {{Form::token()}}
                         {{-- Panel para mostrar alertas --}}
 						<div id="ImplementacionCapacitacionAlerts" class="alert alert-danger" style="display: none;"></div>
+                        {!! Form::hidden('codigo', $capacitacion->id, ['class' => 'form-control']) !!}
                         {{-- Panel para mostrar alertas --}}
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-12">{!! Form::label('capacitacion', 'Seleccione un evento de capacitación') !!}
-                                    <select name="capacitacion" class="form-control select2">
+                                <div class="col-md-6">{!! Form::label('nombre', 'Nombre del evento de capacitación') !!} {!! Form::textarea('nombre', $capacitacion->nombre, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'readonly' => 'readonly']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('objetivos', 'Objetivos del evento') !!} {!! Form::textarea('objetivos', $capacitacion->objetivo, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'readonly' => 'readonly']) !!}</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">{!! Form::label('tipo_evento', 'Tipo de evento') !!}
+                                    <select name="tipo_evento" class="form-control" disabled="disabled">
                                         <option value="" selected="selected">Seleccionar</option>
-                                        @foreach ($capacitaciones as $fila)
-                                        <option value="{{$fila->id}}">{{$fila->nombre}}</option>
+                                        @foreach ($tipoEvento as $fila)
+                                        <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codTipo)?'selected':''}}>{{$fila->Nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-2">{!! Form::label('tematica', 'Temática del evento') !!}
+                                    <select name="tematica" class="form-control" disabled="disabled">
+                                        <option value="" selected="selected">Seleccionar</option>
+                                        @foreach ($tematica as $fila)
+                                        <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codTematica)?'selected':''}}>{{$fila->Nombre}}</option>    
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">{!! Form::label('organizacion', 'Organización del evento') !!}
+                                    <select name="organizacion" class="form-control" disabled="disabled">
+                                        <option value="" selected="selected">Seleccionar</option>
+                                        @foreach ($organizacion as $fila)
+                                            <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codOrganizacion)?'selected':''}}>{{$fila->Nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', $capacitacion->fecha, ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-2">{!! Form::label('hora_inicio', 'Hora de inicio') !!} {!! Form::text('hora_inicio', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
+                                <div class="col-md-2">{!! Form::label('hora_termino', 'Hora de término') !!} {!! Form::text('hora_termino', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">{!! Form::label('resultados', 'Resultados obtenidos:') !!} {!! Form::textarea('resultados', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => 'Describa que resultados se alcanzaron con la realización del evento.']) !!}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-3">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', '', ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('hora_inicio', 'Hora de inicio') !!} {!! Form::text('hora_inicio', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
-                                <div class="col-md-3">{!! Form::label('hora_termino', 'Hora de término') !!} {!! Form::text('hora_termino', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
-                                <div class="col-md-3">{!! Form::label('importe', 'Monto ejecutado (S/.)') !!} {!! Form::text('importe', '', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">{!! Form::label('resultados', 'Indique los resultados del evento') !!} {!! Form::textarea('resultados', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">{!! Form::label('acuerdos', 'Acuerdos realizados') !!} {!! Form::textarea('acuerdos', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
-                                <div class="col-md-6">{!! Form::label('comentarios', 'Comentarios u observaciones') !!} {!! Form::textarea('comentarios', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('acuerdos', 'Acuerdos realizados:') !!} {!! Form::textarea('acuerdos', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => '(Si es que aplica) Describa los acuerdos que han surgido en el evento.']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('comentarios', 'Comentarios u observaciones:') !!} {!! Form::textarea('comentarios', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => '(Si es que aplica) Indique que comentarios, observaciones y/o sugerencias puede dar del evento realizado.']) !!}</div>
                             </div>
                         </div>
                         {{-- Botonera  --}}
@@ -57,7 +76,7 @@
                                 <div class="col-xs-12">
                                     <div id="Footer_CreateImplementacionCapacitacion_Enabled">
                                        <a href="#" id="btnCreateImplementacionCapacitacion" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Guardar cambios</a>
-                                       <a href="{{ env('APP_URL') }}/iniciativa/capacitacion-implementacion" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
+                                       <a href="{{route('capacitacion.index')}}" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
                                    </div>
                                    <div id="Footer_CreateImplementacionCapacitacion_Disabled" style="display:none;">
                                        <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
@@ -97,7 +116,7 @@
                     success: function (response) {
                         var mensaje     = response.mensaje;
                         var codigo      = response.dato;
-                        var url_edit    = codigo +'/edit';
+                        var url_edit    = route("capacitacion-implementacion.edit", codigo);
                         alertify.success(mensaje);
                         $("#Footer_CreateImplementacionCapacitacion_Enabled").css("display", "block");
                         $("#Footer_CreateImplementacionCapacitacion_Disabled").css("display", "none");

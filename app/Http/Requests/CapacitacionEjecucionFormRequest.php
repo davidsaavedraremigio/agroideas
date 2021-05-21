@@ -24,7 +24,6 @@ class CapacitacionEjecucionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'capacitacion'      =>  'required',
             'fecha'             =>  'required|date',
             'hora_inicio'       =>  'required',
             'hora_termino'      =>  'required',

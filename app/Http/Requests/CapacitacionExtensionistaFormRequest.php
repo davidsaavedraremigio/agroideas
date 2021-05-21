@@ -28,7 +28,7 @@ class CapacitacionExtensionistaFormRequest extends FormRequest
             'nombres'       =>  'required|max:100',
             'paterno'       =>  'required|max:100',
             'materno'       =>  'required|max:100',
-            'fecha'         =>  'required|date',
+            'edad'          =>  'required|integer',
             'sexo'          =>  'required',
         ];
     }

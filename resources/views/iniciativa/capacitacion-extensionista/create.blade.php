@@ -13,7 +13,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">{!! Form::label('dni', 'Nº de DNI') !!} {!! Form::text('dni', '', ['class' => 'form-control', 'id' => 'input_nro_dni', 'placeholder' => '00000000']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha', 'Fecha de nacimiento') !!} {!! Form::date('fecha', '', ['class' => 'form-control', 'id' => 'input_fecha']) !!}</div>
+            <div class="col-md-4">{!! Form::label('edad', 'Edad') !!} {!! Form::number('edad', '', ['class' => 'form-control', 'min' => '18', 'max' => '99']) !!}</div>
             <div class="col-md-4">{!! Form::label('sexo', 'Sexo') !!} 
                 <select name="sexo" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>
@@ -25,9 +25,9 @@
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-4">{!! Form::label('nombres', 'Nombres') !!} {!! Form::text('nombres', '', ['class' => 'form-control', 'id' => 'input_nombres', ]) !!}</div>
-            <div class="col-md-4">{!! Form::label('paterno', 'Paterno') !!} {!! Form::text('paterno', '', ['class' => 'form-control', 'id' => 'input_paterno', ]) !!}</div>
-            <div class="col-md-4">{!! Form::label('materno', 'Materno') !!} {!! Form::text('materno', '', ['class' => 'form-control', 'id' => 'input_materno', ]) !!}</div>
+            <div class="col-md-4">{!! Form::label('nombres', 'Nombres') !!} {!! Form::text('nombres', '', ['class' => 'form-control', 'id' => 'input_nombres', 'readonly' => 'readonly' ]) !!}</div>
+            <div class="col-md-4">{!! Form::label('paterno', 'Paterno') !!} {!! Form::text('paterno', '', ['class' => 'form-control', 'id' => 'input_paterno', 'readonly' => 'readonly' ]) !!}</div>
+            <div class="col-md-4">{!! Form::label('materno', 'Materno') !!} {!! Form::text('materno', '', ['class' => 'form-control', 'id' => 'input_materno', 'readonly' => 'readonly' ]) !!}</div>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 <table id="TablaExtensionistaCapacitacion" class="table table-striped table-bordered">
-    <thead>
+    <thead class="bg-success">
         <tr>
-            <th class="text-center"><small>Nº</small></th>
-            <th class="text-center"><small>DNI</small></th>
-            <th class="text-center"><small>Nombres y apellidos</small></th>
-            <th class="text-center"><small>Edad</small></th>
-            <th class="text-center"><small>Sexo</small></th>
+            <th class="text-center">Nº</th>
+            <th class="text-center">DNI</th>
+            <th class="text-center">Nombres y apellidos</th>
+            <th class="text-center">Edad</th>
+            <th class="text-center">Sexo</th>
             <th class="text-center" width="5%"><i class="fa fa-cog"></i></th>
         </tr>
     </thead>

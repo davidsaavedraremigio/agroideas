@@ -1,10 +1,10 @@
 <table id="TablaRendicionCapacitacion" class="table table-striped table-bordered">
-    <thead>
+    <thead class="bg-success">
         <tr>
-            <th class="text-center"><small>Nº</small></th>
-            <th class="text-center"><small>Fecha</small></th>
-            <th class="text-center"><small>Concepto de gasto</small></th>
-            <th class="text-center"><small>Importe (S/)</small></th>
+            <th class="text-center">Nº</th>
+            <th class="text-center">Fecha</th>
+            <th class="text-center">Concepto de gasto</th>
+            <th class="text-center">Importe (S/)</th>
             <th class="text-center" width="5%"><i class="fa fa-cog"></i></th>
         </tr>
     </thead>

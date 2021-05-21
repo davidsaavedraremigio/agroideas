@@ -31,33 +31,51 @@
                         {{-- Panel para mostrar alertas --}}
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-12">{!! Form::label('capacitacion', 'Seleccione un evento de capacitación') !!}
-                                    <select name="capacitacion" class="form-control select2">
+                                <div class="col-md-6">{!! Form::label('nombre', 'Nombre del evento de capacitación') !!} {!! Form::textarea('nombre', $capacitacion->nombre, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'readonly' => 'readonly']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('objetivos', 'Objetivos del evento') !!} {!! Form::textarea('objetivos', $capacitacion->objetivo, ['class' => 'form-control', 'rows' => '2', 'cols' => '2', 'readonly' => 'readonly']) !!}</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">{!! Form::label('tipo_evento', 'Tipo de evento') !!}
+                                    <select name="tipo_evento" class="form-control" disabled="disabled">
                                         <option value="" selected="selected">Seleccionar</option>
-                                        @foreach ($capacitaciones as $fila)
-                                        <option value="{{$fila->id}}" {{($fila->id == $capacitacion->id)?'selected':''}}>{{$fila->nombre}}</option>
+                                        @foreach ($tipoEvento as $fila)
+                                        <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codTipo)?'selected':''}}>{{$fila->Nombre}}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-2">{!! Form::label('tematica', 'Temática del evento') !!}
+                                    <select name="tematica" class="form-control" disabled="disabled">
+                                        <option value="" selected="selected">Seleccionar</option>
+                                        @foreach ($tematica as $fila)
+                                        <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codTematica)?'selected':''}}>{{$fila->Nombre}}</option>    
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">{!! Form::label('organizacion', 'Organización del evento') !!}
+                                    <select name="organizacion" class="form-control" disabled="disabled">
+                                        <option value="" selected="selected">Seleccionar</option>
+                                        @foreach ($organizacion as $fila)
+                                            <option value="{{$fila->Orden}}" {{($fila->Orden == $capacitacion->codOrganizacion)?'selected':''}}>{{$fila->Nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', $implementacion->fechaRendicion, ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-2">{!! Form::label('hora_inicio', 'Hora de inicio') !!} {!! Form::text('hora_inicio', $implementacion->hora_inicio, ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
+                                <div class="col-md-2">{!! Form::label('hora_termino', 'Hora de término') !!} {!! Form::text('hora_termino', $implementacion->hora_termino, ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">{!! Form::label('resultados', 'Resultados obtenidos:') !!} {!! Form::textarea('resultados', $capacitacion->resultados, ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => 'Describa que resultados se alcanzaron con la realización del evento.']) !!}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-3">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', $implementacion->fechaRendicion, ['class' => 'form-control']) !!}</div>
-                                <div class="col-md-3">{!! Form::label('hora_inicio', 'Hora de inicio') !!} {!! Form::text('hora_inicio', $implementacion->hora_inicio, ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
-                                <div class="col-md-3">{!! Form::label('hora_termino', 'Hora de término') !!} {!! Form::text('hora_termino', $implementacion->hora_termino, ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
-                                <div class="col-md-3">{!! Form::label('importe', 'Monto ejecutado (S/.)') !!} {!! Form::text('importe', '', ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">{!! Form::label('resultados', 'Indique los resultados del evento') !!} {!! Form::textarea('resultados', $capacitacion->resultados, ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">{!! Form::label('acuerdos', 'Acuerdos realizados') !!} {!! Form::textarea('acuerdos', $capacitacion->acuerdos, ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
-                                <div class="col-md-6">{!! Form::label('comentarios', 'Comentarios u observaciones') !!} {!! Form::textarea('comentarios', $capacitacion->comentarios, ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('acuerdos', 'Acuerdos realizados:') !!} {!! Form::textarea('acuerdos', $capacitacion->acuerdos, ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => '(Si es que aplica) Describa los acuerdos que han surgido en el evento.']) !!}</div>
+                                <div class="col-md-6">{!! Form::label('comentarios', 'Comentarios u observaciones:') !!} {!! Form::textarea('comentarios', $capacitacion->comentarios, ['class' => 'form-control', 'cols' => '2', 'rows' => '2', 'placeholder' => '(Si es que aplica) Indique que comentarios, observaciones y/o sugerencias puede dar del evento realizado.']) !!}</div>
                             </div>
                         </div>
                         {{-- Botonera  --}}
@@ -66,7 +84,7 @@
                                 <div class="col-xs-12">
                                     <div id="Footer_UpdateImplementacionCapacitacion_Enabled">
                                        <a href="#" id="btnUpdateImplementacionCapacitacion" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Guardar cambios</a>
-                                       <a href="{{ env('APP_URL') }}/iniciativa/capacitacion-implementacion" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
+                                       <a href="{{route("capacitacion.index")}}" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
                                    </div>
                                    <div id="Footer_UpdateImplementacionCapacitacion_Disabled" style="display:none;">
                                        <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
@@ -219,7 +237,6 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var urlApp  = "{{ env('APP_URL') }}";
         //1. Proceso el formulario
         $(document).on("click", '#btnUpdateImplementacionCapacitacion', function (event) {
             event.preventDefault();
@@ -242,7 +259,7 @@
                     var cadena      =   response;
                     var mensaje     =   cadena.mensaje;
                     var codigo      =   cadena.dato;
-                    var url_edit    =   'edit';
+                    var url_edit    =   route("capacitacion-implementacion.edit", codigo);
                     $("#Footer_UpdateImplementacionCapacitacion_Enabled").css("display", "block");
                     $("#Footer_UpdateImplementacionCapacitacion_Disabled").css("display", "none");
                     $(location).attr('href', url_edit);
@@ -267,14 +284,14 @@
         //2. Cargo la información de rendiciones de gastos
         var codRendicion    =   $("#viewDataRendicionCapacitacion").attr('data-id');
         $("#viewDataRendicionCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-        $("#viewDataRendicionCapacitacion").load(urlApp+'/iniciativa/capacitacion-ejecucion/'+ codRendicion +'/data');
+        $("#viewDataRendicionCapacitacion").load(route("capacitacion-ejecucion.data", codRendicion));
         //3. Muestro los modals correspondientes a la rendicion de gastos
         $('#modalCreateRendicionCapacitacion').on('show.bs.modal', function (e) {
-            $('#divFormCreateRendicionCapacitacion').load(urlApp+'/iniciativa/capacitacion-ejecucion/' + codRendicion + '/create');
+            $('#divFormCreateRendicionCapacitacion').load(route("capacitacion-ejecucion.create", codRendicion));
         });
         $('#modalUpdateRendicionCapacitacion').on('show.bs.modal', function (e) {
             var codRendicionCapacitacion= $(e.relatedTarget).attr('data-id');
-            $('#divFormUpdateRendicionCapacitacion').load(urlApp+'/iniciativa/capacitacion-ejecucion/'+codRendicionCapacitacion+'/edit');
+            $('#divFormUpdateRendicionCapacitacion').load(route("capacitacion-implementacion.edit", codRendicionCapacitacion));
         });
         //4. Proceso los formularios de rendición de gastos
         $(document).on("click", '#btnCreateRendicionCapacitacion', function (event) {
@@ -301,7 +318,7 @@
                     $("#Footer_CreateRendicionCapacitacion_Disabled").css("display", "none");
                     $("#modalCreateRendicionCapacitacion").modal('hide');
                     $("#viewDataRendicionCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataRendicionCapacitacion").load(urlApp+'/iniciativa/capacitacion-ejecucion/'+ codRendicion +'/data');
+                    $("#viewDataRendicionCapacitacion").load(route("capacitacion-ejecucion.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -345,7 +362,7 @@
                     $("#Footer_UpdateRendicionCapacitacion_Disabled").css("display", "none");
                     $("#modalUpdateRendicionCapacitacion").modal('hide');
                     $("#viewDataRendicionCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataRendicionCapacitacion").load(urlApp+'/iniciativa/capacitacion-ejecucion/'+ codRendicion +'/data');
+                    $("#viewDataRendicionCapacitacion").load(route("capacitacion-ejecucion.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -367,14 +384,14 @@
         });
         //5. Cargo la información de participantes al evento de capacitacion
         $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-        $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+        $("#viewDataParticipanteCapacitacion").load(route("capacitacion-participante.data", codRendicion));
         //6. Muestro los modals correspondientes al registro de participantes
         $('#modalCreateParticipanteCapacitacion').on('show.bs.modal', function (e) {
-            $('#divFormCreateParticipanteCapacitacion').load(urlApp+'/iniciativa/capacitacion-participante/' + codRendicion + '/create');
+            $('#divFormCreateParticipanteCapacitacion').load(route("capacitacion-participante.create", codRendicion));
         });
         $('#modalUpdateParticipanteCapacitacion').on('show.bs.modal', function (e) {
             var codParticipante= $(e.relatedTarget).attr('data-id');
-            $('#divFormUpdateParticipanteCapacitacion').load(urlApp+'/iniciativa/capacitacion-participante/'+codParticipante+'/edit');
+            $('#divFormUpdateParticipanteCapacitacion').load(route("capacitacion-participante.edit", codParticipante));
         });
         //7. Proceso los formularios de participantes
         $(document).on("click", '#btnCreateParticipanteCapacitacion', function (event) {
@@ -401,7 +418,7 @@
                     $("#Footer_CreateParticipanteCapacitacion_Disabled").css("display", "none");
                     $("#modalCreateParticipanteCapacitacion").modal('hide');
                     $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                    $("#viewDataParticipanteCapacitacion").load(route("capacitacion-participante.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -445,7 +462,7 @@
                     $("#Footer_UpdateParticipanteCapacitacion_Disabled").css("display", "none");
                     $("#modalUpdateParticipanteCapacitacion").modal('hide');
                     $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                    $("#viewDataParticipanteCapacitacion").load(route("capacitacion-participante.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -468,7 +485,7 @@
         $(document).on("click", '.btnDeleteParticipanteCapacitacion', function (event) {
             event.preventDefault();
             var codigo = $(this).data("id");
-            var urlAction = urlApp+'/iniciativa/capacitacion-participante/'+codigo+'/destroy';
+            var urlAction = route("capacitacion-participante.destroy", codigo);
             // Antes de procesar realizamos una confirmación del proceso
             alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
                 function () {
@@ -482,7 +499,7 @@
                             var mensaje = cadena.mensaje;
                             alertify.alert("Proceso concluido", mensaje, function () {
                                 $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                                $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                                $("#viewDataParticipanteCapacitacion").load(route("capacitacion-participante.data", codRendicion));
                             });
                         },
                         statusCode: {
@@ -507,20 +524,20 @@
                 function () {
                     alertify.error('Proceso cancelado');
                     $("#viewDataParticipanteCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataParticipanteCapacitacion").load(urlApp+'/iniciativa/capacitacion-participante/'+ codRendicion +'/data');
+                    $("#viewDataParticipanteCapacitacion").load(route("capacitacion-participante.data", codRendicion));
                 }
             );
         });
         //8. Cargo la información de extensionistas del evento de capacitacion
         $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-        $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
+        $("#viewDataExtensionistaCapacitacion").load(route("capacitacion-extensionista.data", codRendicion));
         //9. Muestro los modals correspondientes al registro de extensionistas
         $('#modalCreateExtensionistaCapacitacion').on('show.bs.modal', function (e) {
-            $('#divFormCreateExtensionistaCapacitacion').load(urlApp+'/iniciativa/capacitacion-extensionista/' + codRendicion + '/create');
+            $('#divFormCreateExtensionistaCapacitacion').load(route("capacitacion-extensionista.create", codRendicion));
         });
         $('#modalUpdateExtensionistaCapacitacion').on('show.bs.modal', function (e) {
             var codExtensionista= $(e.relatedTarget).attr('data-id');
-            $('#divFormUpdateExtensionistaCapacitacion').load(urlApp+'/iniciativa/capacitacion-extensionista/'+codExtensionista+'/edit');
+            $('#divFormUpdateExtensionistaCapacitacion').load(route("capacitacion-extensionista.edit", codExtensionista));
         });
         //10. Proceso los formularios de Extensionista
         $(document).on("click", '#btnCreateExtensionistaCapacitacion', function (event) {
@@ -547,7 +564,7 @@
                     $("#Footer_CreateExtensionistaCapacitacion_Disabled").css("display", "none");
                     $("#modalCreateExtensionistaCapacitacion").modal('hide');
                     $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
+                    $("#viewDataExtensionistaCapacitacion").load(route("capacitacion-extensionista.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -591,7 +608,7 @@
                     $("#Footer_UpdateExtensionistaCapacitacion_Disabled").css("display", "none");
                     $("#modalUpdateExtensionistaCapacitacion").modal('hide');
                     $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
+                    $("#viewDataExtensionistaCapacitacion").load(route("capacitacion-extensionista.data", codRendicion));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -614,7 +631,7 @@
         $(document).on("click", '.btnDeleteExtensionistaCapacitacion', function (event) {
             event.preventDefault();
             var codigo = $(this).data("id");
-            var urlAction = urlApp+'/iniciativa/capacitacion-extensionista/'+codigo+'/destroy';
+            var urlAction = route("capacitacion-implementacion.destroy", codigo);
             // Antes de procesar realizamos una confirmación del proceso
             alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
                 function () {
@@ -628,7 +645,7 @@
                             var mensaje = cadena.mensaje;
                             alertify.alert("Proceso concluido", mensaje, function () {
                                 $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                                $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
+                                $("#viewDataExtensionistaCapacitacion").load(route("capacitacion-extensionista.data", codRendicion));
                             });
                         },
                         statusCode: {
@@ -653,7 +670,7 @@
                 function () {
                     alertify.error('Proceso cancelado');
                     $("#viewDataExtensionistaCapacitacion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataExtensionistaCapacitacion").load(urlApp+'/iniciativa/capacitacion-extensionista/'+ codRendicion +'/data');
+                    $("#viewDataExtensionistaCapacitacion").load(route("capacitacion-extensionista.data", codRendicion));
                 }
             );
         });

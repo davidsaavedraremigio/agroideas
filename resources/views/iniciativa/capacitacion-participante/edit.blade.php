@@ -13,7 +13,7 @@
         <div class="row"><div class="col-md-12">{!! Form::label('', 'I. Datos del participante:') !!}</div></div>
         <div class="row">
             <div class="col-md-4">{!! Form::label('dni', 'Nº de DNI') !!} {!! Form::text('dni', $participante->dni, ['class' => 'form-control', 'id' => 'input_nro_dni', 'placeholder' => '00000000']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha', 'Fecha de nacimiento') !!} {!! Form::date('fecha', $participante->fecha, ['class' => 'form-control', 'id' => 'input_fecha']) !!}</div>
+            <div class="col-md-4">{!! Form::label('edad', 'Edad') !!} {!! Form::number('edad', $edad, ['class' => 'form-control', 'min' => '18', 'max' => '99']) !!}</div>
             <div class="col-md-4">{!! Form::label('sexo', 'Sexo') !!} 
                 <select name="sexo" class="form-control">
                     <option value="" selected="selected">Seleccionar</option>

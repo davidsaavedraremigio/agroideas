@@ -54,11 +54,12 @@ class CapacitacionParticipanteController extends Controller
         #2. Guardo la información del participante
         try 
         {
+            $fecha                      =   Carbon::now();
             $participante               =   CapacitacionParticipante::updateOrCreate( ['codInicCapacitacion' => $request->get('codigo'), 'dni' => $request->get('dni')], [
                 'nombres'                   =>  $request->get('nombres'),
                 'paterno'                   =>  $request->get('paterno'),
                 'materno'                   =>  $request->get('materno'),
-                'fecha'                     =>  $request->get('fecha'),
+                'fecha'                     =>  $fecha->subYears($request->get('edad')),
                 'sexo'                      =>  $request->get('sexo'),
                 'codTipo'                   =>  $tipo_participante,
                 'codActividadProductor'     =>  $request->get('actividad_productor'),
@@ -161,17 +162,18 @@ class CapacitacionParticipanteController extends Controller
         $cadena_forestal        =   CadenaProductiva::getCadenaSector(3);
         $entidad                =   Entidad::find($participante->codEntidad);
         $tipo_entidad           =   TablaValor::getDetalleTabla('TipoEntidad');
+        $edad                   =   Carbon::createFromDate($participante->fecha)->age;
 
         #2. Retorno al formulario
         if($entidad == null)
         {
             $opa    =   [];
-            return view($this->path.'.edit', compact('participante', 'capacitacion', 'actividad_productor', 'actividad_participante', 'cadena_agricola', 'cadena_pecuaria', 'cadena_forestal', 'opa', 'tipo_entidad'));
+            return view($this->path.'.edit', compact('participante', 'capacitacion', 'actividad_productor', 'actividad_participante', 'cadena_agricola', 'cadena_pecuaria', 'cadena_forestal', 'opa', 'tipo_entidad', 'edad'));
         }
         else
         {
             $opa    =   $entidad;
-            return view($this->path.'.edit', compact('participante', 'capacitacion', 'actividad_productor', 'actividad_participante', 'cadena_agricola', 'cadena_pecuaria', 'cadena_forestal', 'opa', 'tipo_entidad'));
+            return view($this->path.'.edit', compact('participante', 'capacitacion', 'actividad_productor', 'actividad_participante', 'cadena_agricola', 'cadena_pecuaria', 'cadena_forestal', 'opa', 'tipo_entidad', 'edad'));
         }
     }
 
@@ -184,12 +186,13 @@ class CapacitacionParticipanteController extends Controller
         #1. Actualizamos la información del participante
         try 
         {
+            $fecha                                      =   Carbon::now();
             $participante                               =   CapacitacionParticipante::findOrFail($id);
             $participante->dni                          =   $request->get('dni');
             $participante->nombres                      =   $request->get('nombres');
             $participante->paterno                      =   $request->get('paterno');
             $participante->materno                      =   $request->get('materno');
-            $participante->fecha                        =   $request->get('fecha');
+            $participante->fecha                        =   $fecha->subYears($request->get('edad'));
             $participante->sexo                         =   $request->get('sexo');
             $participante->codTipo                      =   $tipo_participante;
             $participante->codActividadProductor        =   $request->get('actividad_productor');
