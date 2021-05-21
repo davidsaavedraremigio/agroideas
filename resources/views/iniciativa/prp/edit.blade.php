@@ -510,15 +510,15 @@
         });
         $(document).on("click", '.btnDeleteProductor', function (event) {
             event.preventDefault();
-            var codigo = $(this).data("id");
-            var urlAction = route("socio.destroy", codigo);
+            var codProductor = $(this).data("id");
+            var urlAction = route("socio.destroy", codProductor);
             // Antes de procesar realizamos una confirmación del proceso
             alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea eliminar este ítem?.",
                 function () {
                     $.ajax({
                         url: urlAction,
                         method: "POST",
-                        data: codigo,
+                        data: codProductor,
                         beforeSend: function () {},
                         success: function (response) {
                             var cadena = response;
