@@ -467,8 +467,15 @@ Route::get('proceso-prp/consolidado/consolidado-ur/data', 'ConsolidadoPrpControl
 #10. Módulo para el registro de Eventos de capacitación
 Route::resource('iniciativa/capacitacion', 'CapacitacionController')->except(['show', 'update']);
 Route::get('iniciativa/capacitacion/pendiente', 'CapacitacionController@showPendiente')->name('capacitacion.data-pendiente');
-Route::get('iniciativa/capacitacion/implementado', 'CapacitacionController@showImplementado')->name('capacitacion.data-implementado');
 Route::post('iniciativa/capacitacion/{capacitacion}', 'CapacitacionController@update')->name('capacitacion.update');
+Route::get('iniciativa/capacitacion/{capacitacion}/reprograma', 'CapacitacionController@formReprograma')->name('capacitacion.form-reprograma');
+Route::post('iniciativa/capacitacion/reprograma/{capacitacion}', 'CapacitacionController@reprograma')->name('capacitacion.reprograma');
+Route::get('iniciativa/capacitacion/{capacitacion}/cancela', 'CapacitacionController@formCancela')->name('capacitacion.form-cancela');
+Route::post('iniciativa/capacitacion/cancela/{capacitacion}', 'CapacitacionController@cancela')->name('capacitacion.cancela');
+
+
+
+
 #11. Módulo para el registro de la implementación de Eventos de capacitación
 Route::resource('iniciativa/capacitacion-implementacion', 'CapacitacionEjecucionController')->except(['show', 'create', 'update']);
 Route::get('iniativa/capacitacion-implementacion/{capacitacion}/create', 'CapacitacionEjecucionController@create')->name('capacitacion-implementacion.create');

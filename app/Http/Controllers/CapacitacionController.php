@@ -119,14 +119,6 @@ class CapacitacionController extends Controller
         return view($this->path.'.data-pendiente', compact('data'));
     }
 
-    #7. Muestro la información de eventos en situación de ejecutado
-    public function showImplementado()
-    {
-        $data       =   Capacitacion::getDataImplementado();
-        return view($this->path.'.data-implementado', compact('data'));
-    }
-
-
     #7. Muestro el formulario para la edición de la información
     public function edit($id)
     {
@@ -203,4 +195,49 @@ class CapacitacionController extends Controller
             ]);
         }
     }
+
+    #9. Reprogramo un evento de capacitacion
+    public function formReprograma($id)
+    {
+        $capacitacion   =   Capacitacion::findOrFail($id);
+        return view($this->path.'.reprograma', compact('capacitacion'));
+    }
+
+    #10. Proceso la reprogramación
+    public function reprograma(Request $request, $id)
+    {
+        try 
+        {
+            $capacitacion                       =   Capacitacion::findOrFail($id);
+            $capacitacion->fecha_reprogramada   =   $request->get('fecha_reprograma');
+            $capacitacion->justificacion        =   $request->get('justificacion');
+            $capacitacion->codEstado            =   3;#Reprogramado
+            $capacitacion->updated_auth         =   Auth::user()->id;
+            $capacitacion->update();
+
+            #3. Retorno al menu principal
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  $capacitacion->id,
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
+
+    #11. Cancela un evento de capacitacion
+    public function formCancela($id)
+    {
+        $capacitacion   =   Capacitacion::findOrFail($id);
+        return view($this->path.'.cancela', compact('capacitacion'));
+    }
+
+
 }

@@ -34,8 +34,8 @@
             <td class="text-center">
                 <a href="{{env('APP_URL').'/formats/format_participantes_capacitacion.xlsx'}}" class="btn btn-sm btn-primary" title="Descargar formato de registro de participantes"><i class="fas fa-arrow-circle-down"></i></a>
                 <a href="{{route("capacitacion.edit", $fila->id)}}" class="btn btn-sm btn-warning" title="Actualizar registro"><i class="far fa-edit"></i></a> 
-                <a href="#" class="btn btn-sm btn-success" title="Reprogramar Evento"><i class="fas fa-calendar-alt"></i></a>
-                <a href="#" class="btn btn-sm btn-danger" title="Cancelar Evento"><i class="far fa-calendar-times"></i></a>
+                <a href="#" class="btn btn-sm btn-success" title="Reprogramar Evento" id="btnmodalReprogramaCapacitacion" data-toggle="modal" data-target="#modalReprogramaCapacitacion" data-id="{{$fila->id}}"><i class="fas fa-calendar-alt"></i></a>
+                <a href="#" class="btn btn-sm btn-danger" title="Cancelar Evento"  id="btnmodalCancelaCapacitacion" data-toggle="modal" data-target="#modalCancelaCapacitacion" data-id="{{$fila->id}}"><i class="far fa-calendar-times"></i></a>
                 <a href="{{route("capacitacion-implementacion.create", $fila->id)}}" class="btn btn-sm btn-secondary" title="Implementación del evento"><i class="far fa-calendar-check"></i></a>
             </td>
         </tr>    

@@ -39,3 +39,4 @@
         <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
     </div>
 </div>
+{!! Form::close() !!}
