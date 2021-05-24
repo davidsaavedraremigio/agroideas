@@ -397,6 +397,15 @@ Route::get('sda/linea-cierre/{postulante}/data', 'PostulanteResultadoController@
 Route::get('sda/linea-cierre/{indicador}/edit', 'PostulanteResultadoController@editLineaCierre')->name('linea-cierre.edit');
 Route::post('sda/linea-cierre/{indicador}', 'PostulanteResultadoController@updateLineaCierre')->name('linea-cierre.update');
 
+#24. Módulo para importar información de Excel a una tabla
+Route::get('proceso-pdn/import-desembolso', 'ImportDesembolsoSdaController@index')->name('import-sda.index');
+Route::get('proceso-pdn/import-desembolso/data','ImportDesembolsoSdaController@show')->name('import-sda.data');
+Route::get('proceso-pdn/import-desembolso/create','ImportDesembolsoSdaController@importForm')->name('import-sda.importForm');
+Route::post('proceso-pdn/import-desembolso','ImportDesembolsoSdaController@import')->name('import-sda.import');
+Route::post('proceso-pdn/import-desembolso/{desembolso}/destroy', 'ImportDesembolsoSdaController@destroy')->name('desembolso.destroy');
+Route::get('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@formDelete')->name('import-sda.deleteForm');
+Route::post('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@procesaDelete')->name('import-sda.delete');
+
 
 
 
