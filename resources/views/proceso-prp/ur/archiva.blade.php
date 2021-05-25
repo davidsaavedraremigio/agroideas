@@ -26,11 +26,21 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::number('nro_informe', $ur->nro_informe_tec, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha de informe') !!} {!! Form::date('fecha_informe', $ur->fecha_informe_tec, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-4">{!! Form::label('nro_carta', 'Nº de carta') !!} {!! Form::number('nro_carta', $ur->nro_carta_archivo, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
             <div class="col-md-4">{!! Form::label('fecha_carta', 'Fecha') !!} {!! Form::date('fecha_carta', $ur->fecha_carta_archivo, ['class' => 'form-control', 'min' => $expediente->fechaExpediente ]) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_derivacion', 'Fecha derivación') !!} {!! Form::date('fecha_derivacion', $ur->fecha_derivacion, ['class' => 'form-control', 'min' => $expediente->fechaExpediente]) !!}</div>
         </div>
     </div>
 </div>
+
+
+
 <div class="modal-footer">
     <div id="Footer_ArchivaExpedienteUR_Enabled">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-sign-out-alt"></i> Cerrar</button>

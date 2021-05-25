@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\ConvenioMarcoFormRequest;
+use App\Http\Requests\UploadConvenioFormRequest;
 use App\ConvenioMarco;
 use App\TablaValor;
 use App\Usuario;
@@ -162,8 +164,91 @@ class ConvenioMarcoController extends Controller
         }
     }
 
+    #10. Muestro un formulario para la carga de convenios
+    public function formUpload($id)
+    {
+        #1. Obtengo las variables requeridas
+        $convenio       =   ConvenioMarco::findOrFail($id);
+        #2. Retorno al formulario
+        return view($this->path.'.upload', compact('convenio'));
+       
+    }
 
-    #9. Muestro un consolidado de informacion
+    #11. Procedemos a realizar la carga de la información
+    public function upload(UploadConvenioFormRequest $request, $id)
+    {
+        #1. Obtenemos la información del archivo File
+        $new_file   =   $request->file('evidencia');
+        $file_name  =   'Convenio_ID_'.rand().time().'.pdf';
+        $file_url   =   env('APP_URL_FILE').$file_name;
+        #2. Cargamos la evidencia
+        $request->file('evidencia')->storeAs('files', $file_name);
+        #3. Guardamos la información en la tabla
+        try 
+        {
+            $convenio                       =   ConvenioMarco::findOrFail($id);
+            $convenio->file_evidencia       =   Storage::url($file_name);
+            $convenio->updated_auth         =   Auth::user()->id;
+            $convenio->update();
+
+            #2. Retorno al formulario para la edición de registris
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
+
+    #12. Muestro un formulario para la actualización de convenios Marco
+    public function formSituacion($id)
+    {
+        #1. Obtengo los datos solicitados
+        $convenio           =   ConvenioMarco::findOrFail($id);
+        $estados            =   TablaValor::getDetalleTabla('EstadoConvenio');
+        $tipos_documentos   =   TablaValor::getDetalleTabla('TipoDocumentoTramite');
+
+        #2. Retorno al formulario
+        return view($this->path.'.situacion', compact('convenio', 'estados', 'tipos_documentos'));
+    }
+
+    #13. Proceso el estado situacional del convenio
+    public function situacion(Request $request, $id)
+    {
+        try 
+        {
+            $convenio               =   ConvenioMarco::findOrFail($id);
+            $convenio->cod_estado   =   $request->get('estado');
+            $convenio->updated_auth =   Auth::user()->id;
+            $convenio->updated_at   =   $request->get('fecha_actualizacion');
+            $convenio->update();
+
+            #2. Retorno al formulario para la edición de registris
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
+
+    #14. Muestro un consolidado de informacion
     public function viewConsolidadoConvenio()
     {
         #1. Obtengo las variables a utilizar
@@ -174,14 +259,14 @@ class ConvenioMarcoController extends Controller
         return view('de.convenio-reporte.index', compact('estadoConvenio', 'tipoConvenio'));
     }
 
-    #10. Muestro el resultado de la consulta
+    #15. Muestro el resultado de la consulta
     public function showConvenio($tipo, $estado)
     {
         $data   =    ConvenioMarco::getConvenios($tipo, $estado);
         return view('de.convenio-reporte.data', compact('data'));
     }
 
-    #11. Muestro un consolidado de información de seguimiento de convenios
+    #16. Muestro un consolidado de información de seguimiento de convenios
     public function viewConsolidadoSeguimientoConvenio()
     {
         #1. Obtengo las variables a utilizar
@@ -192,14 +277,14 @@ class ConvenioMarcoController extends Controller
         return view('de.convenio-seguimiento.index', compact('estadoConvenio', 'tipoConvenio'));
     }
 
-    #10. Muestro el resultado de la consulta
+    #17. Muestro el resultado de la consulta
     public function showSeguimientoConvenio($tipo, $estado, $periodo)
     {
         $data   =    ConvenioMarco::getSeguimientoConvenios($tipo, $estado, $periodo);
         return view('de.convenio-seguimiento.data', compact('data'));
     }
 
-    #11. Muestro el panel principal
+    #18. Muestro el panel principal
     public function viewListadoConvenio()
     {
         #1. Obtengo las variables a utilizar
@@ -209,7 +294,7 @@ class ConvenioMarcoController extends Controller
         return view('de.convenio-consolidado.index', compact('tipoConvenio', 'estadoConvenio'));
     }
 
-    #10. Muestro el resultado de la consulta
+    #19. Muestro el resultado de la consulta
     public function showListadoConvenio($tipo, $periodo, $estado)
     {
         $data   =    ConvenioMarco::getListado($tipo, $periodo, $estado);

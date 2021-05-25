@@ -59,7 +59,6 @@
     </div>
 </div>
 {!! Form::close() !!}
-{!! Form::close() !!}
 <script>
     var urlApp          = "{{ env('APP_URL') }}";
     //3. Validamos la información del RUC

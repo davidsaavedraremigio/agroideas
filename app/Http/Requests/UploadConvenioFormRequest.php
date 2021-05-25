@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ExpedientePrpUrArchivaFormRequest extends FormRequest
+class UploadConvenioFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class ExpedientePrpUrArchivaFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'responsable'       =>  'required',
-            'nro_carta'         =>  'required|integer',
-            'fecha_carta'       =>  'required|date',
-            'nro_informe'       =>  'required|integer',
-            'fecha_informe'     =>  'required|date',
+            'evidencia'         =>  'required|file|max:30000',
         ];
     }
 }

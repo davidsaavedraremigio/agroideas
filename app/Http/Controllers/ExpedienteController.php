@@ -424,7 +424,7 @@ class ExpedienteController extends Controller
         try 
         {
             $expediente                 =   Expediente::findOrFail($id);
-            $expediente->codEstado      =   $request->get('estado_situacional');
+            $expediente->codEstado      =   3;#Archivado
             $expediente->updated_auth   =   Auth::user()->id;
             $expediente->update();
 
@@ -432,7 +432,9 @@ class ExpedienteController extends Controller
             try 
             {
                 $ur                             =   ExpedienteUr::getData($id);
-                $ur->cod_responsable_doc        =   $request->get('responsable');
+                $ur->cod_responsable_tec        =   $request->get('responsable');
+                $ur->nro_informe_tec            =   $request->get('nro_informe');
+                $ur->fecha_informe_tec          =   $request->get('fecha_informe');
                 $ur->nro_carta_archivo          =   $request->get('nro_carta');
                 $ur->fecha_carta_archivo        =   $request->get('fecha_carta');
                 $ur->codEstadoProceso           =   3;#Archivado

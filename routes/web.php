@@ -129,9 +129,16 @@ Route::get('iniciativa/compromiso-reporte/{region}/{estado}/excel', 'ExportaExce
 
 #4. Módulo para el registro de convenios marco
 Route::resource('de/convenio', 'ConvenioMarcoController')->except(['show', 'update', 'delete']);
-Route::get('de/convenio/data', 'ConvenioMarcoController@show')->name('convenio.data');
+Route::get('de/convenio/data', 'ConvenioMarcoController@show')->name('convenio-marco.data');
 Route::post('de/convenio/{convenio}', 'ConvenioMarcoController@update')->name('convenio-marco.update');
 Route::post('de/convenio/{convenio}/destroy', 'ConvenioMarcoController@destroy')->name('convenio-marco.delete');
+Route::get('de/convenio/{convenio}/upload', 'ConvenioMarcoController@formUpload')->name('convenio-marco.form-upload');
+Route::post('de/convenio/upload/{convenio}', 'ConvenioMarcoController@upload')->name('convenio-marco.upload');
+Route::get('de/convenio/{convenio}/situacion', 'ConvenioMarcoController@formSituacion')->name('convenio-marco.form-situacion');
+Route::post('de/convenio/situacion/{convenio}', 'ConvenioMarcoController@situacion')->name('convenio-marco.situacion');
+
+
+
 
 #4.1. Módulo para el registro de entidades cooperantes del convenio
 Route::resource('de/convenio-cooperante', 'ConvenioMarcoCooperanteController')->except(['show', 'create', 'destroy']);
@@ -316,7 +323,6 @@ Route::post('iniciativa/convenio/estado/{contrato}', 'ContratoController@updateE
 #5.13. Módulo para el proceso de creación de adendas a Convenios
 Route::resource('iniciativa/convenio-ampliacion', 'ContratoAmpliacionController')->except(['destroy', 'create']);
 Route::get('iniciativa/convenio-ampliacion/{contrato}/create', 'ContratoAmpliacionController@create')->name('convenio-ampliacion.create');
-
 
 #6. Rutas para el módulo de Solicitudes de Apoyo
 #6.1. Módulo para el registro de proyectos

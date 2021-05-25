@@ -17,15 +17,91 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="modalUploadConvenioMarco">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn ">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormUploadConvenioMarco">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>    
+    <div class="modal fade" id="modalUpdateEstadoConvenioMarco">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn ">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormUpdateEstadoConvenioMarco">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>  
 @stop
 @section('scripts')
     <script>
         $(document).ready(function () {
             //1. Obtengo la información de eventos registrados
             $("#viewDataConvenio").html("<i class='fas fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-            $("#viewDataConvenio").load("convenio/data");
-
-            //2. Eliminamos la información del convenio elegido
+            $("#viewDataConvenio").load(route("convenio-marco.data"));
+            //2. Mostramos los modals
+            $('#modalUploadConvenioMarco').on('show.bs.modal', function (e) {
+                var codConvenio= $(e.relatedTarget).attr('data-id');
+                $('#divFormUploadConvenioMarco').load(route("convenio-marco.form-upload", codConvenio));
+            });
+            $('#modalUpdateEstadoConvenioMarco').on('show.bs.modal', function (e) {
+                var codConvenio= $(e.relatedTarget).attr('data-id');
+                $('#divFormUpdateEstadoConvenioMarco').load(route("convenio-marco.form-situacion", codConvenio));
+            });
+            //3. Procesamos la información solicitada
+            $(document).on("click", '#btnUploadConvenioMarco', function (event) {
+                event.preventDefault();
+                var form = $("#FormUploadConvenioMarco");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_UploadConvenioMarco_Enabled").css("display", "none");
+                        $("#Footer_UploadConvenioMarco_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_UploadConvenioMarco_Enabled").css("display", "block");
+                        $("#Footer_UploadConvenioMarco_Disabled").css("display", "none");
+                        $("#modalUploadConvenioMarco").modal('hide');
+                        $("#viewDataConvenio").html("<i class='fas fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenio").load(route("convenio-marco.data"));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#UploadConvenioMarcoAlerts").css("display", "block");
+                        $("#UploadConvenioMarcoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_UploadConvenioMarco_Enabled").css("display", "block");
+                        $("#Footer_UploadConvenioMarco_Disabled").css("display", "none");
+                    }
+                });
+            });
             $(document).on("click", '.btnDeleteConvenioMarco', function (event) {
                 event.preventDefault();
                 var codigo = $(this).data("id");
@@ -71,6 +147,50 @@
                         $("#viewDataConvenio").load("convenio/data");
                     }
                 );
+            });
+            $(document).on("click", '#btnUpdateEstadoConvenioMarco', function (event) {
+                event.preventDefault();
+                var form = $("#FormUpdateEstadoConvenioMarco");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_UpdateEstadoConvenioMarco_Enabled").css("display", "none");
+                        $("#Footer_UpdateEstadoConvenioMarco_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_UpdateEstadoConvenioMarco_Enabled").css("display", "block");
+                        $("#Footer_UpdateEstadoConvenioMarco_Disabled").css("display", "none");
+                        $("#modalUpdateEstadoConvenioMarco").modal('hide');
+                        $("#viewDataConvenio").html("<i class='fas fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenio").load(route("convenio-marco.data"));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#UpdateEstadoConvenioMarcoAlerts").css("display", "block");
+                        $("#UpdateEstadoConvenioMarcoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_UpdateEstadoConvenioMarco_Enabled").css("display", "block");
+                        $("#Footer_UpdateEstadoConvenioMarco_Disabled").css("display", "none");
+                    }
+                });
             });
         });
     </script>

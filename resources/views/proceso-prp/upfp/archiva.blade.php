@@ -26,10 +26,18 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">{!! Form::label('nro_carta', 'Nº carta') !!} {!! Form::number('nro_carta', $upfp->nro_carta_archivamiento, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_carta', 'Fecha de carta') !!} {!! Form::date('fecha_carta', $upfp->fecha_carta_archivamiento, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::number('nro_informe', $upfp->nro_informe_tec, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_informe', 'Fecha de informe') !!} {!! Form::date('fecha_informe', $upfp->fecha_informe_tec, ['class' => 'form-control', 'min' => $expediente->fechaExpediente, 'max' => date('Y-m-d')]) !!}</div>
+            
         </div>
-    </div>    
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">{!! Form::label('nro_carta', 'Nº carta') !!} {!! Form::number('nro_carta', $upfp->nro_carta_archivamiento, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_carta', 'Fecha de carta') !!} {!! Form::date('fecha_carta', $upfp->fecha_carta_archivamiento, ['class' => 'form-control', 'min' => $expediente->fechaExpediente, 'max' => date('Y-m-d')]) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_derivacion', 'Fecha de derivación') !!} {!! Form::date('fecha_derivacion', $upfp->fecha_derivacion, ['class' => 'form-control', 'min' => $expediente->fechaExpediente, 'max' => date('Y-m-d')]) !!}</div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <div id="Footer_ArchivaExpedienteUPFP_Enabled">
