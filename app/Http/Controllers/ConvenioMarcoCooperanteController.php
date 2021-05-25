@@ -122,7 +122,6 @@ class ConvenioMarcoCooperanteController extends Controller
             $cooperante->cargo          =   $request->get('cargo');
             $cooperante->principal      =   $request->get('principal');
             $cooperante->updated_auth   =   Auth::user()->id;
-            $cooperante->updated_at     =   now();
             $cooperante->update();
 
             #2. Actualizo la información  
@@ -134,7 +133,6 @@ class ConvenioMarcoCooperanteController extends Controller
                 $entidad->ubigeo        =   $request->get('ubigeo');
                 $entidad->direccion     =   $request->get('direccion');
                 $entidad->updated_auth  =   Auth::user()->id;
-                $entidad->updated_at    =   now();
                 $entidad->update();
 
                 #3. Retorno al menu principal
