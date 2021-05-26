@@ -136,10 +136,6 @@ Route::get('de/convenio/{convenio}/upload', 'ConvenioMarcoController@formUpload'
 Route::post('de/convenio/upload/{convenio}', 'ConvenioMarcoController@upload')->name('convenio-marco.upload');
 Route::get('de/convenio/{convenio}/situacion', 'ConvenioMarcoController@formSituacion')->name('convenio-marco.form-situacion');
 Route::post('de/convenio/situacion/{convenio}', 'ConvenioMarcoController@situacion')->name('convenio-marco.situacion');
-
-
-
-
 #4.1. Módulo para el registro de entidades cooperantes del convenio
 Route::resource('de/convenio-cooperante', 'ConvenioMarcoCooperanteController')->except(['show', 'create', 'destroy']);
 Route::get('de/convenio-cooperante/{convenio}/data', 'ConvenioMarcoCooperanteController@show')->name('convenio-cooperante.data');

@@ -9,7 +9,7 @@
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <span class="dropdown-item dropdown-header">Opciones de cuenta</span>
         <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item"> <i class="fas fa-key"></i> Cambiar contraseña</a>
+        <a href="#" class="dropdown-item" title="Actualizar contraseña" id="btnmodalUpdatePassword" data-toggle="modal" data-target="#modalUpdatePassword" data-id="{{ Auth::user()->id }}"> <i class="fas fa-key"></i> Cambiar contraseña</a>
         <div class="dropdown-divider"></div>
         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
           <i class="fas fa-sign-out-alt mr-2"></i> Cerrar sesión
