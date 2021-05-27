@@ -171,7 +171,7 @@
             $(document).on("click", '.btnDeleteUsuario', function (event) {
                 event.preventDefault();
                 var codigo = $(this).data("id");
-                var urlAction = 'usuario/'+codigo;
+                var urlAction = route("usuario.destroy", codigo);
                 // Antes de procesar realizamos una confirmación del proceso
                 alertify.confirm("Confirmación de envío de formulario", "¿Esta seguro de que desea dar de baja a este usuario?.",
                     function () {
@@ -185,7 +185,7 @@
                                 var mensaje = cadena.mensaje;
                                 alertify.alert("Proceso concluido", mensaje, function () {
                                     $("#viewDataUsuario").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                                    $('#viewDataUsuario').load('usuario/data');
+                                    $("#viewDataUsuario").load(route("usuario.data"));
                                 });
                             },
                             statusCode: {
@@ -210,7 +210,7 @@
                     function () {
                         alertify.error('Proceso cancelado');
                         $("#viewDataUsuario").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                        $('#viewDataUsuario').load('usuario/data');
+                        $("#viewDataUsuario").load(route("usuario.data"));
                     }
                 );
             });

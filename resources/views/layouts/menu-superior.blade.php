@@ -21,3 +21,69 @@
     </li>
   </ul>
 </nav>
+<div class="modal fade" id="modalUpdatePassword">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content animated fadeIn ">
+          {{-- Inicio del contenido del modal --}}
+          <div id="divFormUpdatePassword">
+              <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+              <span class="sr-only">Cargando...</span>
+          </div>
+          {{-- Fin del contenido del modal --}}
+      </div>
+  </div>		
+</div> 
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('#modalUpdatePassword').on('show.bs.modal', function (e) {
+            var codUsuario= $(e.relatedTarget).attr('data-id');
+            $('#divFormUpdatePassword').load(route("usuario.reset", codUsuario));
+        });
+
+        $(document).on("click", '#btnUpdatePassword', function (event) {
+            event.preventDefault();
+            var form = $("#FormUpdatePassword");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_UpdatePassword_Enabled").css("display", "none");
+                    $("#Footer_UpdatePassword_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_UpdatePassword_Enabled").css("display", "block");
+                    $("#Footer_UpdatePassword_Disabled").css("display", "none");
+                    $("#modalUpdatePassword").modal('hide');
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#PasswordAlerts").css("display", "block");
+                    $("#PasswordAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_UpdatePassword_Enabled").css("display", "block");
+                    $("#Footer_UpdatePassword_Disabled").css("display", "none");
+                }
+            });
+        });        
+    });
+</script>
+@stop

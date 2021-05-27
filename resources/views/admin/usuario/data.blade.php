@@ -1,5 +1,5 @@
 <table id="TablaUsuario" class="table table-striped table-bordered">
-    <thead>
+    <thead class="bg-success">
         <tr>
             <th class="text-center"><small>Nº</small></th>
             <th class="text-center"><small>Nro. DNI</small></th>
@@ -32,29 +32,5 @@
 </table>
 @section('scripts')
 <script>
-$(function () {
-        $('#TablaUsuario').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'print',
-                {
-                    extend: 'pdfHtml5',
-                    orientation: 'landscape',
-                    pageSize: 'A4'
-                },
-                {
-                    extend: 'excelHtml5',
-                    autoFilter: true,
-                    sheetName: 'Exported data'
-                }
-            ]
-        });
-    });
+    $('#TablaUsuario').DataTable();
 </script>

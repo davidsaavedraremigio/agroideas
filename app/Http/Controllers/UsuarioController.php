@@ -257,60 +257,11 @@ class UsuarioController extends Controller
             $usuario->estado    =   0;
             $usuario->update();
 
-            #2. Doy de baja a los cargos del usuario seleccionado
-            try 
-            {
-                $cargo          =   UsuarioCargo::where('codMaestroUsuario', $id)->get();
-                $cargo->estado  =   0;
-                $cargo->update();
-
-                #3. Doy de baja a los campos relacionados con staff
-                try 
-                {
-                    $staff          =   UsuarioStaff::where('codMaestroUsuario', $id)->get();
-                    $staff->estado  =   0;
-                    $staff->update();
-
-                    #4. Doy de baja a las oficinas asignadas a este usuario
-                    try 
-                    {
-                        $oficina            =   UsuarioSede::where('codMaestroUsuario', $id)->get();
-                        $oficina->estado    =   0;
-                        $oficina->update();
-
-                        #5. Retorno al menu principal
-                        return response()->json([
-                            'estado'    =>  '1',
-                            'dato'      =>  '',
-                            'mensaje'   =>  'La información se procesó de manera exitosa.'
-                        ]);
-                    } 
-                    catch (Exception $e) 
-                    {
-                        return response()->json([
-                            'estado'    =>  '2',
-                            'dato'      =>  $e->getMessage(),
-                            'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                        ]);
-                    }
-                } 
-                catch (Exception $e) 
-                {
-                    return response()->json([
-                        'estado'    =>  '2',
-                        'dato'      =>  $e->getMessage(),
-                        'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                    ]);
-                }
-            } 
-            catch (Exception $e) 
-            {
-                return response()->json([
-                    'estado'    =>  '2',
-                    'dato'      =>  $e->getMessage(),
-                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                ]);
-            }
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
         } 
         catch (Exception $e) 
         {
