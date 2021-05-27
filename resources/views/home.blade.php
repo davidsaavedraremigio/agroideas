@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('title', 'Bienvenidos')
 @section('content')
-{{-- Inicio del contenido
+{{-- Inicio del contenido 
 <div class="container-fluid">
     <div class="row">
         <!-- Primer Cuadro -->
@@ -50,6 +50,7 @@
     </div>
 </div>
 --}}
+
 <div class="modal fade" id="modalUpdatePassword">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated fadeIn ">

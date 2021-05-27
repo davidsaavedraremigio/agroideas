@@ -71,12 +71,12 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div id="Footer_UpdateConvenio_Enabled">
-                                       <a href="#" id="btnUpdateConvenio" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Guardar cambios</a>
-                                       <a href="{{ env('APP_URL') }}/de/convenio" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
-                                   </div>
-                                   <div id="Footer_UpdateConvenio_Disabled" style="display:none;">
-                                       <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
-                                   </div>
+                                        <a href="#" id="btnUpdateConvenio" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Guardar cambios</a>
+                                        <a href="{{ env('APP_URL') }}/de/convenio" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
+                                    </div>
+                                    <div id="Footer_UpdateConvenio_Disabled" style="display:none;">
+                                        <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

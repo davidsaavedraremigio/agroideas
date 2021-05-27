@@ -319,6 +319,29 @@ Route::post('iniciativa/convenio/estado/{contrato}', 'ContratoController@updateE
 #5.13. Módulo para el proceso de creación de adendas a Convenios
 Route::resource('iniciativa/convenio-ampliacion', 'ContratoAmpliacionController')->except(['destroy', 'create']);
 Route::get('iniciativa/convenio-ampliacion/{contrato}/create', 'ContratoAmpliacionController@create')->name('convenio-ampliacion.create');
+#5.14. Módulo para el proceso de actualización de información de Expedientes PRPA
+Route::resource('proceso-prp/mantenimiento', 'MantenimientoExpedientePrpController')->except(['destroy', 'create', 'store', 'show']);
+Route::get('proceso-prp/mantenimiento/data', 'MantenimientoExpedientePrpController@show')->name('mantenimiento.data');
+Route::get('proceso-prp/mantenimiento/{expediente}/ur', 'MantenimientoExpedientePrpController@formEditUr')->name('mantenimiento.edit-ur');
+Route::post('proceso-prp/mantenimiento/ur/{expediente}', 'MantenimientoExpedientePrpController@updateExpedienteUr')->name('mantenimiento.update-ur');
+Route::get('proceso-prp/mantenimiento/{expediente}/upfp', 'MantenimientoExpedientePrpController@formEditUpfp')->name('mantenimiento.edit-upfp');
+Route::post('proceso-prp/mantenimiento/upfp/{expediente}', 'MantenimientoExpedientePrpController@updateExpedienteUpfp')->name('mantenimiento.update-upfp');
+Route::get('proceso-prp/mantenimiento/{expediente}/un', 'MantenimientoExpedientePrpController@formEditUn')->name('mantenimiento.edit-un');
+Route::get('proceso-prp/mantenimiento/{expediente}/uaj', 'MantenimientoExpedientePrpController@formEditUaj')->name('mantenimiento.edit-uaj');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #6. Rutas para el módulo de Solicitudes de Apoyo
 #6.1. Módulo para el registro de proyectos
