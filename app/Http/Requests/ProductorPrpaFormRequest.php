@@ -35,6 +35,7 @@ class ProductorPrpaFormRequest extends FormRequest
             'latitud'       =>  'nullable|max:255',
             'longitud'      =>  'nullable|max:255',
             'altitud'       =>  'nullable|integer',
+            'nro_ha_total'  =>  'nullable|integer',
             'nro_ha'        =>  'required|numeric',
             'importe'       =>  'required|numeric',
         ];

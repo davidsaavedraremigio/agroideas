@@ -27,13 +27,40 @@ class ProductorPrpaController extends Controller
     #3.
     public function create($id)
     {
-        //
+        #1. Obtengo los datos 
+        $postulante     =   Postulante::findOrFail($id);
+        $maxDate        =   ((Carbon::now())->subYears(18))->format('Y-m-d');
+        $minDate        =   ((Carbon::now())->subYears(100))->format('Y-m-d');
+        
+        #2. Retorno al formulario
+        return view($this->path.'.create', compact('postulante', 'minDate', 'maxDate'));
     }
 
     #4.
     public function store(ProductorPrpaFormRequest $request)
     {
-        //
+        try 
+        {
+            $persona                =   Persona::updateOrCreate(['dni' => $request->get('dni')],[
+                'nombres'           =>  $request->get('nombres'),
+                'paterno'           =>  $request->get('paterno'),
+                'materno'           =>  $request->get('materno'),
+                'fechaNacimiento'   =>  $request->get('fecha'),
+                'sexo'              =>  $request->get('sexo'),
+                'direccion'         =>  $request->get('direccion'),
+                'validado_reniec'   =>  1,
+                'created_auth'      =>  Auth::user()->id,
+                'updated_auth'      =>  Auth::user()->id,
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
     }
 
     #5.

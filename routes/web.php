@@ -209,11 +209,30 @@ Route::get('proceso-prp/hidrico/{iniciativa}/data', 'PostulanteProductorControll
 Route::get('proceso-prp/hidrico/{socio}/edit', 'PostulanteProductorController@editBalanceHidrico')->name('socio.edit-hidrico');
 Route::post('proceso-prp/hidrico/{socio}', 'PostulanteProductorController@updateBalanceHidrico')->name('socio.update-hidrico');
 #4.4. Módulo para el mantenimiento de Productores aprobados en el PRPA
-Route::resource('prpa/productor', 'ProductorPrpaController')->except(['index', 'create', 'show', 'destroy', 'update']);
+Route::resource('prpa/productor', 'ProductorPrpaController')->except(['index', 'create', 'store', 'show', 'destroy', 'update']);
 Route::get('prpa/productor/{postulante}/data', 'ProductorPrpaController@show')->name('productor-prpa.data');
 Route::get('prpa/productor/{postulante}/create', 'ProductorPrpaController@create')->name('productor-prpa.create');
+Route::post('prpa/productor/store', 'ProductorPrpaController@store')->name('productor-prpa.store');
 Route::post('prpa/productor/{productor}/destroy', 'ProductorPrpaController@destroy')->name('productor-prpa.destroy');
 Route::post('prpa/productor/{productor}', 'ProductorPrpaController@update')->name('productor-prpa.update');
+#4.5. Módulo para el mantenimiento de Información General de Proyectos PRPA en Ejecución
+Route::get('prpa/proyecto', 'ProyectoPrpaController@index')->name('proyecto-prpa.index');
+Route::get('prpa/proyecto/data', 'ProyectoPrpaController@show')->name('proyecto-prpa.data');
+Route::get('prpa/proyecto/{contrato}/edit', 'ProyectoPrpaController@edit')->name('proyecto-prpa.edit');
+Route::post('prpa/proyecto/edit/{contrato}', 'ProyectoPrpaController@update')->name('proyecto-prpa.update');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #5. Módulo para el proceso de evaluación de PRP
 #5.1. Admisión de expediente
@@ -352,9 +371,6 @@ Route::resource('sda/productor', 'ProductorSdaController')->except(['index', 'cr
 Route::get('sda/productor/{postulante}/data', 'ProductorSdaController@show')->name('productor-sda.data');
 Route::get('sda/productor/{postulante}/create', 'ProductorSdaController@create')->name('productor-sda.create');
 Route::post('sda/productor/{contrato}/destroy', 'ProductorSdaController@destroy')->name('productor-sda.destroy');
-
-
-
 #7. Módulo para el proceso de evaluación de SDA
 #7.1. Evaluación por parte de la UR
 Route::get('sda/admision', 'ExpedienteSdaUrController@index')->name('admision.index');
