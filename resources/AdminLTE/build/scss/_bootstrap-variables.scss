@@ -34,33 +34,22 @@ $grays: map-merge((
         "900": $gray-900
 ), $grays);
 
-$blue:    #007bff !default;
+$blue:    #7f7fff !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
-$red:     #cf3a2c !default;
-$orange:  #ffc75f !default;
-$yellow:  #ffc107 !default;
+$red:     #ff4c4c !default;
+$orange:  #ffae19 !default;
+$yellow:  #ffff7f !default;
 $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
-/* Colores Agroideas
-$color01: #4FB081 !default;
-$color02: #59595B !default;
-$color03: #367657 !default;
-$color04: #E9993F !default;
-$color05: #D8D8D8 !default;
-$color06: #E2EBC6 !default;
-$color07: #CFDC99 !default;
-$color08: #BED071 !default;
-*/
-
 /* Colores Agroideas*/
-$color01: #459a52;
-$color02: #265033;
+$color01: #265033;
+$color02: #459A52;
 $color03: #575757;
-$color04: #e4eddc;
+$color04: #eff0b6;
 
 
 
@@ -82,25 +71,13 @@ $colors: map-merge((
 ), $colors);
 
 $primary:       $color01 !default;
-$secondary:     $color04 !default;
-$success:       $color02 !default;
-$info:          $white !default;
+$secondary:     $color02 !default;
+$success:       $color03 !default;
+$info:          $color04 !default;
 $warning:       $orange !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
-
-
-/*
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-800 !default;
-*/
 
 $theme-colors: () !default;
 $theme-colors: map-merge((

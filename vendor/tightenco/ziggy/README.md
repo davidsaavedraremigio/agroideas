@@ -312,7 +312,7 @@ You can optionally create a webpack alias to make importing Ziggy's core source 
 const path = require('path');
 
 mix.alias({
-    ziggy: path.resolve('vendor/tightenco/ziggy/dist'),
+    ziggy: path.resolve('vendor/tightenco/ziggy/dist'), // or 'vendor/tightenco/ziggy/dist/vue' if you're using the Vue plugin
 });
 
 // Mix v5
@@ -342,34 +342,33 @@ route('home', undefined, undefined, Ziggy);
 
 #### Vue
 
-To use the `route()` helper in Vue components, you can add a mixin to make it available globally:
+Ziggy includes a Vue plugin to make it easy to use the `route()` helper throughout your Vue app:
 
 ```js
-// app.js
+import { createApp } from 'vue';
+import { ZiggyVue } from 'ziggy';
+import { Ziggy } from './ziggy';
+import App from './App';
 
-import route from 'ziggy';
+createApp(App).use(ZiggyVue, Ziggy);
+
+// Vue 2
+import Vue from 'vue'
+import { ZiggyVue } from 'ziggy';
 import { Ziggy } from './ziggy';
 
-Vue.mixin({
-    methods: {
-        route: (name, params, absolute, config = Ziggy) => route(name, params, absolute, config),
-    },
-});
+Vue.use(ZiggyVue, Ziggy);
 ```
 
-> Note: If you include the `@routes` Blade directive in your views, the `route()` helper will already be available globally, including in your Vue app, so you don't need to import `route` or `Ziggy`. For convenience, you can optionally create a simpler version of the above mixin to make `route()` easily accessibly inside your components:
->
-> ```js
-> Vue.mixin({ methods: { route }});
-> ```
+If you use this plugin with the Laravel Mix alias shown above, make sure to update the alias to `vendor/tightenco/ziggy/dist/vue`.
 
-Now you can use the method in your Vue components like so:
+> Note: If you use the `@routes` Blade directive in your views, Ziggy's configuration will already be available globally, so you don't need to import the `Ziggy` config object and pass it into `use()`.
+
+Now you can use `route()` anywhere in your Vue components and templates, like so:
 
 ```html
 <a class="nav-link" :href="route('home')">Home</a>
 ```
-
-Thanks to [Scott Christianson](https://github.com/Archer70) for originally sharing [this solution](https://github.com/tighten/ziggy/issues/70#issuecomment-369129032)!
 
 #### React
 
@@ -475,6 +474,12 @@ To expose multiple groups you can pass an array of group names:
 > Note: Passing group names to the `@routes` directive will always take precedence over your other `only` or `except` settings.
 
 ## Other
+
+#### TLS/SSL termination and trusted proxies
+
+<!-- Or: What to do if your app is served over `https` but Ziggy's `route()` helper generates `http` URLs -->
+
+If your application is using [TLS/SSL termination](https://en.wikipedia.org/wiki/TLS_termination_proxy) or is behind a load balancer or proxy, or if it's hosted on a service that is, Ziggy may generate URLs with a scheme of `http` instead of `https`, even if your app URL uses `https`. To avoid this happening, set up your Laravel app's `TrustProxies` middleware according to the documentation on [Configuring Trusted Proxies](https://laravel.com/docs/requests#configuring-trusted-proxies).
 
 #### Using `@routes` with a Content Security Policy
 

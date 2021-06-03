@@ -10,6 +10,26 @@ class Expediente extends Model
     protected 	$table 			=	'InicExpedientePostulante';
     public $timestamps          =   false; # Se habilita nuevamente el bloqueo de control de cambios
 
+    #2. Obtengo el numero de expedientes ejecutados de forma mensual por año y tipo de incentivo
+    public static function getEjecucionFisicaMensual($periodo, $tipo)
+    {
+        return DB::select("EXEC uspEjecucionFisicaMensual @periodo = $periodo, @tipo = $tipo");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     #2. Obtengo la información de los expediente de acuerdo al área origen y el tipo de incentivo
     public static function getData($area, $incentivo)
     {
