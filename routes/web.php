@@ -5,6 +5,15 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('main/{incentivo}/cadena', 'HomeController@principalesCadenas')->name('home.cadena');
+Route::get('main/{periodo}/incentivo', 'HomeController@ejecucionMensual')->name('home.incentivo');
+Route::get('main/resumen', 'HomeController@hojaResumen')->name('home.resumen');
+
+
+
+
+
+
 
 #1. Rutas del módulo administrativo
 #1.1. Módulo para el registro de módulos del sistema

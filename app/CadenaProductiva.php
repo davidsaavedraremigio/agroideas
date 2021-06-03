@@ -51,4 +51,10 @@ class CadenaProductiva extends Model
         WHERE b.maestroSectorID = $sector
         ORDER BY a.descripcion ASC");
     }
+
+    #4. Obtengo el Top N de Cadenas productivas
+    public static function getTopCadenaProductiva($tipo, $numero)
+    {
+        return DB::select("EXEC uspGetTopCadena @numero = $numero, @tipo = $tipo");
+    }
 }
