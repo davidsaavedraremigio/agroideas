@@ -64,6 +64,31 @@
             </div>
         </div>		
     </div>
+    {{-- Modal para poder generar los procesos de cierre --}}
+    <div class="modal fade" id="modalCreateProcesoCierre">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn ">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormCreateProcesoCierre">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>
+    <div class="modal fade" id="modalCreateCierre">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content animated fadeIn ">
+                {{-- Inicio del contenido del modal --}}
+                <div id="divFormCreateCierre">
+                    <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                    <span class="sr-only">Cargando...</span>
+                </div>
+                {{-- Fin del contenido del modal --}}
+            </div>
+        </div>		
+    </div>
     
     @stop
     @section('scripts')
@@ -174,6 +199,108 @@
                             $("#UpdateEstadoContratoAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
                             $("#Footer_UpdateEstadoContrato_Enabled").css("display", "block");
                             $("#Footer_UpdateEstadoContrato_Disabled").css("display", "none");
+                        }
+                    });
+                });
+                //5. Modal para iniciar el proceso de cierre
+                $('#modalCreateProcesoCierre').on('show.bs.modal', function (e) {
+                    var idPostulante = $(e.relatedTarget).attr('data-id');
+                    $("#divFormCreateProcesoCierre").load(route("proceso-cierre.create", idPostulante));
+                });
+                $('#modalCreateCierre').on('show.bs.modal', function (e) {
+                    var idPostulante = $(e.relatedTarget).attr('data-id');
+                    $("#divFormCreateCierre").load(route("cierre.create", idPostulante));
+                });
+                //6. Procesamos la información
+                $(document).on("click", '#btnCreateProcesoCierre', function (event) {
+                    event.preventDefault();
+                    var form = $("#FormCreateProcesoCierre");
+                    var urlAction = form.attr('action');
+                    var formData = new FormData(form[0]);
+                    var dataAll = form.serialize();
+                    $.ajax({
+                        url: urlAction,
+                        method: "POST",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $("#Footer_CreateProcesoCierre_Enabled").css("display", "none");
+                            $("#Footer_CreateProcesoCierre_Disabled").css("display", "block");
+                        },
+                        success: function (response) {
+                            var mensaje = response.mensaje;
+                            form[0].reset();
+                            $("#Footer_CreateProcesoCierre_Enabled").css("display", "block");
+                            $("#Footer_CreateProcesoCierre_Disabled").css("display", "none");
+                            $("#modalCreateProcesoCierre").modal('hide');
+                            $("#viewDataContratoPendiente").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                            $("#viewDataContratoPendiente").load(route('convenio.data-pendiente'));
+                            $("#viewDataContratoAprobado").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                            $("#viewDataContratoAprobado").load(route('convenio.data-aprobado'));
+                            alertify.success(mensaje);
+                        },
+                        error: function (response) {
+                            var errors = response.responseJSON;
+                            var errorTitle = errors.message;
+                            console.error(errorTitle);
+                            var errorsHtml = '';
+                            $.each(errors['errors'], function (index, value) {
+                                errorsHtml += '<ul>';
+                                errorsHtml += '<li>' + value + "</li>";
+                                errorsHtml += '</ul>';
+                            });
+                            $("#ProcesoCierreAlerts").css("display", "block");
+                            $("#ProcesoCierreAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                            $("#Footer_CreateProcesoCierre_Enabled").css("display", "block");
+                            $("#Footer_CreateProcesoCierre_Disabled").css("display", "none");
+                        }
+                    });
+                });
+                $(document).on("click", '#btnCreateCierre', function (event) {
+                    event.preventDefault();
+                    var form = $("#FormCreateCierre");
+                    var urlAction = form.attr('action');
+                    var formData = new FormData(form[0]);
+                    var dataAll = form.serialize();
+                    $.ajax({
+                        url: urlAction,
+                        method: "POST",
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            $("#Footer_CreateCierre_Enabled").css("display", "none");
+                            $("#Footer_CreateCierre_Disabled").css("display", "block");
+                        },
+                        success: function (response) {
+                            var mensaje = response.mensaje;
+                            form[0].reset();
+                            $("#Footer_CreateCierre_Enabled").css("display", "block");
+                            $("#Footer_CreateCierre_Disabled").css("display", "none");
+                            $("#modalCreateCierre").modal('hide');
+                            $("#viewDataContratoPendiente").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                            $("#viewDataContratoPendiente").load(route('convenio.data-pendiente'));
+                            $("#viewDataContratoAprobado").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                            $("#viewDataContratoAprobado").load(route('convenio.data-aprobado'));
+                            alertify.success(mensaje);
+                        },
+                        error: function (response) {
+                            var errors = response.responseJSON;
+                            var errorTitle = errors.message;
+                            console.error(errorTitle);
+                            var errorsHtml = '';
+                            $.each(errors['errors'], function (index, value) {
+                                errorsHtml += '<ul>';
+                                errorsHtml += '<li>' + value + "</li>";
+                                errorsHtml += '</ul>';
+                            });
+                            $("#CierreAlerts").css("display", "block");
+                            $("#CierreAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                            $("#Footer_CreateCierre_Enabled").css("display", "block");
+                            $("#Footer_CreateCierre_Disabled").css("display", "none");
                         }
                     });
                 });

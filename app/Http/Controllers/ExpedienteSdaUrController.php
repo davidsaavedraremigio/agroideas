@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\NotificarExpediente;
+use App\Entidad;
 use App\Postulante;
 use App\PostulanteEstado;
 use App\Expediente;
@@ -85,12 +88,30 @@ class ExpedienteSdaUrController extends Controller
                     $situacion->updated_auth            =   Auth::user()->id;
                     $situacion->update();
 
-                    #4.- Retornamos al menu principal
-                    return response()->json([
-                        'estado'    =>  '1',
-                        'dato'      =>  '',
-                        'mensaje'   =>  'La información se procesó de manera exitosa.'
-                    ]); 
+                    #4. Notificamos por correo electronico a la persona
+                    try 
+                    {
+                        $responsable    =   Usuario::findOrFail($expediente->codPersonalAsignado);
+                        $postulante     =   Postulante::findOrFail($expediente->codPostulante);
+                        $entidad        =   Entidad::findOrFail($postulante->codEntidad);
+                        $email          =   $responsable->email;
+                        Mail::to($email)->send(new NotificarExpediente($expediente, $entidad, $responsable));
+                        
+                        #5.- Retornamos al menu principal
+                        return response()->json([
+                            'estado'    =>  '1',
+                            'dato'      =>  '',
+                            'mensaje'   =>  'La información se procesó de manera exitosa.'
+                        ]); 
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return response()->json([
+                            'estado'    =>  '2',
+                            'dato'      =>  $e->getMessage(),
+                            'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                        ]);
+                    }
                 } 
                 catch (Exception $e) 
                 {

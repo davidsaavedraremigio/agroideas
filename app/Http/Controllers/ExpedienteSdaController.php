@@ -96,7 +96,7 @@ class ExpedienteSdaController extends Controller
                     $expediente->created_auth           =   Auth::user()->id;
                     $expediente->updated_auth           =   Auth::user()->id;
                     $expediente->save();
-        
+
                     #2. Retorno al menu principal
                     return response()->json([
                         'estado'    =>  '1',

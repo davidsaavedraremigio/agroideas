@@ -578,6 +578,18 @@ Route::get('iniciativa/difusion-entidad-participante/{difusion}/create', 'Difusi
 Route::post('iniciativa/difusion-entidad-participante/{entidad}/destroy', 'DifusionEntidadController@destroy')->name('difusion-entidad.destroy');
 
 
+#19. Módulo para guardar la información de Procesos de cierre y cierre
+Route::get('iniciativa/proceso/proceso-cierre/{postulante}/create', 'PostulanteProcesoController@createProcesoCierre')->name('proceso-cierre.create');
+Route::post('iniciativa/proceso/proceso-cierre', 'PostulanteProcesoController@storeProcesoCierre')->name('proceso-cierre.store');
+Route::get('iniciativa/proceso/proceso-cierre/{postulante}/data', 'PostulanteProcesoController@showProcesoCierre')->name('proceso-cierre.data');
+Route::get('iniciativa/proceso/cierre/{postulante}/create', 'PostulanteProcesoController@createCierre')->name('cierre.create');
+Route::post('iniciativa/proceso/cierre', 'PostulanteProcesoController@storeCierre')->name('cierre.store');
+Route::get('iniciativa/proceso/cierre/{postulante}/data', 'PostulanteProcesoController@showCierre')->name('cierre.data');
+
+
+
+
+
 
 
 #1.17. Módulo para la consulta reniec y sunat
