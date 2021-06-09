@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="tab-content" id="TabEventoContent">
                     <div class="tab-pane fade show active" id="custom-tabs-evento" role="tabpanel" aria-labelledby="TabEvento001">
-                        {!!Form::model($capacitacion,['id'=>'FormUpdateCapacitacion', 'method'=>'PUT', 'files' => 'true', 'enctype' => 'multipart/form-data', 'route'=>['capacitacion.update',$capacitacion->id]])!!}
+                        {!!Form::model($capacitacion,['id'=>'FormUpdateCapacitacion', 'method'=>'POST', 'files' => 'true', 'enctype' => 'multipart/form-data', 'route'=>['capacitacion.update',$capacitacion->id]])!!}
                         {{Form::token()}}
                         {{-- Panel para mostrar alertas --}}
 						<div id="CapacitacionAlerts" class="alert alert-danger" style="display: none;"></div>
