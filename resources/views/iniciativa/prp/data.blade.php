@@ -1,7 +1,7 @@
 <table id="TablaPRP" class="table table-striped table-bordered">
     <thead class="bg-success">
         <tr>
-            <th class="text-center">Nº</th>
+            <th class="text-center">Nº Expediente</th>
             <th class="text-center">Nº RUC</th>
             <th class="text-center">Razón Social</th>
             <th class="text-center">Región</th>
@@ -17,7 +17,7 @@
     <tbody>
         @foreach ($data as $keyNumber => $fila)
         <tr>
-            <td class="text-center"><small>{{$keyNumber+1}}</small></td>
+            <td class="text-center"><small>{{$fila->nro_expediente}}</small></td>
             <td class="text-center"><small>{{$fila->ruc}}</small></td>
             <td class="text-uppercase"><small>{{$fila->razon_social}}</small></td>
             <td class="text-center"><small>{{$fila->region}}</small></td>
@@ -28,17 +28,12 @@
             <td class="text-center"><small>{{$fila->nro_beneficiarios}}</small></td>
             <td class="text-center"><small>{{$fila->estado}}</small></td>
             <td class="text-center">
-                <a href="{{URL::action('InicPRPController@edit',$fila->id)}}" class="btn btn-sm btn-warning" title="Actualizar registro"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-danger btn-sm btnDeleteEvento" title="Eliminar registro" data-id="{{$fila->id}}"><i class="fas fa-trash-alt"></i></a>
-                <!--
-                @if ($fila->cod_estado!= 0)
+                @if ($fila->cod_estado!= 13 and $fila->cod_estado != 0)
                     <i class="fas fa-lock"></i>
                 @else
                     <a href="{{URL::action('InicPRPController@edit',$fila->id)}}" class="btn btn-sm btn-warning" title="Actualizar registro"><i class="fas fa-edit"></i></a>
                     <a href="#" class="btn btn-danger btn-sm btnDeleteEvento" title="Eliminar registro" data-id="{{$fila->id}}"><i class="fas fa-trash-alt"></i></a>
                 @endif
-                -->
-                
             </td>
         </tr> 
         @endforeach
@@ -46,29 +41,5 @@
 </table>
 @section('scripts')
 <script>
-        $(function () {
-            $('#TablaPRP').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'print',
-                    {
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        autoFilter: true,
-                        sheetName: 'Exported data'
-                    }
-                ]
-            });
-        });
+    $('#TablaPRP').DataTable();
 </script>

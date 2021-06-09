@@ -695,10 +695,6 @@ class ExpedienteController extends Controller
             $upfp->fecha_analisis_suelo             =   $request->get('fecha_eval_suelo');
             $upfp->fecha_analisis_agua              =   $request->get('fecha_eval_agua');
             $upfp->fecha_balance_hidrico            =   $request->get('fecha_eval_balance_hidrico');
-            $upfp->cod_responsable_form             =   $request->get('responsable_informe');
-            $upfp->nro_informe_form                 =   $request->get('nro_informe');
-            $upfp->fecha_informe_form               =   $request->get('fecha_informe');
-            $upfp->HabilitaFormulacion              =   $request->get('habilita_formulacion');
             $upfp->updated_auth                     =   Auth::user()->id;
             $upfp->update();
 
@@ -741,24 +737,21 @@ class ExpedienteController extends Controller
         try 
         {
             $expediente                 =   Expediente::findOrFail($id);
-            $expediente->codArea        =   $request->get('area');
+            $expediente->codArea        =   5;
             $expediente->codEstado      =   2; 
             $expediente->updated_auth   =   Auth::user()->id;
             $expediente->update();
-            
-            #2. Actualizo los datos del informe de UPFP
+
+            #2. Actualizamos el expediente de UPFP
             try 
             {
-                $upfp                           =   ExpedienteUpfp::getData($expediente->id);
-                $upfp->cod_responsable_form     =   $request->get('especialista');
-                $upfp->nro_informe_form         =   $request->get('nro_informe_form');
-                $upfp->fecha_informe_form       =   $request->get('fecha_informe_form');
-                $upfp->cod_responsable_tec      =   $request->get('especialista');
-                $upfp->nro_informe_tec          =   $request->get('nro_informe_tec');
-                $upfp->fecha_informe_tec        =   $request->get('fecha_informe_tec');
-                $upfp->fecha_derivacion         =   $request->get('fecha_derivacion');
-                $upfp->codEstadoProceso         =   2; #EstadoAprobado
-                $upfp->updated_auth             =   Auth::user()->id;
+                $upfp                       =   ExpedienteUpfp::getData($expediente->id);
+                $upfp->cod_responsable_tec  =   $request->get('especialista');
+                $upfp->nro_informe_tec      =   $request->get('nro_informe');
+                $upfp->fecha_informe_tec    =   $request->get('fecha');
+                $upfp->codEstadoProceso     =   2; #EstadoAprobado
+                $upfp->HabilitaFormulacion  =   1;
+                $upfp->updated_auth         =   Auth::user()->id;
                 $upfp->update();
 
                 #3. Genero el expediente en la Unidad de negocios
@@ -795,6 +788,8 @@ class ExpedienteController extends Controller
                     'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
                 ]);
             }
+
+
         } 
         catch (Exception $e) 
         {
@@ -1139,12 +1134,6 @@ class ExpedienteController extends Controller
         
     }
 
-
-
-
-
-
-
     #25. Muestro la información que se deriva al área de UAJ
     public function indexUaj()
     {
@@ -1380,35 +1369,5 @@ class ExpedienteController extends Controller
             ]);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

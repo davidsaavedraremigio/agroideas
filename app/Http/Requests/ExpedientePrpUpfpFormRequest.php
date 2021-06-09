@@ -24,7 +24,7 @@ class ExpedientePrpUpfpFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'fecha_recepcion'   =>  'date|required',
+            'especialista_responsable'   =>  'required',
         ];
     }
 }

@@ -1,6 +1,6 @@
 {!!Form::model($expediente,['id'=>'FormDerivaExpedienteUpfp', 'method'=>'POST', 'files' => 'true', 'enctype' => 'multipart/form-data', 'route'=>['upfp.procesa-informe',$expediente->id]])!!}
 <div class="modal-header">
-    <h4 class="modal-title">Derivar Informe Técnico de Formulación</h4>
+    <h4 class="modal-title">Opinión técnica favorable</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
     </button>
@@ -15,30 +15,19 @@
             <div class="col-md-4">{!! Form::label('nro_expediente', 'Nº de Expediente') !!} {!! Form::text('nro_expediente', $expediente->nroExpediente, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
             <div class="col-md-4">{!! Form::label('fecha_expediente', 'Fecha') !!} {!! Form::date('fecha_expediente', $expediente->fechaExpediente, ['class' => 'form-control', 'max' => date('Y-m-d'), 'readonly' => 'readonly']) !!}</div>
         </div>
-    </div>    
+    </div> 
     <div class="form-group">
-        <div class="row"><div class="col-md-12"><label for="">INFORME DE FORMULACION FAVORABLE</label></div></div>
         <div class="row">
             <div class="col-md-4">{!! Form::label('especialista', 'Especialista responsable') !!}
                 <select name="especialista" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($personal as $fila)
-                    <option value="{{$fila->id}}" {{($fila->id == $upfp->cod_responsable_form)?'selected':''}}>{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
+                        <option value="{{$fila->id}}" {{($fila->id == $upfp->cod_responsable_tec)?'selected':''}}>{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">{!! Form::label('nro_informe_form', 'Número') !!} {!! Form::number('nro_informe_form', $upfp->nro_informe_form, ['class' => 'form-control', 'max' => '9999']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_informe_form', 'Fecha') !!} {!! Form::date('fecha_informe_form', $upfp->fecha_informe_form, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12"><label for="">MEMORÁNDUN DE PASE DE UNIDAD DE NEGOCIOS</label></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">{!! Form::label('nro_informe_tec', 'Número') !!} {!! Form::number('nro_informe_tec', $upfp->nro_informe_tec, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_informe_tec', 'Fecha') !!} {!! Form::date('fecha_informe_tec', $upfp->fecha_informe_tec, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-            <div class="col-md-4">{!! Form::label('fecha_derivacion', 'Fecha de derivacion') !!} {!! Form::date('fecha_derivacion', $upfp->fecha_derivacion, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::number('nro_informe', '', ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha', 'Fecha') !!} {!! Form::date('fecha', '', ['class' => 'form-control', 'min' => $expediente->fechaExpediente, 'max' => date('Y-m-d')]) !!}</div>
         </div>
     </div>
 </div>

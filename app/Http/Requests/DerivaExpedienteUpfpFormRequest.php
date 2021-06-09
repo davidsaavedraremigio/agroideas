@@ -24,12 +24,9 @@ class DerivaExpedienteUpfpFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'especialista'          =>  'required',
-            'nro_informe_form'      =>  'required|digits_between:1,9999',
-            'fecha_informe_form'    =>  'required|date',
-            'nro_informe_tec'       =>  'required|digits_between:1,9999',
-            'fecha_informe_tec'     =>  'required|date',
-            'fecha_derivacion'      =>  'required|date',
+            'especialista'  =>  'required',
+            'nro_informe'   =>  'required|digits_between:1,9999',
+            'fecha'         =>  'required|date',
         ];
     }
 }

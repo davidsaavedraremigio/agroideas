@@ -65,13 +65,23 @@
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-12">{!! Form::label('', 'IV. Financiamiento del PRPA') !!}</div>
+                                <div class="col-md-6">{!! Form::label('', 'IV. Financiamiento del PRPA') !!}</div>
+                                <div class="col-md-6">{!! Form::label('', 'V. Informe de formulación') !!}</div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">{!! Form::label('aporte_pcc', 'PCC (S/)') !!} {!! Form::text('aporte_pcc', $proyecto->inversion_pcc, ['class' => 'form-control']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('aporte_entidad', 'OA (S/)') !!} {!! Form::text('aporte_entidad', $proyecto->inversion_entidad, ['class' => 'form-control']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('aporte_total', 'Total (S/.)') !!} {!! Form::text('aporte_total', $proyecto->inversion_total, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
-                                <div class="col-md-6"><br></div>
+                                <div class="col-md-2">{!! Form::label('especialista', 'Especialista responsable') !!}
+                                    <select name="especialista" class="form-control select2">
+                                        <option value="" selected="selected">Seleccionar</option>
+                                        @foreach ($personal as $fila)
+                                        <option value="{{$fila->id}}" {{($fila->id == $upfp->cod_responsable_form)?'selected':''}}>{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::number('nro_informe', $upfp->nro_informe_form, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+                                <div class="col-md-2">{!! Form::label('fecha', 'Fecha') !!} {!! Form::date('fecha', $upfp->fecha_informe_form, ['class' => 'form-control', 'min' => $expediente->fechaExpediente, 'max' => date('Y-m-d')]) !!}</div>
                             </div>
                         </div>
                         {{-- Botonera  --}}
@@ -80,7 +90,7 @@
                                 <div class="col-xs-12">
                                     <div id="Footer_UpdateFormulacion_Enabled">
                                        <a href="#" id="btnUpdateFormulacion" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Guardar cambios</a>
-                                       <a href="{{ env('APP_URL') }}/proceso-prp/formulacion" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
+                                       <a href="{{route("formulacion.index")}}" class="btn btn-sm btn-default"><i class="fas fa-sign-out-alt"></i> Cerrar formulario</a>
                                    </div>
                                    <div id="Footer_UpdateFormulacion_Disabled" style="display:none;">
                                        <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>

@@ -64,32 +64,6 @@
                                     <div class="col-md-3">{!! Form::label('fecha_eval_balance_hidrico', 'Fecha balance hídrico') !!} {!! Form::date('fecha_eval_balance_hidrico', $upfp->fecha_balance_hidrico, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">{!! Form::label('', '3. Opinión Técnica') !!}</div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">{!! Form::label('responsable_informe', 'Especialista responsable') !!}
-                                            <select name="responsable_informe" class="form-control select2">
-                                                <option value="" selected="selected">Seleccionar</option>
-                                                @foreach ($personal as $fila)
-                                                <option value="{{$fila->id}}" {{($fila->id == $upfp->cod_responsable_form)?'selected':''}}>{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">{!! Form::label('nro_informe', 'Nº de informe') !!} {!! Form::number('nro_informe', $upfp->nro_informe_form, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
-                                        <div class="col-md-3">{!! Form::label('fecha_informe', 'Fecha de informe') !!} {!! Form::date('fecha_informe', $upfp->fecha_informe_form, ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
-                                        <div class="col-md-3">{!! Form::label('habilita_formulacion', 'Resultado de la evaluación') !!}
-                                            <select name="habilita_formulacion" class="form-control">
-                                                <option value="" selected="selected">Seleccionar</option>
-                                                <option value="1" {{($upfp->HabilitaFormulacion == 1)?'selected':''}}>Favorable</option>
-                                                <option value="0" {{($upfp->HabilitaFormulacion == 0)?'selected':''}}>No favorable</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             {{-- Botonera  --}}
                             <div class="form-group">
                                 <div class="row">
