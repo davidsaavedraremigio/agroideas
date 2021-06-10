@@ -182,7 +182,7 @@ class FormulacionController extends Controller
                     {
                         $postulante                 =   Postulante::findOrFail($expediente->codPostulante);
                         $proyecto                   =   Proyecto::where('codPostulante', $postulante->id)->first();
-                        $proyecto->estado           =   2;
+                        $proyecto->estado           =   0;
                         $proyecto->updated_auth     =   Auth::user()->id;
                         $proyecto->update();
 
