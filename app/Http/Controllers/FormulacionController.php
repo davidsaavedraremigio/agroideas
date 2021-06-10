@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests\FormulacionFormRequest;
+use App\Http\Requests\FormDerivaExpedienteFormRequest;
 use App\Expediente;
 use App\ExpedienteUpfp;
 use App\Postulante;
@@ -142,7 +143,83 @@ class FormulacionController extends Controller
         }
     }
 
-    #7. 
+    #7. Formulario para derivar expediente
+    public function formDerivaExpediente($id)
+    {
+        #1. Obtengo los datos solicitados
+        $expediente         =   Expediente::findOrFail($id);
+        $upfp               =   ExpedienteUpfp::getData($id);
+        $area               =   6;
+        $personal           =   Usuario::getArea($area);
+
+        #2. Retorno al formulario
+        return view($this->path.'.form-deriva', compact('expediente', 'upfp', 'area', 'personal'));
+    }
+
+    #8. Procesamos la derivación de expediente
+    public function derivaExpediente(FormDerivaExpedienteFormRequest $request, $id)
+    {
+        try 
+        {
+            $expediente                 =   Expediente::findOrFail($id);
+            $expediente->updated_auth   =   Auth::user()->id;
+            $expediente->update();
+
+            try 
+            {
+                $upfp                           =   ExpedienteUpfp::getData($id);
+                $upfp->cod_responsable_form     =   $request->get('especialista');
+                $upfp->nro_informe_form         =   $request->get('nro_informe');
+                $upfp->fecha_informe_form       =   $request->get('fecha_informe');
+                $upfp->nro_memo_derivacion      =   $request->get('nro_memo');
+                $upfp->fecha_memo_derivacion    =   $request->get('fecha_memo');
+                $upfp->fecha_derivacion         =   $request->get('fecha_derivacion');
+                $upfp->updated_auth             =   Auth::user()->id;
+                $upfp->update();
+
+                    #3. Bloqueo los datos del proyecto
+                    try 
+                    {
+                        $postulante                 =   Postulante::findOrFail($expediente->codPostulante);
+                        $proyecto                   =   Proyecto::where('codPostulante', $postulante->id)->first();
+                        $proyecto->estado           =   2;
+                        $proyecto->updated_auth     =   Auth::user()->id;
+                        $proyecto->update();
+
+                        #3. Retorno a la pagina principal
+                        return response()->json([
+                            'estado'    =>  '1',
+                            'dato'      =>  '',
+                            'mensaje'   =>  'La información se procesó de manera exitosa.'
+                        ]);
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return response()->json([
+                            'estado'    =>  '2',
+                            'dato'      =>  $e->getMessage(),
+                            'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                        ]);
+                    }
+            } 
+            catch (Exception $e) 
+            {
+                return response()->json([
+                    'estado'    =>  '2',
+                    'dato'      =>  $e->getMessage(),
+                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                ]);
+            }
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
 
 
 }

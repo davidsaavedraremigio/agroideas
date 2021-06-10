@@ -316,6 +316,12 @@ Route::post('proceso-prp/uaj/deriva/{expediente}', 'ExpedienteController@derivaE
 #5.6. Formulación del Proyecto
 Route::resource('proceso-prp/formulacion', 'FormulacionController')->except(['show', 'destroy']);
 Route::get('proceso-prp/formulacion/data', 'FormulacionController@show')->name('formulacion.data');
+Route::get('proceso-prp/formulacion/{expediente}/derivar', 'FormulacionController@formDerivaExpediente')->name('formulacion.form-deriva-expediente');
+Route::post('proceso-prp/formulacion/derivar/{expediente}', 'FormulacionController@derivaExpediente')->name('formulacion.deriva-expediente');
+
+
+
+
 #5.7. Módulo para el registro de objetivos especificos
 Route::resource('proceso-prp/objetivo-especifico', 'ObjetivoEspecificoController')->except('create', 'show', 'destroy');
 Route::get('proceso-prp/objetivo-especifico/{postulante}/create', 'ObjetivoEspecificoController@create')->name('objetivo-especifico.create');

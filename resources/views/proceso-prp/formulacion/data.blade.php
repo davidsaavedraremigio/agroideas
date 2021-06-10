@@ -3,7 +3,7 @@
         <th class="text-center" width="8%"><small>Nº Expediente</small></th>
         <th class="text-center" width="8%"><small>Nº CUT</small></th>
         <th class="text-center"><small>Nº RUC</small></th>
-        <th class="text-center"><small>Nombre de la organización</small></th>
+        <th class="text-center" width="15%"><small>Nombre de la organización</small></th>
         <th class="text-center"><small>Cultivo a implementar</small></th>
         <th class="text-center"><small>Ubigeo</small></th>
         <th class="text-center"><small>Nº Has</small></th>
@@ -26,7 +26,7 @@
             <td class="text-center">
                 @if ($fila->estado == 1)
                     <a href="{{URL::action('FormulacionController@edit',$fila->id)}}" class="btn btn-sm btn-primary" title="Información general"><i class="fas fa-address-card"></i></a>
-                    <a href="#" class="btn btn-sm btn-success" title="Bloquear información"><i class="fas fa-lock"></i></a>
+                    <a href="#" class="btn btn-sm btn-success" id="btnmodalDerivaExpedienteUpfp" data-toggle="modal" data-target="#modalDerivaExpedienteUpfp" data-id="{{$fila->id}}" title="Derivar expediente"><i class="far fa-paper-plane"></i></a>
                 @else
                     <a href="#" class="btn btn-sm btn-warning" title="Desbloquear información"><i class="fas fa-unlock-alt"></i></a>
                 @endif
