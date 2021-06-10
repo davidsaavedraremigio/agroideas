@@ -82,16 +82,6 @@ class FormulacionController extends Controller
             $expediente->updated_auth   =   Auth::user()->id;
             $expediente->update();
 
-            #2. Actualizamos el informe de UPFP con los datos de la formulacion
-            try 
-            {
-                $upfp                           =   ExpedienteUpfp::getData($expediente->id);
-                $upfp->cod_responsable_form     =   $request->get('especialista');
-                $upfp->nro_informe_form         =   $request->get('nro_informe');
-                $upfp->fecha_informe_form       =   $request->get('fecha');
-                $upfp->updated_auth             =   Auth::user()->id;
-                $upfp->update();
-
                 #2. Guardo la información del Proyecto
                 try 
                 {
@@ -123,15 +113,6 @@ class FormulacionController extends Controller
                         'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
                     ]);
                 }
-            } 
-            catch (Exception $e) 
-            {
-                return response()->json([
-                    'estado'    =>  '2',
-                    'dato'      =>  $e->getMessage(),
-                    'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
-                ]);
-            }
         } 
         catch (Exception $e) 
         {
