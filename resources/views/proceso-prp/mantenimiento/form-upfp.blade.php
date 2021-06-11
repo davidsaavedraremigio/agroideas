@@ -68,26 +68,6 @@
                 <div class="col-md-2">{!! Form::label('fecha_derivacion', 'Fecha derivacion') !!} {!! Form::date('fecha_derivacion', $upfp->fecha_derivacion, ['class' => 'form-control']) !!}</div>
             </div>
         </div>
-        <hr class="my-4">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">{!! Form::label('', '3.3. OPINIÓN FORMULACION FAVORABLE') !!}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">{!! Form::label('especialista_formulacion', 'Especialista responsable') !!}
-                    <select name="especialista_formulacion" class="form-control select2">
-                        <option value="" selected="selected">Seleccionar</option>
-                        @foreach ($personal as $fila)
-                            <option value="{{$fila->id}}" {{($fila->id == $upfp->cod_responsable_form)?'selected':''}}> {{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-2">{!! Form::label('nro_informe_form', 'Nº de informe') !!} {!! Form::number('nro_informe_form', $upfp->nro_informe_form, ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
-                <div class="col-md-2">{!! Form::label('fecha_informe_form', 'Fecha') !!} {!! Form::date('fecha_informe_form', $upfp->fecha_informe_form, ['class' => 'form-control']) !!}</div>
-                <div class="col-md-2">{!! Form::label('nro_memo', 'Nº de memorándum') !!} {!! Form::number('nro_memo', '', ['class' => 'form-control', 'min' => '1', 'max' => 'form-control']) !!}</div>
-                <div class="col-md-2">{!! Form::label('fecha_memo', 'Fecha') !!} {!! Form::date('fecha_memo', '', ['class' => 'form-control', 'min' => $expediente->fechaCut, 'max' => date('Y-m-d')]) !!}</div>
-            </div>
-        </div>
     </div>
     <div class="card-footer">
         <div id="Footer_UpdateExpedienteUpfp_Enabled">

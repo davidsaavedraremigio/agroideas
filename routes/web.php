@@ -360,6 +360,8 @@ Route::get('proceso-prp/mantenimiento/{expediente}/ur', 'MantenimientoExpediente
 Route::post('proceso-prp/mantenimiento/ur/{expediente}', 'MantenimientoExpedientePrpController@updateExpedienteUr')->name('mantenimiento.update-ur');
 Route::get('proceso-prp/mantenimiento/{expediente}/upfp', 'MantenimientoExpedientePrpController@formEditUpfp')->name('mantenimiento.edit-upfp');
 Route::post('proceso-prp/mantenimiento/upfp/{expediente}', 'MantenimientoExpedientePrpController@updateExpedienteUpfp')->name('mantenimiento.update-upfp');
+Route::get('proceso-prp/mantenimiento/{expediente}/formulacion', 'MantenimientoExpedientePrpController@formEditFormulacion')->name('mantenimiento.edit-formulacion');
+Route::post('proceso-prp/mantenimiento/formulacion/{expediente}', 'MantenimientoExpedientePrpController@updateExpedienteFormulacion')->name('mantenimiento.update-formulacion');
 Route::get('proceso-prp/mantenimiento/{expediente}/un', 'MantenimientoExpedientePrpController@formEditUn')->name('mantenimiento.edit-un');
 Route::get('proceso-prp/mantenimiento/{expediente}/uaj', 'MantenimientoExpedientePrpController@formEditUaj')->name('mantenimiento.edit-uaj');
 

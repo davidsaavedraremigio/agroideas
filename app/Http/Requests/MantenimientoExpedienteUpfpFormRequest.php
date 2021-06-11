@@ -36,11 +36,6 @@ class MantenimientoExpedienteUpfpFormRequest extends FormRequest
             'fecha_informe_tecnico'     =>  'nullable|date',
             'habilita_formulacion'      =>  'required',
             'fecha_derivacion'          =>  'nullable|date',
-            'especialista_formulacion'  =>  'nullable',
-            'nro_informe_form'          =>  'nullable|digits_between:1,4',
-            'fecha_informe_form'        =>  'nullable|date',
-            'nro_memo'                  =>  'nullable',
-            'fecha_memo'                =>  'nullable|date',
         ];
     }
 }

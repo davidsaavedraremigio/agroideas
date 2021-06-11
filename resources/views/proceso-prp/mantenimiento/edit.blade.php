@@ -13,7 +13,12 @@
                     @endif
                     @if (isset($upfp->id))
                     <li class="nav-item"><a class="nav-link" id="TabExpediente003" data-toggle="pill" href="#custom-tabs-upfp" role="tab" aria-controls="custom-tabs-upfp" aria-selected="false">3. Evaluación Técnica</a></li>   
+                    @if ($upfp->HabilitaFormulacion == 1)
+                    <li class="nav-item"><a class="nav-link" id="TabExpediente004" data-toggle="pill" href="#custom-tabs-form" role="tab" aria-controls="custom-tabs-form" aria-selected="false">4. Formulación</a></li>    
                     @endif
+                    @endif
+                    
+                    
                     <!--
                     <li class="nav-item"><a class="nav-link" id="TabExpediente004" data-toggle="pill" href="#custom-tabs-un" role="tab" aria-controls="custom-tabs-un" aria-selected="false">4. Unidad de Negocios</a></li>   
                     <li class="nav-item"><a class="nav-link" id="TabExpediente005" data-toggle="pill" href="#custom-tabs-uaj" role="tab" aria-controls="custom-tabs-uaj" aria-selected="false">5. Unidad de asesoría jurídica</a></li>   
@@ -102,13 +107,19 @@
                             <span class="sr-only">Cargando...</span>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-un" role="tabpanel" aria-labelledby="TabExpediente004">
+                    <div class="tab-pane fade" id="custom-tabs-form" role="tabpanel" aria-labelledby="TabExpediente004">
+                        <div id="divFormUpdateExpedienteFormulacion">
+                            <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-un" role="tabpanel" aria-labelledby="TabExpediente005">
                         <div id="divFormUpdateExpedienteUn">
                             <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
                             <span class="sr-only">Cargando...</span>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-uaj" role="tabpanel" aria-labelledby="TabExpediente005">
+                    <div class="tab-pane fade" id="custom-tabs-uaj" role="tabpanel" aria-labelledby="TabExpediente006">
                         <div id="divFormUpdateExpedienteUaj">
                             <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
                             <span class="sr-only">Cargando...</span>
@@ -130,6 +141,7 @@
         $('#divFormUpdateExpedienteUpfp').load(route("mantenimiento.edit-upfp", codExpediente));
         $('#divFormUpdateExpedienteUn').load(route("mantenimiento.edit-un", codExpediente));
         $('#divFormUpdateExpedienteUaj').load(route("mantenimiento.edit-uaj", codExpediente));
+        $('#divFormUpdateExpedienteFormulacion').load(route("mantenimiento.edit-formulacion", codExpediente));
         //2. Proceso los datos de los formularios
         $(document).on("click", '#btnUpdateExpedientePrp', function (event) {
             event.preventDefault();
@@ -255,7 +267,49 @@
                     $("#Footer_UpdateExpedienteUpfp_Disabled").css("display", "none");
                 }
             });
-        });   
+        });
+        $(document).on("click", '#btnUpdateExpedienteFormulacion', function (event) {
+            event.preventDefault();
+            var form = $("#FormUpdateExpedienteFormulacion");
+            var urlAction = form.attr('action');
+            var formData = new FormData(form[0]);
+            var dataAll = form.serialize();
+            $.ajax({
+                url: urlAction,
+                method: "POST",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $("#Footer_UpdateExpedienteFormulacion_Enabled").css("display", "none");
+                    $("#Footer_UpdateExpedienteFormulacion_Disabled").css("display", "block");
+                },
+                success: function (response) {
+                    var mensaje = response.mensaje;
+                    form[0].reset();
+                    $("#Footer_UpdateExpedienteFormulacion_Enabled").css("display", "block");
+                    $("#Footer_UpdateExpedienteFormulacion_Disabled").css("display", "none");
+                    $('#divFormUpdateExpedienteFormulacion').load(route("mantenimiento.edit-formulacion", codExpediente));
+                    alertify.success(mensaje);
+                },
+                error: function (response) {
+                    var errors = response.responseJSON;
+                    var errorTitle = errors.message;
+                    console.error(errorTitle);
+                    var errorsHtml = '';
+                    $.each(errors['errors'], function (index, value) {
+                        errorsHtml += '<ul>';
+                        errorsHtml += '<li>' + value + "</li>";
+                        errorsHtml += '</ul>';
+                    });
+                    $("#ExpedienteFormulacionAlerts").css("display", "block");
+                    $("#ExpedienteFormulacionAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                    $("#Footer_UpdateExpedienteFormulacion_Enabled").css("display", "block");
+                    $("#Footer_UpdateExpedienteFormulacion_Disabled").css("display", "none");
+                }
+            });
+        });     
     });
 </script>
 @stop

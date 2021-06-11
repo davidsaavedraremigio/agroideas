@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\MantenimientoExpedienteFormRequest;
 use App\Http\Requests\MantenimientoExpedienteUrFormRequest;
 use App\Http\Requests\MantenimientoExpedienteUpfpFormRequest;
+use App\Http\Requests\MantenimientoExpedienteFormulacionFormRequest;
 use App\Entidad;
 use App\Postulante;
 use App\Expediente;
@@ -179,10 +180,6 @@ class MantenimientoExpedientePrpController extends Controller
             $upfp->cod_responsable_tec      =   $request->get('especialista_tecnico');
             $upfp->nro_informe_tec          =   $request->get('nro_informe_tecnico');
             $upfp->fecha_informe_tec        =   $request->get('fecha_informe_tecnico');
-            $upfp->cod_responsable_form     =   $request->get('especialista_formulacion');
-            $upfp->nro_informe_form         =   $request->get('nro_informe_form');
-            $upfp->fecha_informe_form       =   $request->get('fecha_informe_form');
-            $upfp->fecha_derivacion         =   $request->get('fecha_derivacion');
             $upfp->HabilitaFormulacion      =   $request->get('habilita_formulacion');
             $upfp->codResponsableAsignado   =   $request->get('especialista_responsable');
             $upfp->updated_auth             =   Auth::user()->id;
@@ -203,6 +200,57 @@ class MantenimientoExpedientePrpController extends Controller
             ]);
         }
     }
+
+    #11. Formulario para editar los datos de formulacion
+    public function formEditFormulacion($id)
+    {
+        #1. Obtengo los datos solicitados
+        $expediente     =   Expediente::findOrFail($id);
+        $upfp           =   ExpedienteUpfp::where('codExpediente', $expediente->id)->first();
+        $personal       =   Usuario::getData();
+        $estados        =   TablaValor::getDetalleTabla("EstadoProceso");
+        #2. Retorno al formulario
+        return view($this->path.'.form-formulacion', compact('expediente', 'upfp', 'personal', 'estados'));
+    }
+
+    #12. 
+    public function updateExpedienteFormulacion(MantenimientoExpedienteFormulacionFormRequest $request, $id)
+    {
+        try 
+        {
+            $upfp                           =   ExpedienteUpfp::findOrFail($id);
+            $upfp->cod_responsable_form     =   $request->get('especialista_formulacion');
+            $upfp->nro_informe_form         =   $request->get('nro_informe_form');
+            $upfp->fecha_informe_form       =   $request->get('fecha_informe_form');
+            $upfp->fecha_derivacion         =   $request->get('fecha_derivacion');
+            $upfp->nro_memo_derivacion      =   $request->get('nro_memo');
+            $upfp->fecha_memo_derivacion    =   $request->get('fecha_memo');
+            $upfp->updated_auth             =   Auth::user()->id;
+            $upfp->update();
+
+            return response()->json([
+                'estado'    =>  '1',
+                'dato'      =>  '',
+                'mensaje'   =>  'La información se procesó de manera exitosa.'
+            ]);
+        } 
+        catch (Exception $e) 
+        {
+            return response()->json([
+                'estado'    =>  '2',
+                'dato'      =>  $e->getMessage(),
+                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+            ]);
+        }
+    }
+
+
+
+
+
+
+
+
 
     #11.
     public function formEditUn($id)
