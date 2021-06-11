@@ -28,7 +28,7 @@
                     <a href="{{URL::action('FormulacionController@edit',$fila->id)}}" class="btn btn-sm btn-primary" title="Información general"><i class="fas fa-address-card"></i></a>
                     <a href="#" class="btn btn-sm btn-success" id="btnmodalDerivaExpedienteUpfp" data-toggle="modal" data-target="#modalDerivaExpedienteUpfp" data-id="{{$fila->id}}" title="Derivar expediente"><i class="far fa-paper-plane"></i></a>
                 @else
-                    <a href="#" class="btn btn-sm btn-warning" title="Desbloquear información"><i class="fas fa-unlock-alt"></i></a>
+                    <a href="#" class="btn btn-sm btn-warning" title="Desbloquear información"><i class="fas fa-lock"></i></a>
                 @endif
             </td>
         </tr>    
