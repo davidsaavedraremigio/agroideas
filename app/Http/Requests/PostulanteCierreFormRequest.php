@@ -28,12 +28,14 @@ class PostulanteCierreFormRequest extends FormRequest
             'nro_documento_me'          =>  'required|integer',
             'fecha_me'                  =>  'required|date',
             'especialista_me'           =>  'required',
-            'comentario_me'             =>  'max:3000',
             'tipo_documento_uaj'        =>  'required',
             'nro_documento_uaj'         =>  'required|integer',
             'fecha_uaj'                 =>  'required|date',
             'especialista_uaj'          =>  'required',
-            'comentario_uaj'            =>  'max:3000',
+            'tipo_documento_de'         =>  'required',
+            'nro_documento_de'          =>  'required|integer',
+            'fecha_de'                  =>  'required|date',
+            'especialista_de'           =>  'required',
         ];
     }
 }

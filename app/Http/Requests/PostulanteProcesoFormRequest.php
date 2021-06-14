@@ -24,6 +24,7 @@ class PostulanteProcesoFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'fecha_recepcion'       =>  'required|date',
             'tipo_documento'        =>  'required',
             'nro_documento'         =>  'required|integer',
             'fecha'                 =>  'required|date',

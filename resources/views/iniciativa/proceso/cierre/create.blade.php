@@ -57,13 +57,44 @@
             <div class="col-md-12">{!! Form::label('especialista_uaj', 'Especialista asignado') !!}
                 <select name="especialista_uaj" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
-                    @foreach ($monitoreo as $fila)
+                    @foreach ($uaj as $fila)
                         <option value="{{$fila->id}}">{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-    </div>          
+    </div>       
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">{!! Form::label('', 'III. Dirección Ejecutiva') !!}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{!! Form::label('tipo_documento_de', 'Tipo de documento') !!} 
+                <select name="tipo_documento_de" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($tipoDocumento as $fila)
+                        <option value="{{$fila->Orden}}">{{$fila->Nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">{!! Form::label('nro_documento_de', 'Nº de documento') !!} {!! Form::number('nro_documento_de', '', ['class' => 'form-control', 'min' => '1', 'max' => '9999']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha_de', 'Fecha de documento') !!} {!! Form::date('fecha_de', '', ['class' => 'form-control']) !!}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">{!! Form::label('especialista_de', 'Responsable de firma') !!}
+                <select name="especialista_de" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($de as $fila)
+                        <option value="{{$fila->id}}">{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>   
+
 </div>
 <div class="modal-footer justify-content-between">
     <div id="Footer_CreateCierre_Enabled">

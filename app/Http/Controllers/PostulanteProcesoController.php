@@ -48,7 +48,7 @@ class PostulanteProcesoController extends Controller
             $proceso->fechaDocumento        =   $request->get('fecha');
             $proceso->codEspecialista       =   $request->get('especialista');
             $proceso->codProceso            =   4; #Proceso de cierre
-            $proceso->fechaProceso          =   Carbon::now();
+            $proceso->fechaProceso          =   $request->get('fecha_recepcion');
             $proceso->comentario            =   $request->get('comentario');
             $proceso->created_auth          =   Auth::user()->id;
             $proceso->updated_auth          =   Auth::user()->id;
@@ -78,10 +78,6 @@ class PostulanteProcesoController extends Controller
                     'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
                 ]);
             }
-
-
-
-            
         } 
         catch (Exception $e) 
         {
@@ -108,9 +104,10 @@ class PostulanteProcesoController extends Controller
         $tipoDocumento      =   TablaValor::getDetalleTabla("TipoDocumentoProceso");
         $monitoreo          =   Usuario::getArea(4);
         $uaj                =   Usuario::getArea(3);
+        $de                 =   Usuario::getArea(1);
 
         #2. Retorno al formulario
-        return view($this->path.'.cierre.create', compact('tipoDocumento', 'uaj', 'monitoreo', 'postulante'));  
+        return view($this->path.'.cierre.create', compact('tipoDocumento', 'uaj', 'monitoreo', 'de', 'postulante'));  
     }
 
     #6. Proceso el formulario
@@ -127,7 +124,6 @@ class PostulanteProcesoController extends Controller
             $proceso->codEspecialista       =   $request->get('especialista_me');
             $proceso->codProceso            =   5;#En cierre
             $proceso->fechaProceso          =   Carbon::now();
-            $proceso->comentario            =   $request->get('comentario_me');
             $proceso->created_auth          =   Auth::user()->id;
             $proceso->updated_auth          =   Auth::user()->id;
             $proceso->save(); 
@@ -143,25 +139,48 @@ class PostulanteProcesoController extends Controller
                 $proceso->codEspecialista       =   $request->get('especialista_uaj');
                 $proceso->codProceso            =   5;#En cierre
                 $proceso->fechaProceso          =   Carbon::now();
-                $proceso->comentario            =   $request->get('comentario_uaj');
                 $proceso->created_auth          =   Auth::user()->id;
                 $proceso->updated_auth          =   Auth::user()->id;
                 $proceso->save(); 
 
-                #3. Actualizamos el estado Situacional
+                #3. Guardamos la información correspondiente al especialista de DE
                 try 
                 {
-                    $estado                         =   PostulanteEstado::where('codPostulante', $id)->first();
-                    $estado->codEstadoSituacional   =   7;
-                    $estado->updated_auth           =   Auth::user()->id;
-                    $estado->update();
+                    $proceso                        =   new PostulanteProceso;
+                    $proceso->codPostulante         =   $request->get('codigo');
+                    $proceso->codTipoDocumento      =   $request->get('tipo_documento_de');
+                    $proceso->nroDocumento          =   $request->get('nro_documento_de');
+                    $proceso->fechaDocumento        =   $request->get('fecha_de');
+                    $proceso->codEspecialista       =   $request->get('especialista_de');
+                    $proceso->codProceso            =   5;#En cierre
+                    $proceso->fechaProceso          =   Carbon::now();
+                    $proceso->created_auth          =   Auth::user()->id;
+                    $proceso->updated_auth          =   Auth::user()->id;
+                    $proceso->save(); 
 
-                    #4. Retorno al menu principal
-                    return response()->json([
-                        'estado'    =>  '1',
-                        'dato'      =>  '',
-                        'mensaje'   =>  'La información se procesó de manera exitosa.'
-                    ]);
+                    #3. Actualizamos el estado Situacional
+                    try 
+                    {
+                        $estado                         =   PostulanteEstado::where('codPostulante', $request->get('codigo'))->first();
+                        $estado->codEstadoSituacional   =   7;
+                        $estado->updated_auth           =   Auth::user()->id;
+                        $estado->update();
+
+                        #4. Retorno al menu principal
+                        return response()->json([
+                            'estado'    =>  '1',
+                            'dato'      =>  '',
+                            'mensaje'   =>  'La información se procesó de manera exitosa.'
+                        ]);
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return response()->json([
+                            'estado'    =>  '2',
+                            'dato'      =>  $e->getMessage(),
+                            'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                        ]);
+                    }
                 } 
                 catch (Exception $e) 
                 {

@@ -11,6 +11,19 @@
     {!! Form::hidden('codigo', $postulante->id, ['class' => 'form-control']) !!}
     <div class="form-group">
         <div class="row">
+            <div class="col-md-4">{!! Form::label('fecha_recepcion', 'Fecha de recepción') !!} {!! Form::date('fecha_recepcion', date('Y-m-d'), ['class' => 'form-control', 'max' => date('Y-m-d')]) !!}</div>
+            <div class="col-md-8">{!! Form::label('especialista', 'Especialista asignado') !!}
+                <select name="especialista" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($personal as $fila)
+                        <option value="{{$fila->id}}">{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
             <div class="col-md-4">{!! Form::label('tipo_documento', 'Tipo de documento') !!} 
                 <select name="tipo_documento" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
@@ -23,18 +36,7 @@
             <div class="col-md-4">{!! Form::label('fecha', 'Fecha de documento') !!} {!! Form::date('fecha', '', ['class' => 'form-control']) !!}</div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12">{!! Form::label('especialista', 'Especialista asignado') !!}
-                <select name="especialista" class="form-control select2">
-                    <option value="" selected="selected">Seleccionar</option>
-                    @foreach ($personal as $fila)
-                        <option value="{{$fila->id}}">{{$fila->nombres}} {{$fila->paterno}} {{$fila->materno}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
+
     <div class="form-group">
         <div class="row">
             <div class="col-md-12">{!! Form::label('comentario', 'Comentarios') !!} {!! Form::textarea('comentario', '', ['class' => 'form-control', 'cols' => '2', 'rows' => '2']) !!}</div>
