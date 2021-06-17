@@ -121,7 +121,6 @@
 </div>
 {!! Form::close() !!}
 <script>
-    var urlApp          = "{{ env('APP_URL') }}";
     //1. Validamos la información del DNI
     $('.select2').select2({
         theme: 'bootstrap4'
@@ -148,27 +147,16 @@
                     },
                     success: function(response) {
                         var cadena      =   jQuery.parseJSON(response);
-                        var estado      =   cadena.estado;
-
-                        if (estado == 200) 
-                        {
-                            $("#input_paterno").val(cadena.paterno);
-                            $("#input_materno").val(cadena.materno);
-                            $("#input_nombres").val(cadena.nombre);
-                        }
-                        else
-                        {
-                            alertify.error('El DNI consultado no figura en la base de datos.');
-                            $("#input_paterno").val("");
-                            $("#input_materno").val("");
-                            $("#input_nombres").val("");
-                            $("#input_nro_dni").val("");
-                            $("#input_nro_dni").focus();
-                            return false;
-                        }
+                        $("#input_paterno").val(cadena.paterno);
+                        $("#input_materno").val(cadena.materno);
+                        $("#input_nombres").val(cadena.nombre);
                     },
                     statusCode: {
                         404: function() {
+                            $("#input_paterno").val("");
+                            $("#input_materno").val("");
+                            $("#input_nombres").val("");
+                            $("#input_nro_dni").focus();
                             alertify.error('El sistema presenta problemas de funcionamiento.');
                         }
                     }
@@ -176,6 +164,10 @@
             }
             else
             {
+                $("#input_paterno").val("");
+                $("#input_materno").val("");
+                $("#input_nombres").val("");
+                $("#input_nro_dni").focus();
                 alertify.error('Error. Ingrese un número de DNI válido.');
             }
         }
@@ -191,7 +183,7 @@
             if (caracteres == 11) 
             {
                 event.preventDefault();
-                var urlAction = route("servicio.sunat", ruc);
+                var urlAction = route("servicio.ruc", ruc);
                 $.ajax({
                     url:    urlAction,
                     method: "GET",
@@ -204,7 +196,7 @@
                         var estado      =   cadena.estado;
                         if (estado == 1)
                         {
-                            $("#input_razon_social").val(cadena.dato);
+                            $("#input_razon_social").val(cadena.nombre);
                             $("#input_direccion").val(cadena.direccion);
                             $("#input_ubigeo").val(cadena.ubigeo);
                             $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');

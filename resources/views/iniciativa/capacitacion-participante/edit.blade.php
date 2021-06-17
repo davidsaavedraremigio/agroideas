@@ -93,7 +93,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">{!! Form::label('tipo_entidad', 'Tipo de entidad') !!}
-                <select name="tipo_entidad" class="form-control select2">
+                <select id="input_tipo_entidad" name="tipo_entidad" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($tipo_entidad as $fila)
                         <option value="{{$fila->Orden}}" {{($fila->Orden == $opa->codTipoEntidad)?'selected':''}}>{{$fila->Nombre}}</option>
@@ -120,3 +120,108 @@
         <a href="#" class="btn btn-default btn-sm" disabled><i class="fas fa-spinner fa-pulse fa-1x fa-fw"></i> Espere un momento, se está procesando la solicitud</a>
     </div>
 </div>
+{!! Form::close() !!}
+<script>
+    //1. Validamos la información del DNI
+    $('.select2').select2({
+        theme: 'bootstrap4'
+    });
+    //2. Validamos la información del DNI
+    $("#input_nro_dni").keypress(function(e) {
+        var tecla = (e.keyCode ? e.keyCode : e.which);
+        if (tecla == 13)
+        {
+            var dni         =   $("#input_nro_dni").val();
+            var caracteres  =   dni.length;
+            if (caracteres == 8)
+            {
+                event.preventDefault();
+                var urlAction = route("servicio.dni", dni);
+                $.ajax({
+                    url:    urlAction,
+                    method: "GET",
+                    data:   dni,
+                    beforeSend: function() {
+                        $("#input_paterno").val("Consultando ...");
+                        $("#input_materno").val("Consultando ...");
+                        $("#input_nombres").val("Consultando ...");
+                    },
+                    success: function(response) {
+                        var cadena      =   jQuery.parseJSON(response);
+                        $("#input_paterno").val(cadena.paterno);
+                        $("#input_materno").val(cadena.materno);
+                        $("#input_nombres").val(cadena.nombre);
+                    },
+                    statusCode: {
+                        404: function() {
+                            $("#input_paterno").val("");
+                            $("#input_materno").val("");
+                            $("#input_nombres").val("");
+                            $("#input_nro_dni").focus();
+                            alertify.error('El sistema presenta problemas de funcionamiento.');
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $("#input_paterno").val("");
+                $("#input_materno").val("");
+                $("#input_nombres").val("");
+                $("#input_nro_dni").focus();
+                alertify.error('Error. Ingrese un número de DNI válido.');
+            }
+        }
+    });
+    //3. Validamos la información del RUC
+    $("#input_ruc").keypress(function(e) {
+        var tecla = (e.keyCode ? e.keyCode : e.which);
+        if (tecla == 13) 
+        {
+            var ruc         =   $("#input_ruc").val();
+            var caracteres  =   ruc.length;
+
+            if (caracteres == 11) 
+            {
+                event.preventDefault();
+                var urlAction = route("servicio.ruc", ruc);
+                $.ajax({
+                    url:    urlAction,
+                    method: "GET",
+                    data:   ruc,
+                    beforeSend: function() {
+                        $("#input_razon_social").val("Consultando datos del proveedor ...");
+                    },
+                    success: function(response) {
+                        var cadena      =   jQuery.parseJSON(response);
+                        var estado      =   cadena.estado;
+                        if (estado == 1)
+                        {
+                            $("#input_razon_social").val(cadena.nombre);
+                            $("#input_direccion").val(cadena.direccion);
+                            $("#input_ubigeo").val(cadena.ubigeo);
+                            $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');
+                            $("#input_fecha_inicio").val(cadena.fecha);
+                        }
+                        else
+                        {
+                            alertify.error('El RUC consultado se encuenta en estado: '+cadena.dato);
+                            return false;
+                        }
+                    },
+                    statusCode: {
+                        404: function() {
+                            alertify.error('El sistema presenta problemas de funcionamiento.');
+                        }
+                    }
+                });
+            }
+            else
+            {
+                alertify.error('Error. Ingrese un número de RUC válido.');
+                $("#input_ruc").val("");
+                return false;
+            }
+        }
+    });
+</script>
