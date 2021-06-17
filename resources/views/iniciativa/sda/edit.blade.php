@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-md-3">{!! Form::label('ruc', 'Nro de RUC (*)') !!} {!! Form::text('ruc', $entidad->nroDocumento, ['class' => 'form-control', 'placeholder' => '00000000000', 'maxlength' => '11', 'id' => 'input_nro_documento']) !!}</div>
                                 <div class="col-md-3">{!! Form::label('tipo_entidad', 'Tipo de organización (*)') !!}
-                                    <select name="tipo_entidad" class="form-control select2">
+                                    <select name="tipo_entidad" id="input_tipo_entidad" class="form-control select2">
                                         <option value="" selected="selected">Seleccionar</option>
                                         @foreach ($tipoEntidad as $fila)
                                             <option value="{{$fila->Orden}}" {{($fila->Orden == $entidad->codTipoEntidad)?'selected':''}}>{{$fila->Nombre}}</option>
@@ -161,7 +161,7 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = urlApp+'/ruc/'+ruc;
+                    var urlAction = route("servicio.ruc", ruc);
                     $.ajax({
                         url:    urlAction,
                         method: "GET",
@@ -174,7 +174,7 @@
                             var estado      =   cadena.estado;
                             if (estado == 1)
                             {
-                                $("#input_nombre").val(cadena.dato);
+                                $("#input_nombre").val(cadena.nombre);
                                 $("#input_direccion").val(cadena.direccion);
                                 $("#input_ubigeo").val(cadena.ubigeo);
                                 $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');

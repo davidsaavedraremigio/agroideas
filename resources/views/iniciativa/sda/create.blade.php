@@ -115,7 +115,8 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = urlApp+'/sunat/'+ruc;
+                    var urlAction   =   route("servicio.ruc", ruc);
+
                     $.ajax({
                         url:    urlAction,
                         method: "GET",
@@ -128,7 +129,7 @@
                             var estado      =   cadena.estado;
                             if (estado == 1)
                             {
-                                $("#input_nombre").val(cadena.dato);
+                                $("#input_nombre").val(cadena.nombre);
                                 $("#input_direccion").val(cadena.direccion);
                                 $("#input_ubigeo").val(cadena.ubigeo);
                                 $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');
