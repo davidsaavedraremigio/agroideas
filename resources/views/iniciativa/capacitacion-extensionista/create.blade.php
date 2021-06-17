@@ -42,7 +42,6 @@
 </div>
 {!! Form::close() !!}
 <script>
-    var urlApp          = "{{ env('APP_URL') }}";
     //1. Validamos la información del DNI
     $("#input_nro_dni").keypress(function(e) {
         var tecla = (e.keyCode ? e.keyCode : e.which);
@@ -53,7 +52,7 @@
             if (caracteres == 8)
             {
                 event.preventDefault();
-                var urlAction = urlApp+'/dni/'+dni;
+                var urlAction = route("servicio.dni", dni);
                 $.ajax({
                     url:    urlAction,
                     method: "GET",
@@ -65,35 +64,34 @@
                     },
                     success: function(response) {
                         var cadena      =   jQuery.parseJSON(response);
-                        var estado      =   cadena.estado;
 
-                        if (estado == 200) 
-                        {
-                            $("#input_paterno").val(cadena.paterno);
-                            $("#input_materno").val(cadena.materno);
-                            $("#input_nombres").val(cadena.nombre);
-                        }
-                        else
-                        {
-                            alertify.error('El DNI consultado no figura en la base de datos.');
+                        $("#input_paterno").val(cadena.paterno);
+                        $("#input_materno").val(cadena.materno);
+                        $("#input_nombres").val(cadena.nombre);
+
+                    },
+                    statusCode: {
+                        404: function() {
                             $("#input_paterno").val("");
                             $("#input_materno").val("");
                             $("#input_nombres").val("");
                             $("#input_nro_dni").val("");
                             $("#input_nro_dni").focus();
-                            return false;
-                        }
-                    },
-                    statusCode: {
-                        404: function() {
                             alertify.error('El sistema presenta problemas de funcionamiento.');
+                            return false;
                         }
                     }
                 });
             }
             else
             {
+                $("#input_paterno").val("");
+                $("#input_materno").val("");
+                $("#input_nombres").val("");
+                $("#input_nro_dni").val("");
+                $("#input_nro_dni").focus();
                 alertify.error('Error. Ingrese un número de DNI válido.');
+                return false;
             }
         }
     });
