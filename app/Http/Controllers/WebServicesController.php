@@ -22,43 +22,30 @@ class WebServicesController extends Controller
             if (strlen($valor) == 8)
             {
                 $dni        =   $valor;
-                $url        =   'http://200.48.54.126/ApiPide/api/reniec/dni2/'.$dni;
-                $respuesta  =   file_get_contents($url);
+                $url        =   'http://selv2.agroideas.gob.pe/PIDE/JsonConsultaReniecPide';
+                $post       =   [
+                                    'nroDniCon'     =>  $dni,
+                                    'nroRucEnt'     =>  '20524605903',
+                                    'pwdUsua'       =>  '40914955',
+                                    'nroDniUsua'    =>  '40914955'
+                                ];
+                $ch         =   curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+                $respuesta  = curl_exec($ch);
+                curl_close($ch);
                 $array      =   json_decode($respuesta);
-                $estado     =   $array->operationCode;
-                $ruc        =   Persona::getNumeroRuc($dni);
-                
-                #1. Verificamos el estado del Proveedor
-                if ($estado == 200) 
-                {
-                    $data = array(
-                        'estado'    =>  $estado,
-                        'dato'      =>  'La consulta del documento fue exitosa',
-                        'dni'       =>  $dni,
-                        'nombre'    =>  $array->data->nombres,
-                        'paterno'   =>  $array->data->apellidoPaterno,
-                        'materno'   =>  $array->data->apellidoMaterno,
-                        'direccion' =>  $array->data->direccion,
-                        'foto'      =>  $array->data->foto,
-                        'ruc'       =>  $ruc,
-                        'bloqueo'   =>  'readonly',
-                    );
-                } 
-                else 
-                {
-                    $data = array(
-                        'estado'    =>  $estado,
-                        'dato'      =>  'Se presentó un error al consultar el DNI',
-                        'dni'       =>  '',
-                        'nombre'    =>  '',
-                        'paterno'   =>  '',
-                        'materno'   =>  '',
-                        'direccion' =>  '',
-                        'foto'      =>  '',
-                        'ruc'       =>  '',
-                        'bloqueo'   =>  '',
-                    );
-                }
+
+                $data = array(
+                    'dni'       =>  $dni,
+                    'nombre'    =>  $array->prenombres,
+                    'paterno'   =>  $array->apPrimer,
+                    'materno'   =>  $array->apSegundo,
+                    'direccion' =>  $array->direccion,
+                    'foto'      =>  $array->foto,
+                    'bloqueo'   =>  'readonly',
+                );
+
                 return json_encode($data);
             }
         }
@@ -71,24 +58,22 @@ class WebServicesController extends Controller
         if (strlen($valor) == 11) 
         {
             $ruc        =   $valor;
-            $url        =   'http://192.190.42.128/apisunat/api/consultarruc/'.$ruc;
+            $url        =   'http://selv2.agroideas.gob.pe/PIDE/JsonConsultaSunatDPrinPide?nroRuc='.$ruc;
             $respuesta  =   file_get_contents($url);
             $array      =   json_decode($respuesta);
             $variables  =   array('"', "'"); #Nos permitirá guardar la información sin comillas simples
 
             $data = array(
                 'estado'    =>  '1',
-                'dato'      =>  trim(addslashes(str_replace($variables, "", $array->razonSocial))),
-                'tipo'      =>  trim(addslashes(str_replace($variables, "", $array->tipoContribuyente))),
-                'direccion' =>  trim(addslashes(str_replace($variables, "", $array->domicilioLegal))),
-                'telefono'  =>  trim($array->telefono1),
-                'ubigeo'    =>  trim($array->ubicacionGeografica),
-                'regimen'   =>  trim($array->tipoPersona),
-                'sigla'     =>  trim($array->nombreComercial),
-                'domicilio' =>  trim($array->condicionDomicilio),
-                'situacion' =>  trim($array->estadoContribuyente),
-                'fecha'     =>  substr($array->fechaAlta, 6, 4)."-".substr($array->fechaAlta, 3, 2)."-".substr($array->fechaAlta, 0, 2),
-                'codigo'    =>  trim($array->codigoTipoContribuyente),
+                'nombre'    =>  trim(addslashes(str_replace($variables, "", $array->ddp_nombre))),
+                'tipo'      =>  trim(addslashes(str_replace($variables, "", $array->desc_tpoemp))),
+                'direccion' =>  trim(addslashes(str_replace($variables, "", $array->ddp_nomvia))),
+                'ubigeo'    =>  trim($array->ddp_ubigeo),
+                'regimen'   =>  trim($array->desc_identi),
+                'domicilio' =>  trim($array->desc_flag22),
+                'situacion' =>  trim($array->desc_estado),
+                'fecha'     =>  substr($array->ddp_fecalt, 6, 4)."-".substr($array->ddp_fecalt, 3, 2)."-".substr($array->ddp_fecalt, 0, 2),
+                'codigo'    =>  trim($array->ddp_tpoemp),
             ); 
 
             #2. Retornamos la información solicitada

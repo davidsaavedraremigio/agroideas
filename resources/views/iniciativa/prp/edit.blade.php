@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-md-3">{!! Form::label('ruc', 'Nro de RUC (*)') !!} {!! Form::text('ruc', $entidad->nroDocumento, ['class' => 'form-control', 'placeholder' => '00000000000', 'maxlength' => '11', 'id' => 'input_nro_documento']) !!}</div>
                                 <div class="col-md-3">{!! Form::label('tipo_entidad', 'Tipo de organización (*)') !!}
-                                    <select name="tipo_entidad" class="form-control select2">
+                                    <select id="input_tipo_entidad" name="tipo_entidad" class="form-control select2">
                                         <option value="" selected="selected">Seleccionar</option>
                                         @foreach ($tipoEntidad as $fila)
                                             <option value="{{$fila->Orden}}" {{($fila->Orden == $entidad->codTipoEntidad)?'selected':''}}>{{$fila->Nombre}}</option>
@@ -217,7 +217,7 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = route('servicio.sunat', ruc);
+                    var urlAction   = route("servicio.ruc", ruc);
                     $.ajax({
                         url:    urlAction,
                         method: "GET",
@@ -230,9 +230,10 @@
                             var estado      =   cadena.estado;
                             if (estado == 1)
                             {
-                                $("#input_nombre").val(cadena.dato);
+                                $("#input_nombre").val(cadena.nombre);
                                 $("#input_direccion").val(cadena.direccion);
                                 $("#input_ubigeo").val(cadena.ubigeo);
+                                $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');
                             }
                             else
                             {
@@ -263,10 +264,6 @@
                 }
             }
         });
-        //2. Definimos los campos numericos
-        $("#inputImportePCC").numeric();
-        $("#inputImporteEntidad").numeric();
-        $("#inputImporteTotal").numeric();
         //3. Proceso el registro
         $(document).on("click", '#btnUpdatePRP', function (event) {
             event.preventDefault();
@@ -314,13 +311,13 @@
         //4. Modulo Productos
         var codigo    =   $("#viewDataUbigeo").attr('data-id');
         $("#viewDataUbigeo").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-        $("#viewDataUbigeo").load(urlApp+'/iniciativa/ambito/'+ codigo +'/data');
+        $("#viewDataUbigeo").load(route("ambito.data", codigo));
         $('#modalCreateUbigeo').on('show.bs.modal', function (e) {
-            $('#divFormCreateUbigeo').load(urlApp+'/iniciativa/ambito/' + codigo + '/create');
+            $("#divFormCreateUbigeo").load(route("ambito.create", codigo));
         });
         $('#modalUpdateUbigeo').on('show.bs.modal', function (e) {
             var codUbigeo= $(e.relatedTarget).attr('data-id');
-            $('#divFormUpdateUbigeo').load(urlApp+'/iniciativa/ambito/'+codUbigeo+'/edit');
+            $('#divFormUpdateUbigeo').load(route("ambito.edit", codUbigeo));
         });
         $(document).on("click", '#btnCreateUbigeo', function (event) {
             event.preventDefault();
@@ -346,7 +343,7 @@
                     $("#Footer_CreateUbigeo_Disabled").css("display", "none");
                     $("#modalCreateUbigeo").modal('hide');
                     $("#viewDataUbigeo").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataUbigeo").load(urlApp+'/iniciativa/ambito/'+ codigo +'/data');
+                    $("#viewDataUbigeo").load(route("ambito.data", codigo));
                     alertify.success(mensaje);
                 },
                 error: function (response) {
@@ -390,7 +387,7 @@
                     $("#Footer_UpdateUbigeo_Disabled").css("display", "none");
                     $("#modalUpdateUbigeo").modal('hide');
                     $("#viewDataUbigeo").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
-                    $("#viewDataUbigeo").load(urlApp+'/iniciativa/ambito/'+ codigo +'/data');
+                    $("#viewDataUbigeo").load(route("ambito.data", codigo));
                     alertify.success(mensaje);
                 },
                 error: function (response) {

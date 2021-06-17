@@ -70,7 +70,7 @@
             if (caracteres == 8)
             {
                 event.preventDefault();
-                var urlAction = '../../../dni/'+dni;
+                var urlAction   = route("servicio.dni", dni);
                 $.ajax({
                     url:    urlAction,
                     method: "GET",
@@ -83,26 +83,11 @@
                     },
                     success: function(response) {
                         var cadena      =   jQuery.parseJSON(response);
-                        var estado      =   cadena.estado;
-
-                        if (estado == 200) 
-                        {
-                            $("#input_paterno").val(cadena.paterno);
-                            $("#input_materno").val(cadena.materno);
-                            $("#input_nombres").val(cadena.nombre);
-                            $("#input_direccion_dni").val(cadena.direccion);
-                        }
-                        else
-                        {
-                            alertify.error('El DNI consultado no figura en la base de datos.');
-                            $("#input_paterno").val("");
-                            $("#input_materno").val("");
-                            $("#input_nombres").val("");
-                            $("#input_direccion_dni").val("");
-                            $("#input_nro_dni").val("");
-                            $("#input_nro_dni").focus();
-                            return false;
-                        }
+                        
+                        $("#input_paterno").val(cadena.paterno);
+                        $("#input_materno").val(cadena.materno);
+                        $("#input_nombres").val(cadena.nombre);
+                        $("#input_direccion_dni").val(cadena.direccion);
                     },
                     statusCode: {
                         404: function() {
