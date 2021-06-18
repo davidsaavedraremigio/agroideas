@@ -23,7 +23,7 @@
         global: {
             localization: "https://cdn.flexmonster.com/loc/es.json"
         },
-        licenseKey: "Z7JZ-XC516L-2P1U5G-6J1Z1H",
+        licenseKey: "Z7DT-XGAD3I-182M4K-4C4Z4I-234J5H-3L6P31-353V68-5H5A05-2L2H",
         componentFolder: "https://cdn.flexmonster.com/",
         width: "100%",
         height: 800, 
