@@ -88,7 +88,6 @@
 <script>
     $(document).ready(function () {
         //1. Obtengo los datos de SUNAT
-        var urlApp  = "{{ env('APP_URL') }}";
         $("#input_nro_documento").keypress(function(e) {
             var tecla   = (e.keyCode ? e.keyCode : e.which);
             if (tecla == 13) 
@@ -99,7 +98,7 @@
                 if (caracteres == 11) 
                 {
                     event.preventDefault();
-                    var urlAction = route('servicio.sunat', ruc);
+                    var urlAction =route("servicio.ruc", ruc);
                     $.ajax({
                         url:    urlAction,
                         method: "GET",
@@ -112,7 +111,7 @@
                             var estado      =   cadena.estado;
                             if (estado == 1)
                             {
-                                $("#input_nombre").val(cadena.dato);
+                                $("#input_nombre").val(cadena.nombre);
                                 $("#input_direccion").val(cadena.direccion);
                                 $("#input_ubigeo").val(cadena.ubigeo);
                                 $("#input_tipo_entidad").append('<option value="'+cadena.codigo+'" selected="selected">'+cadena.tipo+'</option>');
@@ -167,7 +166,7 @@
                 success: function (response) {
                     var mensaje     = response.mensaje;
                     var codigo      = response.dato;
-                    var url_edit    = codigo +'/edit';
+                    var url_edit    = route("prp.edit", codigo);  
                     alertify.success(mensaje);
                     $("#Footer_CreatePRP_Enabled").css("display", "block");
                     $("#Footer_CreatePRP_Disabled").css("display", "none");
