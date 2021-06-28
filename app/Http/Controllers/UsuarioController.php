@@ -174,13 +174,14 @@ class UsuarioController extends Controller
         $staff          =   Staff::getData();
         $cargos         =   Cargo::getData();
         $sedes          =   Oficina::getData();
+        $roles          =   TablaValor::getDetalleTabla('Rol');
         $usuarioCargo   =   UsuarioCargo::getCargoUsuario($usuario->id);
         $usuarioStaff   =   UsuarioStaff::getStaffUsuario($usuario->id);
         $usuarioSede    =   UsuarioSede::getSedeUsuario($usuario->id);
         $rol            =   UsuarioRol::getRolUsuario($usuario->id);   
 
         #3. Retorno a la vista 
-        return view($this->path.'.edit', compact('staff', 'cargos', 'sedes', 'usuario', 'usuarioCargo', 'usuarioStaff', 'usuarioSede', 'rol'));
+        return view($this->path.'.edit', compact('staff', 'cargos', 'sedes', 'roles', 'usuario', 'usuarioCargo', 'usuarioStaff', 'usuarioSede', 'rol'));
     }
 
     #8. Actualizamos la información
@@ -217,7 +218,7 @@ class UsuarioController extends Controller
                     #4. Actualizo el rol asignado
                     try 
                     {
-                        $rol                    =   UsuariolRol::getRolUsuario($usuario->id);
+                        $rol                    =   UsuarioRol::getRolUsuario($usuario->id);
                         $rol->codMaestroRol     =   $request->get('rol');
                         $rol->updated_at        =   now();
                         $rol->update();

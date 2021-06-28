@@ -111,6 +111,51 @@
                 </ul>
             </li>
         @break
+        {{-- Rol Unidades Regionales --}}
+        @case(1)
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-archway"></i> <p>Entidades <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("opa.index")}}" class="nav-link"><i class="nav-icon fas fa-house-user"></i><p>Módulo organizaciones</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-calendar-day"></i> <p>Eventos/Compromisos <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("evento.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar"></i><p>Módulo compromisos</p></a></li>
+                    <li class="nav-item"><a href="{{route("evento.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard compromisos</p></a></li>
+                    <li class="nav-item"><a href="{{route("compromiso-reporte.index")}}" class="nav-link"><i class="nav-icon fab fa-font-awesome-flag"></i><p>Estado situacional</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-chalkboard-teacher"></i><p>Capacitaciones <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("capacitacion.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar-plus"></i><p>Programación</p></a></li>
+                    <li class="nav-item"><a href="{{route("pivot-capacitacion.index")}}" class="nav-link"><i class="nav-icon fas fa-database"></i><p>Formato SERVIAGRO</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-bullhorn"></i><p>Promoción y difusión <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("difusion.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar-plus"></i><p>Programación</p></a></li>
+                    <li class="nav-item"><a href="{{route("difusion-implementacion.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar-check"></i><p>Implementación</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-tractor"></i><p>Reconversión productiva <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("prp.index")}}" class="nav-link"><i class="nav-icon fas fa-users"></i><p>Organizaciones y productores</p></a></li> 
+                    <li class="nav-item"><a href="{{route("ur.index")}}" class="nav-link"><i class="nav-icon fas fa-tasks"></i><p>Evaluación documentaria</p></a></li>
+                    <li class="nav-item"><a href="{{route("admision.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard PRPA</p></a></li> 
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-tractor"></i><p>Solicitudes de apoyo <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("sda.index")}}" class="nav-link"><i class="nav-icon fas fa-users"></i><p>Organizaciones y productores</p></a></li> 
+                    <li class="nav-item"><a href="{{route("admision.index")}}" class="nav-link"><i class="nav-icon far fa-address-card"></i><p>Admisión</p></a></li> 
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard SDA</p></a></li> 
+                </ul>
+            </li>
+        @break
+        {{-- Rol Unidad de Monitoreo --}}
+        @case(4)
+            <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link"><i class="nav-icon fas fa-mail-bulk"></i><p>Módulo No objeción</p></a></li>
+        @break
 
         @default
             
