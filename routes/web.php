@@ -464,9 +464,10 @@ Route::post('proceso-pdn/import-desembolso/{desembolso}/destroy', 'ImportDesembo
 Route::get('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@formDelete')->name('import-sda.deleteForm');
 Route::post('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaController@procesaDelete')->name('import-sda.delete');
 
-
-
-
+#25. Módulo para registrar un proceso de no objecion
+Route::resource('monitoreo/nobjecion', 'NoObjecionController')->except(['show','destroy']);
+Route::get('monitoreo/nobjecion/data', 'NoObjecionController@show')->name('nobjecion.data');
+Route::post('monitoreo/nobjecion/{documento}/destroy', 'NoObjecionController@destroy')->name('nobjecion.destroy');
 
 
 

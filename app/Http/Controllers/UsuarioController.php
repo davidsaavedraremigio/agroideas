@@ -11,6 +11,7 @@ use App\Usuario;
 use App\UsuarioCargo;
 use App\UsuarioStaff;
 use App\UsuarioSede;
+use App\UsuarioRol;
 use App\Tabla;
 use App\TablaValor;
 use App\Staff;
@@ -41,14 +42,13 @@ class UsuarioController extends Controller
     #4. Muestro el formulario para registrar usuarios
     public function create()
     {
-        #1. Obtengo la relación de personal
+        #1. Obtengo las variables solicitadas
         $staff      =   Staff::getData();
-        #2. Obtengo los cargos
         $cargos     =   Cargo::getData();
-        #3. Obtengo la lista de Oficinas
         $sedes      =   Oficina::getData();
-        #4. Retorno al menu principal
-        return view($this->path.'.create', compact('staff', 'cargos', 'sedes'));
+        $roles      =   TablaValor::getDetalleTabla('Rol');
+        #2. Retorno al menu principal
+        return view($this->path.'.create', compact('staff', 'cargos', 'sedes', 'roles'));
     }
 
     #5. Guardamos la información
@@ -56,7 +56,6 @@ class UsuarioController extends Controller
     {
         #1. obtengo los datos del personal
         $staff      =   Staff::findOrFail($request->get('personal'));
-        
         #2. Guardo la información del usuario
         try 
         {
@@ -96,12 +95,31 @@ class UsuarioController extends Controller
                         $sede->estado               =   1;
                         $sede->save();
 
-                        #6. Retorno al menu principal
-                        return response()->json([
-                            'estado'    =>  '1',
-                            'dato'      =>  '',
-                            'mensaje'   =>  'La información se procesó de manera exitosa.'
-                        ]);
+                        #6. Guardo la información del rol de usuario
+                        try 
+                        {
+                            $rol                    =   new UsuarioRol;
+                            $rol->codMaestroUsuario =   $usuario->id;
+                            $rol->codMaestroRol     =   $request->get('rol');
+                            $rol->estado            =   1;
+                            $rol->created_at        =   Carbon::now();
+                            $rol->save();
+
+                            #7. Retorno al menu principal
+                            return response()->json([
+                                'estado'    =>  '1',
+                                'dato'      =>  '',
+                                'mensaje'   =>  'La información se procesó de manera exitosa.'
+                            ]);
+                        } 
+                        catch (Exception $e) 
+                        {
+                            return response()->json([
+                                'estado'    =>  '2',
+                                'dato'      =>  $e->getMessage(),
+                                'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
+                            ]);
+                        }
                     } 
                     catch (Exception $e) 
                     {
@@ -151,59 +169,59 @@ class UsuarioController extends Controller
     #7. Mostramos el formulario para la edición de registros
     public function edit($id)
     {
-        #1. 
-        $staff      =   Staff::getData();
-        $cargos     =   Cargo::getData();
-        $sedes      =   Oficina::getData();
-
-        #2. Obtengo la info del usuario
+        #1. Obtengo las variables requeridas
         $usuario        =   Usuario::findOrFail($id);
+        $staff          =   Staff::getData();
+        $cargos         =   Cargo::getData();
+        $sedes          =   Oficina::getData();
         $usuarioCargo   =   UsuarioCargo::getCargoUsuario($usuario->id);
         $usuarioStaff   =   UsuarioStaff::getStaffUsuario($usuario->id);
         $usuarioSede    =   UsuarioSede::getSedeUsuario($usuario->id);
+        $rol            =   UsuarioRol::getRolUsuario($usuario->id);   
 
         #3. Retorno a la vista 
-        return view($this->path.'.edit', compact('staff', 'cargos', 'sedes', 'usuario', 'usuarioCargo', 'usuarioStaff', 'usuarioSede'));
+        return view($this->path.'.edit', compact('staff', 'cargos', 'sedes', 'usuario', 'usuarioCargo', 'usuarioStaff', 'usuarioSede', 'rol'));
     }
 
     #8. Actualizamos la información
     public function update(UsuarioFormRequest $request, $id)
     {
-        #1. Proceso la información del Cargo
+        #1. Guardamos la información del usuario
         try 
         {
-            $cargoUsuario                   =   UsuarioCargo::getCargoUsuario($id);
-            $cargoUsuario->codMaestroCargo  =   $request->get('cargo');
-            $cargoUsuario->update();
+            $personal               =   Staff::findOrFail($request->get('personal'));
+            $usuario                =   Usuario::findOrFail($id);
+            $usuario->email         =   $request->get('email');
+            $usuario->nroDocumento  =   $personal->nroDni;
+            $usuario->nombres       =   $personal->nombres;
+            $usuario->apellidos     =   $personal->paterno;
+            $usuario->updated_at    =   now();
+            $usuario->update();
 
-            #2. Proceso la información del Personal
+            #2. Actualizo los datos del cargo directivo
             try 
             {
-                $personal           =   UsuarioStaff::getStaffUsuario($id);
-                $personal->codStaff =   $request->get('personal');
-                $personal->update();
+                $cargo                      =   UsuarioCargo::getCargoUsuario($usuario->id);
+                $cargo->codMaestroCargo     =   $request->get('cargo');
+                $cargo->updated_at          =   now();
+                $cargo->update();
 
-                #3. Actualizo la información de sedes de usuario
+                #3. Actualizo la oficina asignada
                 try 
                 {
-                    $sede                       =   UsuarioSede::getSedeUsuario($id);
-                    $sede->codMaestroOficina    =   $request->get('sede');
-                    $sede->update();
+                    $oficina                        =   UsuarioSede::getSedeUsuario($usuario->id);
+                    $oficina->codMaestroOficina     =   $request->get('sede');
+                    $oficina->updated_at            =   now();
+                    $oficina->update();
 
-                    #4. Actualizo la información del usuario
+                    #4. Actualizo el rol asignado
                     try 
                     {
-                        #4.1. Obtengo los datos del personal
-                        $staff                      =   Staff::findOrFail($request->get('personal'));
-                        #4.2. Actualizo la información del usuario
-                        $usuario                    =   Usuario::findOrFail($id);
-                        $usuario->email             =   $request->get('email');
-                        $usuario->nroDocumento      =   $staff->nroDni;
-                        $usuario->nombres           =   $staff->nombres;
-                        $usuario->apellidos         =   $staff->paterno;
-                        $usuario->update();
+                        $rol                    =   UsuariolRol::getRolUsuario($usuario->id);
+                        $rol->codMaestroRol     =   $request->get('rol');
+                        $rol->updated_at        =   now();
+                        $rol->update();
 
-                        #5. Retorno al menu principal
                         return response()->json([
                             'estado'    =>  '1',
                             'dato'      =>  '',
@@ -245,7 +263,6 @@ class UsuarioController extends Controller
                 'mensaje'   =>  'Error de Servidor. Contacte a Soporte TI.'
             ]);
         }
-        
     }
 
     #9. Doy de baja a un usuario

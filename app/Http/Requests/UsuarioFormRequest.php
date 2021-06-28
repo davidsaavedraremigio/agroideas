@@ -29,6 +29,7 @@ class UsuarioFormRequest extends FormRequest
             'personal'              =>  'required',
             'cargo'                 =>  'required',
             'sede'                  =>  'required',
+            'rol'                   =>  'required',
         ];
     }
 }

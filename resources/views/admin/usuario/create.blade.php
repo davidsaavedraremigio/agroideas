@@ -11,7 +11,7 @@
     {{-- Panel para mostrar alertas --}}
     <div class="form-group">
         <div class="row">
-            <div class="col-md-6">{!! Form::label('personal', 'Persona a la que se le genera el usuario') !!}
+            <div class="col-md-4">{!! Form::label('personal', 'Colaborador') !!}
                 <select name="personal" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($staff as $fila)
@@ -19,7 +19,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-6">{!! Form::label('cargo', 'Cargo') !!}
+            <div class="col-md-4">{!! Form::label('cargo', 'Cargo') !!}
                 <select name="cargo" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($cargos as $fila)
@@ -27,15 +27,23 @@
                     @endforeach
                 </select>
             </div>
-        </div>
-    </div>
-    <div class="form group">
-        <div class="row">
             <div class="col-md-4">{!! Form::label('sede', 'Oficina') !!}
                 <select name="sede" class="form-control select2">
                     <option value="" selected="selected">Seleccionar</option>
                     @foreach ($sedes as $fila)
                     <option value="{{$fila->id}}">{{$fila->descripcion}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form group">
+        <div class="row">
+            <div class="col-md-4">{!! Form::label('rol', 'Rol asignado') !!}
+                <select name="rol" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($roles as $fila)
+                    <option value="{{$fila->Valor}}">{{$fila->Nombre}}</option>    
                     @endforeach
                 </select>
             </div>
