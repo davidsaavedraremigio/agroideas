@@ -18,6 +18,7 @@
                 <a href="#" class="d-block">{{ Auth::user()->nombres }}</a>
             </div>
         </div>
+        <hr class="my-4">
         <nav class="mt-2">
         <!-- Menú dinámico -->
         @include('layouts.menu-items')

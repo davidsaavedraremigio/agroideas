@@ -13,6 +13,6 @@ class NoObjecion extends Model
     #2. Muestro la información solicitada
     public static function getData()
     {
-        
+        return DB::select("SELECT * FROM vw_data_no_objecion");
     }
 }

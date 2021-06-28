@@ -70,8 +70,8 @@ class WebServicesController extends Controller
                 'direccion' =>  trim(addslashes(str_replace($variables, "", $array->ddp_nomvia))),
                 'ubigeo'    =>  trim($array->ddp_ubigeo),
                 'regimen'   =>  trim($array->desc_identi),
-                'domicilio' =>  trim($array->desc_flag22),
-                'situacion' =>  trim($array->desc_estado),
+                'habido'    =>  trim($array->desc_flag22),
+                'activo'    =>  trim($array->desc_estado),
                 'fecha'     =>  substr($array->ddp_fecalt, 6, 4)."-".substr($array->ddp_fecalt, 3, 2)."-".substr($array->ddp_fecalt, 0, 2),
                 'codigo'    =>  trim($array->ddp_tpoemp),
             ); 

@@ -24,6 +24,7 @@ class NoObjecionFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'nro_contrato'          =>  'required',
             'numero'                =>  'required|integer',
             'fecha'                 =>  'required|date',
             'nro_carta_solicitud'   =>  'required|digits_between:1,9999',

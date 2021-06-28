@@ -468,8 +468,10 @@ Route::post('proceso-pdn/import-desembolso/delete','ImportDesembolsoSdaControlle
 Route::resource('monitoreo/nobjecion', 'NoObjecionController')->except(['show','destroy']);
 Route::get('monitoreo/nobjecion/data', 'NoObjecionController@show')->name('nobjecion.data');
 Route::post('monitoreo/nobjecion/{documento}/destroy', 'NoObjecionController@destroy')->name('nobjecion.destroy');
-
-
+#26. Módulo para registrar el detalle de una No Objecion
+Route::resource('monitoreo/nobjecion-detalle', 'NoObjecionDetalleController')->except(['create','destroy']);
+Route::get('monitoreo/nobjecion-detalle/{NoObjecion}/create', 'NoObjecionDetalleController@create')->name('nobjecion-detalle.create');
+Route::post('monitoreo/nobjecion-detalle/{detalle}/destroy', 'NoObjecionDetalleController@destroy')->name('nobjecion-detalle.destroy');
 
 
 

@@ -154,7 +154,8 @@
         @break
         {{-- Rol Unidad de Monitoreo --}}
         @case(4)
-            <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link"><i class="nav-icon fas fa-mail-bulk"></i><p>Módulo No objeción</p></a></li>
+            <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link" title="Proceso de no objeción"><i class="nav-icon fas fa-mail-bulk"></i><p>Proceso de No objeción</p></a></li>
+            <li class="nav-item"><a href="#" class="nav-link" title="Proceso de solicitud de desembolso"><i class="nav-icon fas fa-cash-register"></i><p>Solicitud de Desembolso</p></a></li>
         @break
 
         @default

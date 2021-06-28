@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Requests\NoObjecionFormRequest;
 use App\NoObjecion;
+use App\Contrato;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -29,7 +30,9 @@ class NoObjecionController extends Controller
     #4.
     public function create()
     {
-        return view($this->path.'.create');
+        #1. Obtengo los convenios de PRPA
+        $data  =   Contrato::getConvenios(2, 3);
+        return view($this->path.'.create', compact('data'));
     }
 
     #5. 
@@ -43,6 +46,7 @@ class NoObjecionController extends Controller
             $documento->nroCartaSolicitud   =   $request->get('nro_carta_solicitud');
             $documento->fechaCartaSolicitud =   $request->get('fecha_carta_solicitud');
             $documento->justificacion       =   $request->get('justificacion');
+            $documento->codPostulante       =   $request->get('nro_contrato');
             $documento->estado              =   1;
             $documento->created_auth        =   Auth::user()->id;
             $documento->created_at          =   Carbon::now();
@@ -70,7 +74,8 @@ class NoObjecionController extends Controller
     #6.
     public function show()
     {
-        return view($this->path.'.data');
+        $data   =   NoObjecion::getData();
+        return view($this->path.'.data', compact('data'));
     }
 
     #7.
