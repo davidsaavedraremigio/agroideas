@@ -63,7 +63,7 @@
             </li>
             <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-id-card-alt"></i><p>Convenios <i class="right fa fa-angle-left right"></i></p></a>
                 <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="{{route("convenio.index")}}" class="nav-link"><i class="nav-icon far fa-id-card"></i><p>Módulo convenios</p></a></li> 
+                    <li class="nav-item"><a href="{{ config('app.url') }}/de/convenio" class="nav-link"><i class="nav-icon far fa-id-card"></i><p>Módulo convenios</p></a></li> 
                     <li class="nav-item"><a href="{{route("convenio-reporte.index")}}" class="nav-link"><i class="nav-icon fas fa-table"></i><p>Consolidado UPFP</p></a></li> 
                     <li class="nav-item"><a href="{{route("convenio-seguimiento.index")}}" class="nav-link"><i class="nav-icon fas fa-chart-bar"></i><p>Reporte de seguimiento</p></a></li> 
                     <li class="nav-item"><a href="{{route("convenio-consolidado.index")}}" class="nav-link"><i class="nav-icon fas fa-table"></i><p>Relación de convenios</p></a></li>  
@@ -87,7 +87,7 @@
                         </ul>
                     </li> 
                     <li class="nav-item"><a href="{{route("rm.index")}}" class="nav-link"><i class="nav-icon far fa-id-card"></i><p>Resoluciones ministeriales</p></a></li> 
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-handshake"></i><p>Convenios</p></a></li> 
+                    <li class="nav-item"><a href="{{ config('app.url') }}/iniciativa/convenio" class="nav-link"><i class="nav-icon fas fa-handshake"></i><p>Convenios</p></a></li> 
                     <li class="nav-item"><a href="{{route("mantenimiento.index")}}" class="nav-link"><i class="nav-icon fas fa-tools"></i><p>Mantenimiento de expedientes</p></a></li> 
                     <li class="nav-item"><a href="{{route("proyecto-prpa.index")}}" class="nav-link"><i class="nav-icon far fa-id-card"></i><p>Información general</p></a></li> 
                     <li class="nav-item"><a href="{{route("admision.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard PRPA</p></a></li> 
@@ -99,7 +99,7 @@
                     <li class="nav-item"><a href="{{route("admision.index")}}" class="nav-link"><i class="nav-icon far fa-address-card"></i><p>Admisión</p></a></li> 
                     <li class="nav-item"><a href="{{route("evaluacion.index")}}" class="nav-link"><i class="nav-icon fas fa-tasks"></i><p>Evaluación</p></a></li> 
                     <li class="nav-item"><a href="{{route("cd.index")}}" class="nav-link"><i class="nav-icon far fa-folder"></i><p>Consejo directivo</p></a></li> 
-                    <li class="nav-item"><a href="{{route("convenio.index")}}" class="nav-link"><i class="nav-icon fas fa-handshake"></i><p>Convenios</p></a></li> 
+                    <li class="nav-item"><a href="{{ config('app.url') }}/sda/convenio" class="nav-link"><i class="nav-icon fas fa-handshake"></i><p>Convenios</p></a></li> 
                     <li class="nav-item"><a href="{{route("import-sda.index")}}" class="nav-link"><i class="nav-icon fas fa-money-check-alt"></i><p>Desembolsos</p></a></li> 
                     <li class="nav-item"><a href="{{route("proyecto.index")}}" class="nav-link"><i class="nav-icon fab fa-leanpub"></i><p>Información general</p></a></li> 
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard SDA</p></a></li> 
@@ -155,7 +155,7 @@
         {{-- Rol Unidad de Monitoreo --}}
         @case(4)
             <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link" title="Proceso de no objeción"><i class="nav-icon fas fa-mail-bulk"></i><p>Proceso de No objeción</p></a></li>
-            <li class="nav-item"><a href="#" class="nav-link" title="Proceso de solicitud de desembolso"><i class="nav-icon fas fa-cash-register"></i><p>Solicitud de Desembolso</p></a></li>
+            <li class="nav-item"><a href="{{route("solicitud.index")}}" class="nav-link" title="Proceso de solicitud de desembolso"><i class="nav-icon fas fa-cash-register"></i><p>Solicitud de Desembolso</p></a></li>
         @break
 
         @default
