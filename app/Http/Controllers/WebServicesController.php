@@ -22,6 +22,7 @@ class WebServicesController extends Controller
             if (strlen($valor) == 8)
             {
                 $dni        =   $valor;
+                /*
                 $url        =   'http://selv2.agroideas.gob.pe/PIDE/JsonConsultaReniecPide';
                 $post       =   [
                                     'nroDniCon'     =>  $dni,
@@ -34,15 +35,20 @@ class WebServicesController extends Controller
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
                 $respuesta  = curl_exec($ch);
                 curl_close($ch);
-                $array      =   json_decode($respuesta);
+                */
+                $url        =   'https://selv2.agroideas.gob.pe/servicios/reniec/GetDni?documento='.$dni;
+                $respuesta  =   file_get_contents($url);
+                $valores    =   json_decode($respuesta);
+                $array      =   $valores->Data;
 
                 $data = array(
                     'dni'       =>  $dni,
-                    'nombre'    =>  $array->prenombres,
-                    'paterno'   =>  $array->apPrimer,
-                    'materno'   =>  $array->apSegundo,
-                    'direccion' =>  $array->direccion,
-                    'foto'      =>  $array->foto,
+                    'nombre'    =>  $array->Nombres,
+                    'paterno'   =>  $array->ApellidoPaterno,
+                    'materno'   =>  $array->ApellidoMaterno,
+                    'direccion' =>  $array->Direccion,
+                    'foto'      =>  $array->Foto,
+                    'ubigeo'    =>  $array->Ubigeo,
                     'bloqueo'   =>  'readonly',
                 );
 
@@ -58,9 +64,10 @@ class WebServicesController extends Controller
         if (strlen($valor) == 11) 
         {
             $ruc        =   $valor;
-            $url        =   'http://selv2.agroideas.gob.pe/PIDE/JsonConsultaSunatDPrinPide?nroRuc='.$ruc;
+            $url        =   'http://selv2.agroideas.gob.pe/servicios/sunat/GetDatosPrincipales?nroRuc='.$ruc;
             $respuesta  =   file_get_contents($url);
-            $array      =   json_decode($respuesta);
+            $valores    =   json_decode($respuesta);
+            $array      =   $valores->Data;
             $variables  =   array('"', "'"); #Nos permitirá guardar la información sin comillas simples
 
             $data = array(
