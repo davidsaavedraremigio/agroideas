@@ -11,13 +11,22 @@
     {{-- Panel para mostrar alertas --}}
     <div class="form-group">
         <div class="row">
-            <div class="col-md-12">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::text('descripcion', $cartera->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripción de la cartera']) !!}</div>
+            <div class="col-md-4">{!! Form::label('financiamiento', 'Financiamiento') !!}
+                <select name="financiamiento" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($financiamiento as $fila)
+                        <option value="{{$fila->Orden}}" {{($fila->Orden == $cartera->fuenteFinanciamiento)?'selected':''}}>{{$fila->Nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-8">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::text('descripcion', $cartera->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripción de la cartera', 'rows' => '1', 'cols' => '1']) !!}</div>
         </div>
     </div>
     <div class="form-group">
         <div class="row">
-            <div class="col-md-6">{!! Form::label('fecha', 'Fecha de disponibilidad') !!} {!! Form::date('fecha', $cartera->fechaDisponibilidad, ['class' => 'form-control']) !!}</div>
-            <div class="col-md-6">{!! Form::label('importe', 'Importe') !!} {!! Form::text('importe', $cartera->importe, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_resolucion', 'Nº de resolución') !!} {!! Form::text('nro_resolucion', $cartera->nroResolucion, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('fecha', 'Fecha de resolución') !!} {!! Form::date('fecha', $cartera->fechaResolucion, ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('importe', 'Importe (S/.)') !!} {!! Form::text('importe', $cartera->importe, ['class' => 'form-control']) !!}</div>
         </div>
     </div>
     <div class="form-group">

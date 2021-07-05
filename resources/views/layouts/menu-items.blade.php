@@ -105,11 +105,7 @@
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard SDA</p></a></li> 
                 </ul>
             </li>
-            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-flag-checkered"></i><p>Matriz de resultados <i class="right fa fa-angle-left right"></i></p></a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item"><a href="{{route("ml.index")}}" class="nav-link"><i class="nav-icon far fa-list-alt"></i><p>Marco Lógico</p></a></li> 
-                </ul>
-            </li>
+
         @break
         {{-- Rol Unidades Regionales --}}
         @case(1)
@@ -154,8 +150,13 @@
         @break
         {{-- Rol Unidad de Monitoreo --}}
         @case(4)
-            <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link" title="Proceso de no objeción"><i class="nav-icon fas fa-mail-bulk"></i><p>Proceso de No objeción</p></a></li>
-            <li class="nav-item"><a href="{{route("solicitud.index")}}" class="nav-link" title="Proceso de solicitud de desembolso"><i class="nav-icon fas fa-cash-register"></i><p>Solicitud de Desembolso</p></a></li>
+            <li class="nav-item"><a href="{{route("actividad.index")}}" class="nav-link" title="Módulo Actividades"><i class="nav-icon fas fa-mail-bulk"></i><p>Actividades programadas</p></a></li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-archway"></i> <p>Proceso de desembolso <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("nobjecion.index")}}" class="nav-link" title="Proceso de no objeción"><i class="nav-icon fas fa-mail-bulk"></i><p>Proceso de No objeción</p></a></li>
+                    <li class="nav-item"><a href="{{route("solicitud.index")}}" class="nav-link" title="Proceso de solicitud de desembolso"><i class="nav-icon fas fa-cash-register"></i><p>Solicitud de Desembolso</p></a></li>
+                </ul>
+            </li>            
         @break
 
         @default

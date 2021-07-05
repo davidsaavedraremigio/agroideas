@@ -1,12 +1,15 @@
 <table id="TablaCartera" class="table table-sm table-bordered table-striped">
-    <thead>
-        <th class="text-center"><small>Nº</small></th>
-        <th class="text-center"><small>Descripción de cartera</small></th>
-        <th class="text-center"><small>Regiones atendidas</small></th>
-        <th class="text-center"><small>Nº de Resolución</small></th>
-        <th class="text-center"><small>Fecha</small></th>
-        <th class="text-center"><small>Importe</small></th>
-        <th class="text-center" width="12%"><i class="fa fa-cog"></i></th>
+    <thead class="bg-primary">
+        <tr>
+            <th class="text-center" width="5%"><small>Nº</small></th>
+            <th class="text-center"><small>Descripción de cartera</small></th>
+            <th class="text-center"><small>Regiones atendidas</small></th>
+            <th class="text-center"><small>Nº de Resolución</small></th>
+            <th class="text-center"><small>Fecha</small></th>
+            <th class="text-center"><small>Financiamiento</small></th>
+            <th class="text-center"><small>Importe</small></th>
+            <th class="text-center" width="10%"><i class="fa fa-cog"></i></th>
+        </tr>
     </thead>
     <tbody>
         @foreach ($data as $keyNumber => $fila)
@@ -16,6 +19,7 @@
             <td class="text-center"><small>{{$fila->ubigeo}}</small></td>
             <td class="text-center"><small>{{$fila->nro_resolucion}}</small></td>
             <td class="text-center"><small>{{ \Carbon\Carbon::parse($fila->fecha)->format('d/m/Y')}}</small></td>
+            <td class="text-center"><small>{{$fila->financiamiento}}</small></td>
             <td class="text-right"><small>{{number_format($fila->importe,2)}}</small></td>
             <td class="text-center">
                 <a href="#" class="btn btn-sm btn-primary" id="btnmodalAsignaPrp" data-toggle="modal" data-target="#modalAsignaPrp" data-id="{{$fila->id}}"><i class="fas fa-bars"></i></a>

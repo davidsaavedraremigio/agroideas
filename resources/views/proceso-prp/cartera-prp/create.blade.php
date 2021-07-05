@@ -11,7 +11,15 @@
     {{-- Panel para mostrar alertas --}}
     <div class="form-group">
         <div class="row">
-            <div class="col-md-12">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::textarea('descripcion', '', ['class' => 'form-control', 'placeholder' => 'Indicar lo citado en la Resolución', 'rows' => '2', 'cols' => '2']) !!}</div>
+            <div class="col-md-4">{!! Form::label('financiamiento', 'Financiamiento') !!}
+                <select name="financiamiento" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($financiamiento as $fila)
+                        <option value="{{$fila->Orden}}">{{$fila->Nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-8">{!! Form::label('descripcion', 'Descripción') !!} {!! Form::textarea('descripcion', '', ['class' => 'form-control', 'placeholder' => 'Indicar lo citado en la Resolución', 'rows' => '1', 'cols' => '1']) !!}</div>
         </div>
     </div>
     <div class="form-group">

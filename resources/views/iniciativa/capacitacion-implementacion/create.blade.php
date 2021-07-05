@@ -53,7 +53,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-2">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', $capacitacion->fecha, ['class' => 'form-control']) !!}</div>
+                                <div class="col-md-2">{!! Form::label('fecha', 'Fecha de implementación') !!} {!! Form::date('fecha', ($capacitacion->fecha_reprogramada!=NULL)?$capacitacion->fecha_reprogramada:$capacitacion->fecha, ['class' => 'form-control']) !!}</div>
                                 <div class="col-md-2">{!! Form::label('hora_inicio', 'Hora de inicio') !!} {!! Form::text('hora_inicio', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
                                 <div class="col-md-2">{!! Form::label('hora_termino', 'Hora de término') !!} {!! Form::text('hora_termino', '', ['class' => 'form-control', 'placeholder' => '00:00']) !!}</div> 
                             </div>

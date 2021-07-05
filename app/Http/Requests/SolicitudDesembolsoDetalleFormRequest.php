@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CarteraPrpFormRequest extends FormRequest
+class SolicitudDesembolsoDetalleFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class CarteraPrpFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'descripcion'       =>  'required|max:4000',
-            'nro_resolucion'    =>  'required|max:100',
-            'fecha'             =>  'required|date',
-            'importe'           =>  'required|numeric',
-            'financiamiento'    =>  'required',
+            'no_objecion'       =>  'required',
         ];
     }
 }

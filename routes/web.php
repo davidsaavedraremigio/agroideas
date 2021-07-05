@@ -331,9 +331,11 @@ Route::resource('proceso-prp/componente', 'ComponenteController')->except('creat
 Route::get('proceso-prp/componente/{postulante}/create', 'ComponenteController@create')->name('componente.create');
 Route::get('proceso-prp/componente/{postulante}/data', 'ComponenteController@show')->name('componente.data');
 #5.9. Módulo para el registro de actividades
+/*
 Route::resource('proceso-prp/actividad', 'ActividadController')->except('create', 'show', 'destroy');
 Route::get('proceso-prp/actividad/{postulante}/create', 'ActividadController@create')->name('actividad.create');
 Route::get('proceso-prp/actividad/{postulante}/data', 'ActividadController@show')->name('actividad.data');
+*/
 #5.10. Módulo para el registro de indicadores de resultado
 Route::resource('proceso-prp/indicador', 'IndicadorIniciativaController')->except('create', 'show', 'destroy');
 Route::get('proceso-prp/indicador/{postulante}/create', 'IndicadorIniciativaController@create')->name('indicador.create');
@@ -472,6 +474,22 @@ Route::post('monitoreo/nobjecion/{documento}/destroy', 'NoObjecionController@des
 Route::resource('monitoreo/nobjecion-detalle', 'NoObjecionDetalleController')->except(['create','destroy']);
 Route::get('monitoreo/nobjecion-detalle/{NoObjecion}/create', 'NoObjecionDetalleController@create')->name('nobjecion-detalle.create');
 Route::post('monitoreo/nobjecion-detalle/{detalle}/destroy', 'NoObjecionDetalleController@destroy')->name('nobjecion-detalle.destroy');
+#27. Módulo para el mantenimiento del Módulo Solicitudes de Desembolso
+Route::resource('monitoreo/solicitud', 'SolicitudDesembolsoController')->except(['show','destroy']);
+Route::get('monitoreo/solicitud/data', 'SolicitudDesembolsoController@show')->name('solicitud.data');
+Route::post('monitoreo/solicitud/{solicitud}/destroy', 'SolicitudDesembolsoController@destroy')->name('solicitud.destroy');
+#28. Módulo para el registro del detalle de Solicitudes de desembolso
+Route::resource('monitoreo/solicitud-detalle', 'SolicitudDesembolsoDetalleController')->except(['create','destroy']);
+Route::get('monitoreo/solicitud-detalle/{solicitud}/create', 'SolicitudDesembolsoDetalleController@create')->name('solicitud-detalle.create');
+Route::post('monitoreo/solicitud-detalle/{detalle}/destroy', 'SolicitudDesembolsoDetalleController@destroy')->name('solicitud-detalle.destroy');
+
+
+#29. Módulo para el registro de actividades
+Route::resource('proyecto/actividad', 'ActividadController')->except('create','show', 'destroy');
+Route::get('proyecto/actividad/{proyecto}/create', 'ActividadController@create')->name('actividad.create');
+Route::get('proyecto/actividad/{proyecto}/data', 'ActividadController@show')->name('actividad.data');
+Route::get('proyecto/actividad/data-sp', 'ActividadController@showProyecto')->name('actividad.data-sp');
+Route::post('proyecto/actividad/{actividad}/destroy', 'ActividadController@destroy')->name('actividad.destroy');
 
 
 
@@ -492,9 +510,7 @@ Route::post('monitoreo/nobjecion-detalle/{detalle}/destroy', 'NoObjecionDetalleC
 
 
 
-
-
-
+/*
 #6. Módulo para el proceso de registro de Marco logico
 #6.1. Registro de la matriz de Marco logico
 Route::resource('proyecto/ml', 'MLProyectoController')->except(['show', 'destroy']);
@@ -515,6 +531,7 @@ Route::get('proyecto/actividad/{ml}/data', 'MLActividadController@show')->name('
 Route::resource('proyecto/indicador-actividad', 'MLIndicadorActividadController')->except(['create', 'show']);
 Route::get('proyecto/indicador-actividad/{ml}/create', 'MLIndicadorActividadController@create')->name('indicador-actividad.create');
 Route::get('proyecto/indicador-actividad/{ml}/data', 'MLIndicadorActividadController@show')->name('indicador-actividad.data');
+*/
 #7. Módulo para registro de cartera de PRP
 Route::resource('proceso-prp/cartera-prp', 'CarteraPrpController')->except(['show']);
 Route::get('proceso-prp/cartera-prp/data', 'CarteraPrpController@show')->name('cartera-prp.data');

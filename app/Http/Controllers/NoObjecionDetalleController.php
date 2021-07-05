@@ -8,6 +8,8 @@ use App\NoObjecion;
 use App\NoObjecionDetalle;
 use App\Proveedor;
 use App\TablaValor;
+use App\Actividad;
+use App\CarteraPrp;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -31,9 +33,11 @@ class NoObjecionDetalleController extends Controller
         $bancos         =   TablaValor::getDetalleTabla('Ifi');
         $tipo_gastos    =   TablaValor::getDetalleTabla('TipoDeGasto');
         $tipo_cuenta    =   TablaValor::getDetalleTabla('TipoCuentaBancaria');
+        $actividades    =   Actividad::getData($informe->codPostulante);
+        $financiamiento =   CarteraPrp::getFinanciamiento($informe->codPostulante);
 
         #2. retorno al formulario
-        return view($this->path.'.create', compact('informe', 'bancos', 'tipo_gastos', 'tipo_cuenta'));
+        return view($this->path.'.create', compact('informe', 'bancos', 'tipo_gastos', 'tipo_cuenta', 'actividades', 'financiamiento'));
     }
 
     #4.
@@ -62,20 +66,23 @@ class NoObjecionDetalleController extends Controller
             #2. Guardamos la información del item
             try 
             {
-                $item                       =   new NoObjecionDetalle;
-                $item->codProveedor         =   $proveedor->id;
-                $item->codInformeNoObjecion =   $request->get('codigo');
-                $item->descripcion          =   $request->get('descripcion');
-                $item->nroPoa               =   $request->get('nro_poa');
-                $item->importe              =   $request->get('importe');
-                $item->codTipoGasto         =   $request->get('tipo_gasto');
-                $item->evidencia            =   '-';
-                $item->codEstadoProceso     =   1;
-                $item->estado               =   1;
-                $item->created_auth         =   Auth::user()->id;
-                $item->created_at           =   now();
-                $item->updated_auth         =   Auth::user()->id;
-                $item->updated_at           =   now();
+                $item                           =   new NoObjecionDetalle;
+                $item->codProveedor             =   $proveedor->id;
+                $item->codInformeNoObjecion     =   $request->get('codigo');
+                $item->descripcion              =   $request->get('descripcion');
+                $item->nroPoa                   =   $request->get('nro_poa');
+                $item->importe                  =   $request->get('importe');
+                $item->codTipoGasto             =   $request->get('tipo_gasto');
+                $item->evidencia                =   '-';
+                $item->codEstadoProceso         =   1;
+                $item->nroPC                    =   $request->get('nro_pc');
+                $item->referencia               =   $request->get('referencia');
+                $item->codActividadPostulante   = $request->get('actividad');
+                $item->estado                   =   1;
+                $item->created_auth             =   Auth::user()->id;
+                $item->created_at               =   Carbon::now();
+                $item->updated_auth             =   Auth::user()->id;
+                $item->updated_at               =   Carbon::now();
                 $item->save();
 
                 #3. retorno al menú principal
@@ -120,9 +127,11 @@ class NoObjecionDetalleController extends Controller
         $bancos         =   TablaValor::getDetalleTabla('Ifi');
         $tipo_gastos    =   TablaValor::getDetalleTabla('TipoDeGasto');
         $tipo_cuenta    =   TablaValor::getDetalleTabla('TipoCuentaBancaria');
+        $actividades    =   Actividad::getData($informe->codPostulante);
+        $financiamiento =   CarteraPrp::getFinanciamiento($informe->codPostulante);
 
         #2.  Retorno al formulario
-        return view($this->path.'.edit', compact('detalle', 'informe', 'bancos', 'tipo_gastos', 'tipo_cuenta'));
+        return view($this->path.'.edit', compact('detalle', 'informe', 'bancos', 'tipo_gastos', 'tipo_cuenta', 'actividades', 'financiamiento'));
     }
 
     #7.
@@ -151,14 +160,17 @@ class NoObjecionDetalleController extends Controller
             #2. Guardo la información del proceso
             try 
             {
-                $item                       =   NoObjecionDetalle::findOrFail($id);
-                $item->codProveedor         =   $proveedor->id;
-                $item->descripcion          =   $request->get('descripcion');
-                $item->nroPoa               =   $request->get('nro_poa');
-                $item->importe              =   $request->get('importe');
-                $item->codTipoGasto         =   $request->get('tipo_gasto');
-                $item->updated_auth         =   Auth::user()->id;
-                $item->updated_at           =   now();
+                $item                           =   NoObjecionDetalle::findOrFail($id);
+                $item->codProveedor             =   $proveedor->id;
+                $item->descripcion              =   $request->get('descripcion');
+                $item->nroPoa                   =   $request->get('nro_poa');
+                $item->importe                  =   $request->get('importe');
+                $item->codTipoGasto             =   $request->get('tipo_gasto');
+                $item->nroPC                    =   $request->get('nro_pc');
+                $item->referencia               =   $request->get('referencia');
+                $item->codActividadPostulante   =   $request->get('actividad');
+                $item->updated_auth             =   Auth::user()->id;
+                $item->updated_at               =   Carbon::now();
                 $item->update();
 
                 #3. retorno al menú principal

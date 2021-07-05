@@ -12,7 +12,22 @@
     {{-- Panel para mostrar alertas --}}
     <div class="form-group">
         <div class="row">
-            <div class="col-md-12">{!! Form::label('descripcion', 'Descripción del bien / servicio') !!} {!! Form::text('descripcion', '', ['class' => 'form-control']) !!}</div>
+            <div class="col-md-4">{!! Form::label('actividad', 'Actividad presupuestada') !!}
+                <select name="actividad" class="form-control select2">
+                    <option value="" selected="selected">Seleccionar</option>
+                    @foreach ($actividades as $fila)
+                        <option value="{{$fila->id}}">{{$fila->descripcion}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-8">{!! Form::label('descripcion', 'Descripción del bien / servicio') !!} {!! Form::text('descripcion', '', ['class' => 'form-control']) !!}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">{!! Form::label('nro_poa', 'Nº de POA') !!} {!! Form::number('nro_poa', '', ['class' => 'form-control', 'min' => '1', 'max' => '36']) !!}</div>
+            <div class="col-md-4">{!! Form::label('nro_pc', 'Nº de Paso crítico') !!} {!! Form::number('nro_pc', '', ['class' => 'form-control', 'min' => '1', 'max' => '36']) !!}</div>
+            <div class="col-md-4">{!! Form::label('referencia', 'Nº de ICM (Referencia)') !!} {!! Form::text('referencia', '', ['class' => 'form-control']) !!}</div>
         </div>
     </div>
     <div class="form-group">
@@ -25,7 +40,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4">{!! Form::label('nro_poa', 'Nº de POA') !!} {!! Form::number('nro_poa', '', ['class' => 'form-control', 'min' => '1', 'max' => '36']) !!}</div>
+            <div class="col-md-4">{!! Form::label('financiamiento', 'Financiamiento') !!} {!! Form::text('financiamiento', $financiamiento->financiamiento, ['class' => 'form-control', 'readonly' => 'readonly']) !!}</div>
             <div class="col-md-4">{!! Form::label('importe', 'Importe (S/.)') !!} {!! Form::text('importe', '', ['class' => 'form-control', 'placeholder' => '0.00']) !!}</div>
         </div>
     </div>

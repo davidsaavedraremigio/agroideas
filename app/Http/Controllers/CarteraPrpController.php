@@ -10,6 +10,7 @@ use App\CarteraPrpUbigeo;
 use App\CarteraPrpIncentivo;
 use App\Postulante;
 use App\Ubigeo;
+use App\TablaValor;
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -36,7 +37,8 @@ class CarteraPrpController extends Controller
     public function create()
     {
         $regiones       =   Ubigeo::getRegiones();
-        return view($this->path.'.create', compact('regiones'));
+        $financiamiento =   TablaValor::getDetalleTabla('FuenteFinanciamientoPRP');
+        return view($this->path.'.create', compact('regiones', 'financiamiento'));
     }
 
     #5.
@@ -49,8 +51,12 @@ class CarteraPrpController extends Controller
             $cartera->nroResolucion         =   $request->get('nro_resolucion');
             $cartera->fechaResolucion       =   $request->get('fecha');
             $cartera->importe               =   $request->get('importe');
+            $cartera->fuenteFinanciamiento  =   $request->get('financiamiento');
+            $cartera->estado                =   1;
             $cartera->created_auth          =   Auth::user()->id;
+            $cartera->created_at            =   Carbon::now();
             $cartera->updated_auth          =   Auth::user()->id;
+            $cartera->updated_at            =   Carbon::now();
             $cartera->save();
 
             #6. Obtengo los ubigeos 
@@ -108,7 +114,8 @@ class CarteraPrpController extends Controller
     {
         $cartera        =   CarteraPrp::findOrFail($id);
         $regiones       =   Ubigeo::getRegiones();
-        return view($this->path.'.edit', compact('cartera', 'regiones'));
+        $financiamiento =   TablaValor::getDetalleTabla('FuenteFinanciamientoPRP');
+        return view($this->path.'.edit', compact('cartera', 'regiones', 'financiamiento'));
     }
 
     #8.

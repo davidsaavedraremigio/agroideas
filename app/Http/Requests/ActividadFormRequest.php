@@ -23,12 +23,14 @@ class ActividadFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'componente'        => 'required',
-            'nro_orden'         =>  'integer|required',
-            'unidad'            =>  'required',
+            'orden'             =>  'required|integer',
             'descripcion'       =>  'required|max:600',
+            'unidad'            =>  'required|max:255',
             'meta_fisica'       =>  'required|numeric',
+            'meta_financiera'   =>  'required|numeric',
             'precio'            =>  'required|numeric',
+            'aporte_pcc'        =>  'required|numeric',
+            'aporte_oa'         =>  'required|numeric',
         ];
     }
 }
