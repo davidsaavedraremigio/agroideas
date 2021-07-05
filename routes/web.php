@@ -9,12 +9,6 @@ Route::get('main/{incentivo}/cadena', 'HomeController@principalesCadenas')->name
 Route::get('main/{periodo}/incentivo', 'HomeController@ejecucionMensual')->name('home.incentivo');
 Route::get('main/resumen', 'HomeController@hojaResumen')->name('home.resumen');
 
-
-
-
-
-
-
 #1. Rutas del módulo administrativo
 #1.1. Módulo para el registro de módulos del sistema
 Route::resource('admin/modulo', 'ModuloController')->except(['show']);
@@ -23,7 +17,6 @@ Route::get('admin/modulo/data', 'ModuloController@show')->name('modulo.data');
 Route::resource('admin/proceso', 'ProcesoController')->except(['show', 'destroy']);
 Route::get('admin/proceso/data', 'ProcesoController@show')->name('proceso.data');
 Route::post('admin/proceso/{proceso}/destroy', 'ProcesoController@destroy')->name('proceso.destroy');
-
 #1.3. Módulo para el registro de tablas del sistema
 Route::resource('admin/tabla', 'TablaController')->except(['show']);
 Route::get('admin/tabla/data', 'TablaController@show')->name('tabla.data');
@@ -180,7 +173,13 @@ Route::resource('de/convenio-ampliacion', 'ConvenioMarcoAmpliacionController')->
 Route::get('de/convenio-ampliacion/{convenio}/data', 'ConvenioMarcoAmpliacionController@show')->name('convenio-ampliacion.data');
 Route::get('de/convenio-ampliacion/{convenio}/create', 'ConvenioMarcoAmpliacionController@create')->name('convenio-ampliacion.create');
 Route::post('de/convenio-ampliacion/{postulante}/destroy', 'ConvenioMarcoAmpliacionController@destroy')->name('convenio-ampliacion.destroy');
-#4.8. Reporte consolidado de convenios interistitucionales
+#4.8. Módulo para el registro de actividades del Plan de trabajo
+Route::resource('de/convenio-actividad-programacion', 'ConvenioActividadProgramacionController')->except(['show', 'create', 'destroy']);
+Route::get('de/convenio-actividad-programacion/{convenio}/create', 'ConvenioActividadProgramacionController@create')->name('convenio-actividad-programacion.create');
+Route::get('de/convenio-actividad-programacion/{convenio}/data', 'ConvenioActividadProgramacionController@show')->name('convenio-actividad-programacion.data');
+Route::post('de/convenio-actividad-programacion/{actividad}/destroy', 'ConvenioActividadProgramacionController@destroy')->name('convenio-actividad-programacion.destroy');
+
+#4.10. Reporte consolidado de convenios interistitucionales
 Route::get('de/convenio-reporte', 'ConvenioMarcoController@viewConsolidadoConvenio')->name('convenio-reporte.index');
 Route::get('de/convenio-reporte/{tipo}/{estado}/data', 'ConvenioMarcoController@showConvenio')->name('convenio-reporte.data');
 Route::get('de/convenio-reporte/{tipo}/{estado}/excel', 'ExportaExcelController@exportaConsolidadoConvenio')->name('convenio-reporte.excel');
@@ -229,20 +228,6 @@ Route::get('prpa/proyecto', 'ProyectoPrpaController@index')->name('proyecto-prpa
 Route::get('prpa/proyecto/data', 'ProyectoPrpaController@show')->name('proyecto-prpa.data');
 Route::get('prpa/proyecto/{contrato}/edit', 'ProyectoPrpaController@edit')->name('proyecto-prpa.edit');
 Route::post('prpa/proyecto/edit/{contrato}', 'ProyectoPrpaController@update')->name('proyecto-prpa.update');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #5. Módulo para el proceso de evaluación de PRP
 #5.1. Admisión de expediente
 Route::resource('proceso-prp/admision', 'AdmisionExpedienteController')->except(['show', 'destroy']);
@@ -331,11 +316,7 @@ Route::resource('proceso-prp/componente', 'ComponenteController')->except('creat
 Route::get('proceso-prp/componente/{postulante}/create', 'ComponenteController@create')->name('componente.create');
 Route::get('proceso-prp/componente/{postulante}/data', 'ComponenteController@show')->name('componente.data');
 #5.9. Módulo para el registro de actividades
-/*
-Route::resource('proceso-prp/actividad', 'ActividadController')->except('create', 'show', 'destroy');
-Route::get('proceso-prp/actividad/{postulante}/create', 'ActividadController@create')->name('actividad.create');
-Route::get('proceso-prp/actividad/{postulante}/data', 'ActividadController@show')->name('actividad.data');
-*/
+
 #5.10. Módulo para el registro de indicadores de resultado
 Route::resource('proceso-prp/indicador', 'IndicadorIniciativaController')->except('create', 'show', 'destroy');
 Route::get('proceso-prp/indicador/{postulante}/create', 'IndicadorIniciativaController@create')->name('indicador.create');
@@ -491,47 +472,6 @@ Route::get('proyecto/actividad/{proyecto}/data', 'ActividadController@show')->na
 Route::get('proyecto/actividad/data-sp', 'ActividadController@showProyecto')->name('actividad.data-sp');
 Route::post('proyecto/actividad/{actividad}/destroy', 'ActividadController@destroy')->name('actividad.destroy');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#6. Módulo para el proceso de registro de Marco logico
-#6.1. Registro de la matriz de Marco logico
-Route::resource('proyecto/ml', 'MLProyectoController')->except(['show', 'destroy']);
-Route::get('proyecto/ml/data', 'MLProyectoController@show')->name('ml.data');
-#6.2. Registro de los resultados del Marco Logico
-Route::resource('proyecto/resultado', 'MLComponenteController')->except(['create', 'show']);
-Route::get('proyecto/resultado/{ml}/create', 'MLComponenteController@create')->name('resultado.create');
-Route::get('proyecto/resultado/{ml}/data', 'MLComponenteController@show')->name('resultado.data');
-#6.3. Registro de los indicadores del Marco Logico
-Route::resource('proyecto/indicador', 'MLIndicadorController')->except(['create', 'show']);
-Route::get('proyecto/indicador/{ml}/create', 'MLIndicadorController@create')->name('indicador.create');
-Route::get('proyecto/indicador/{ml}/data', 'MLIndicadorController@show')->name('indicador.data');
-#6.4. Registro de las actividades del Marco Logico
-Route::resource('proyecto/actividad', 'MLActividadController')->except(['create', 'show']);
-Route::get('proyecto/actividad/{ml}/create', 'MLActividadController@create')->name('resultado.create');
-Route::get('proyecto/actividad/{ml}/data', 'MLActividadController@show')->name('resultado.data');
-#6.5. Registro de los indicadores de las actividades del ML
-Route::resource('proyecto/indicador-actividad', 'MLIndicadorActividadController')->except(['create', 'show']);
-Route::get('proyecto/indicador-actividad/{ml}/create', 'MLIndicadorActividadController@create')->name('indicador-actividad.create');
-Route::get('proyecto/indicador-actividad/{ml}/data', 'MLIndicadorActividadController@show')->name('indicador-actividad.data');
-*/
 #7. Módulo para registro de cartera de PRP
 Route::resource('proceso-prp/cartera-prp', 'CarteraPrpController')->except(['show']);
 Route::get('proceso-prp/cartera-prp/data', 'CarteraPrpController@show')->name('cartera-prp.data');
@@ -546,10 +486,6 @@ Route::get('proceso-prp/consolidado/consolidado-prpa','PivotController@index_upf
 Route::get('proceso-prp/consolidado/consolidado-prpa/data', 'PivotController@data_upfp_formulacion')->name('pivot-upfp-formulacion.data');
 Route::get('proceso-prp/consolidado/consolidado-ur','PivotController@index_upfp_cartera')->name('pivot-upfp-cartera.index');
 Route::get('proceso-prp/consolidado/consolidado-ur/data', 'PivotController@data_upfp_cartera')->name('pivot-upfp-cartera.data');
-/*
-Route::get('proceso-prp/consolidado/consolidado-ur', 'ConsolidadoPrpController@indexConsolidadoUr')->name('proceso-prp.consolidado-ur-index');
-Route::get('proceso-prp/consolidado/consolidado-ur/data', 'ConsolidadoPrpController@showConsolidadoUr')->name('proceso-prp.consolidado-ur-data');
-*/
 
 #10. Módulo para el registro de Eventos de capacitación
 Route::resource('iniciativa/capacitacion', 'CapacitacionController')->except(['show', 'update']);

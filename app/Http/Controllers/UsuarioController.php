@@ -102,7 +102,6 @@ class UsuarioController extends Controller
                             $rol->codMaestroUsuario =   $usuario->id;
                             $rol->codMaestroRol     =   $request->get('rol');
                             $rol->estado            =   1;
-                            $rol->created_at        =   Carbon::now();
                             $rol->save();
 
                             #7. Retorno al menu principal
@@ -196,7 +195,6 @@ class UsuarioController extends Controller
             $usuario->nroDocumento  =   $personal->nroDni;
             $usuario->nombres       =   $personal->nombres;
             $usuario->apellidos     =   $personal->paterno;
-            $usuario->updated_at    =   now();
             $usuario->update();
 
             #2. Actualizo los datos del cargo directivo
@@ -204,7 +202,6 @@ class UsuarioController extends Controller
             {
                 $cargo                      =   UsuarioCargo::getCargoUsuario($usuario->id);
                 $cargo->codMaestroCargo     =   $request->get('cargo');
-                $cargo->updated_at          =   now();
                 $cargo->update();
 
                 #3. Actualizo la oficina asignada
@@ -212,7 +209,6 @@ class UsuarioController extends Controller
                 {
                     $oficina                        =   UsuarioSede::getSedeUsuario($usuario->id);
                     $oficina->codMaestroOficina     =   $request->get('sede');
-                    $oficina->updated_at            =   now();
                     $oficina->update();
 
                     #4. Actualizo el rol asignado
@@ -220,7 +216,6 @@ class UsuarioController extends Controller
                     {
                         $rol                    =   UsuarioRol::getRolUsuario($usuario->id);
                         $rol->codMaestroRol     =   $request->get('rol');
-                        $rol->updated_at        =   now();
                         $rol->update();
 
                         return response()->json([

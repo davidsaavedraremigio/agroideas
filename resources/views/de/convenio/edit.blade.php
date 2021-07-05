@@ -12,9 +12,11 @@
                     <li class="nav-item"><a class="nav-link" id="TabConvenio003" data-toggle="pill" href="#custom-tabs-pcc" role="tab" aria-controls="custom-tabs-pcc" aria-selected="false">3. Coordinadores PCC</a></li>
                     <li class="nav-item"><a class="nav-link" id="TabConvenio004" data-toggle="pill" href="#custom-tabs-coordinadores" role="tab" aria-controls="custom-tabs-coordinadores" aria-selected="false">4. Coordinadores contraparte</a></li>
                     <li class="nav-item"><a class="nav-link" id="TabConvenio005" data-toggle="pill" href="#custom-tabs-compromisos" role="tab" aria-controls="custom-tabs-compromisos" aria-selected="false">5. Compromisos</a></li>
-                    <li class="nav-item"><a class="nav-link" id="TabConvenio006" data-toggle="pill" href="#custom-tabs-implementacion" role="tab" aria-controls="custom-tabs-implementacion" aria-selected="false">6. Implementacion</a></li>
-                    <li class="nav-item"><a class="nav-link" id="TabConvenio007" data-toggle="pill" href="#custom-tabs-postulante" role="tab" aria-controls="custom-tabs-postulante" aria-selected="false">7. OA's atendidas</a></li>
-                    <li class="nav-item"><a class="nav-link" id="TabConvenio008" data-toggle="pill" href="#custom-tabs-ampliacion" role="tab" aria-controls="custom-tabs-ampliacion" aria-selected="false">8. Adendas</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabConvenio006" data-toggle="pill" href="#custom-tabs-actividades" role="tab" aria-controls="custom-tabs-actividades" aria-selected="false">6. Plan de trabajo</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabConvenio007" data-toggle="pill" href="#custom-tabs-implementacion" role="tab" aria-controls="custom-tabs-implementacion" aria-selected="false">7. Implementación</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabConvenio008" data-toggle="pill" href="#custom-tabs-actividades-ejec" role="tab" aria-controls="custom-tabs-actividades-ejec" aria-selected="false">8. Implementación - Plan de trabajo</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabConvenio009" data-toggle="pill" href="#custom-tabs-postulante" role="tab" aria-controls="custom-tabs-postulante" aria-selected="false">9. OA's atendidas</a></li>
+                    <li class="nav-item"><a class="nav-link" id="TabConvenio010" data-toggle="pill" href="#custom-tabs-ampliacion" role="tab" aria-controls="custom-tabs-ampliacion" aria-selected="false">10. Adendas</a></li>
                 </ul>
             </div>
             <div class="card-body">
@@ -158,7 +160,26 @@
                         </section>
                         {{-- Contenido del módulo Ejecución de gastos --}}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-implementacion" role="tabpanel" aria-labelledby="TabConvenio006">
+                    <div class="tab-pane fade" id="custom-tabs-actividades" role="tabpanel" aria-labelledby="TabConvenio006">
+                        {{-- Contenido del módulo Ejecución de gastos --}}
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="card card-default color-palette-box">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Plan de trabajo</h3>
+                                        <div class="card-tools">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateConvenioActividad"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="viewDataConvenioActividad" class="table-responsive" data-id="{{$convenio->id}}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {{-- Contenido del módulo Ejecución de gastos --}}
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-implementacion" role="tabpanel" aria-labelledby="TabConvenio007">
                         {{-- Contenido del módulo Ejecución de gastos --}}
                         <section class="content">
                             <div class="container-fluid">
@@ -177,7 +198,26 @@
                         </section>
                         {{-- Contenido del módulo Ejecución de gastos --}}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-postulante" role="tabpanel" aria-labelledby="TabConvenio007">
+                    <div class="tab-pane fade" id="custom-tabs-actividades-ejec" role="tabpanel" aria-labelledby="TabConvenio008">
+                        {{-- Contenido del módulo Ejecución de gastos --}}
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="card card-default color-palette-box">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Implementación del Plan de trabajo</h3>
+                                        <div class="card-tools">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateConvenioActividadEjec"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="viewDataConvenioActividadEjec" class="table-responsive" data-id="{{$convenio->id}}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {{-- Contenido del módulo Ejecución de gastos --}}
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-postulante" role="tabpanel" aria-labelledby="TabConvenio009">
                         {{-- Contenido del módulo Ejecución de gastos --}}
                         <section class="content">
                             <div class="container-fluid">
@@ -196,7 +236,7 @@
                         </section>
                         {{-- Contenido del módulo Ejecución de gastos --}}
                     </div>
-                    <div class="tab-pane fade" id="custom-tabs-ampliacion" role="tabpanel" aria-labelledby="TabConvenio008">
+                    <div class="tab-pane fade" id="custom-tabs-ampliacion" role="tabpanel" aria-labelledby="TabConvenio010">
                         {{-- Contenido del módulo Ejecución de gastos --}}
                         <section class="content">
                             <div class="container-fluid">
@@ -389,6 +429,34 @@
         </div>
     </div>		
 </div>
+<div class="modal fade" id="modalCreateConvenioActividad">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn ">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormCreateConvenioActividad">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+<div class="modal fade" id="modalUpdateConvenioActividad">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn ">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormUpdateConvenioActividad">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+
+
+
+
 {{-- Fin del contenido --}}
 @stop
 @section('scripts')
@@ -586,12 +654,6 @@
                     }
                 );
             });
-
-
-
-
-
-
 
             //5. Coordinadores PCC
             $("#viewDataCoordinadorPcc").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
@@ -1133,6 +1195,110 @@
                     }
                 });
             });
+
+            //#11. Plan de trabajo del Convenio Marco
+            $("#viewDataConvenioActividad").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+            $("#viewDataConvenioActividad").load(route("convenio-actividad-programacion.data", codConvenio));
+            $("#modalCreateConvenioActividad").on('show.bs.modal', function (e) {
+                $('#divFormCreateConvenioActividad').load(route("convenio-actividad-programacion.create", codConvenio));
+            });
+            $("#modalUpdateConvenioActividad").on('show.bs.modal', function (e) {
+                var codigo   = $(e.relatedTarget).attr('data-id');
+                $("#divFormUpdateConvenioActividad").load(route("convenio-actividad-programacion.edit", codigo));
+            });
+            $(document).on("click", '#btnCreateConvenioActividad', function (event) {
+                event.preventDefault();
+                var form = $("#FormCreateConvenioActividad");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_CreateConvenioActividad_Enabled").css("display", "none");
+                        $("#Footer_CreateConvenioActividad_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_CreateConvenioActividad_Enabled").css("display", "block");
+                        $("#Footer_CreateConvenioActividad_Disabled").css("display", "none");
+                        $("#modalCreateConvenioActividad").modal('hide');
+                        $("#viewDataConvenioActividad").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenioActividad").load(route("convenio-actividad-programacion.data", codConvenio));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#ConvenioActividadAlerts").css("display", "block");
+                        $("#ConvenioActividadAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_CreateConvenioActividad_Enabled").css("display", "block");
+                        $("#Footer_CreateConvenioActividad_Disabled").css("display", "none");
+                    }
+                });
+            });
+            $(document).on("click", '#btnUpdateConvenioActividad', function (event) {
+                event.preventDefault();
+                var form = $("#FormUpdateConvenioActividad");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_UpdateConvenioActividad_Enabled").css("display", "none");
+                        $("#Footer_UpdateConvenioActividad_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_UpdateConvenioActividad_Enabled").css("display", "block");
+                        $("#Footer_UpdateConvenioActividad_Disabled").css("display", "none");
+                        $("#modalUpdateConvenioActividad").modal('hide');
+                        $("#viewDataConvenioActividad").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenioActividad").load(route("convenio-actividad-programacion.data", codConvenio));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#ConvenioActividadAlerts").css("display", "block");
+                        $("#ConvenioActividadAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_UpdateConvenioActividad_Enabled").css("display", "block");
+                        $("#Footer_UpdateConvenioActividad_Disabled").css("display", "none");
+                    }
+                });
+            });
+
+
+
+
+
         });
     </script>
 @stop
