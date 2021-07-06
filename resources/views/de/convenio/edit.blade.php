@@ -206,11 +206,11 @@
                                     <div class="card-header">
                                         <h3 class="card-title">Implementación del Plan de trabajo</h3>
                                         <div class="card-tools">
-                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateConvenioActividadEjec"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalCreateConvenioActividadEjecucion"><i class="fa fa-plus" aria-hidden="true"></i><span> Añadir nuevo</span></a>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <div id="viewDataConvenioActividadEjec" class="table-responsive" data-id="{{$convenio->id}}"></div>
+                                        <div id="viewDataConvenioActividadEjecucion" class="table-responsive" data-id="{{$convenio->id}}"></div>
                                     </div>
                                 </div>
                             </div>
@@ -453,6 +453,30 @@
         </div>
     </div>		
 </div>
+<div class="modal fade" id="modalCreateConvenioActividadEjecucion">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn ">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormCreateConvenioActividadEjecucion">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
+<div class="modal fade" id="modalUpdateConvenioActividadEjecucion">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content animated fadeIn ">
+            {{-- Inicio del contenido del modal --}}
+            <div id="divFormUpdateConvenioActividadEjecucion">
+                <i class="fa fa-refresh fa-spin fa-2x fa-fw"></i>
+                <span class="sr-only">Cargando...</span>
+            </div>
+            {{-- Fin del contenido del modal --}}
+        </div>
+    </div>		
+</div>
 
 
 
@@ -654,7 +678,6 @@
                     }
                 );
             });
-
             //5. Coordinadores PCC
             $("#viewDataCoordinadorPcc").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
             $("#viewDataCoordinadorPcc").load(urlApp+'/de/convenio-coordinador-pcc/'+ codConvenio +'/data');
@@ -1195,7 +1218,6 @@
                     }
                 });
             });
-
             //#11. Plan de trabajo del Convenio Marco
             $("#viewDataConvenioActividad").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
             $("#viewDataConvenioActividad").load(route("convenio-actividad-programacion.data", codConvenio));
@@ -1294,6 +1316,106 @@
                     }
                 });
             });
+            //#12. Implementación del plan de trabajo del Convenio Marco
+            $("#viewDataConvenioActividadEjecucion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+            $("#viewDataConvenioActividadEjecucion").load(route("convenio-actividad-ejecucion.data", codConvenio));
+            $("#modalCreateConvenioActividadEjecucion").on('show.bs.modal', function (e) {
+                $('#divFormCreateConvenioActividadEjecucion').load(route("convenio-actividad-ejecucion.create", codConvenio));
+            });
+            $("#modalUpdateConvenioActividadEjecucion").on('show.bs.modal', function (e) {
+                var codigo   = $(e.relatedTarget).attr('data-id');
+                $("#divFormUpdateConvenioActividadEjecucion").load(route("convenio-actividad-ejecucion.edit", codigo));
+            });
+            $(document).on("click", '#btnCreateConvenioActividadEjecucion', function (event) {
+                event.preventDefault();
+                var form = $("#FormCreateConvenioActividadEjecucion");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_CreateConvenioActividadEjecucion_Enabled").css("display", "none");
+                        $("#Footer_CreateConvenioActividadEjecucion_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_CreateConvenioActividadEjecucion_Enabled").css("display", "block");
+                        $("#Footer_CreateConvenioActividadEjecucion_Disabled").css("display", "none");
+                        $("#modalCreateConvenioActividadEjecucion").modal('hide');
+                        $("#viewDataConvenioActividadEjecucion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenioActividadEjecucion").load(route("convenio-actividad-ejecucion.data", codConvenio));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#ConvenioActividadEjecucionAlerts").css("display", "block");
+                        $("#ConvenioActividadEjecucionAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_CreateConvenioActividadEjecucion_Enabled").css("display", "block");
+                        $("#Footer_CreateConvenioActividadEjecucion_Disabled").css("display", "none");
+                    }
+                });
+            });
+            $(document).on("click", '#btnUpdateConvenioActividadEjecucion', function (event) {
+                event.preventDefault();
+                var form = $("#FormUpdateConvenioActividadEjecucion");
+                var urlAction = form.attr('action');
+                var formData = new FormData(form[0]);
+                var dataAll = form.serialize();
+                $.ajax({
+                    url: urlAction,
+                    method: "POST",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $("#Footer_UpdateConvenioActividadEjecucion_Enabled").css("display", "none");
+                        $("#Footer_UpdateConvenioActividadEjecucion_Disabled").css("display", "block");
+                    },
+                    success: function (response) {
+                        var mensaje = response.mensaje;
+                        form[0].reset();
+                        $("#Footer_UpdateConvenioActividadEjecucion_Enabled").css("display", "block");
+                        $("#Footer_UpdateConvenioActividadEjecucion_Disabled").css("display", "none");
+                        $("#modalUpdateConvenioActividadEjecucion").modal('hide');
+                        $("#viewDataConvenioActividadEjecucion").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, obteniendo datos ...</h5>");
+                        $("#viewDataConvenioActividadEjecucion").load(route("convenio-actividad-ejecucion.data", codConvenio));
+                        alertify.success(mensaje);
+                    },
+                    error: function (response) {
+                        var errors = response.responseJSON;
+                        var errorTitle = errors.message;
+                        console.error(errorTitle);
+                        var errorsHtml = '';
+                        $.each(errors['errors'], function (index, value) {
+                            errorsHtml += '<ul>';
+                            errorsHtml += '<li>' + value + "</li>";
+                            errorsHtml += '</ul>';
+                        });
+                        $("#ConvenioActividadEjecucionAlerts").css("display", "block");
+                        $("#ConvenioActividadEjecucionAlerts").html('<h4><i class="icon fa fa-exclamation-triangle"></i> Error: ' + errorTitle + '</h4>' + errorsHtml);
+                        $("#Footer_UpdateConvenioActividadEjecucion_Enabled").css("display", "block");
+                        $("#Footer_UpdateConvenioActividadEjecucion_Disabled").css("display", "none");
+                    }
+                });
+            });
+
+
 
 
 

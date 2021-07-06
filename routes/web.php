@@ -178,6 +178,14 @@ Route::resource('de/convenio-actividad-programacion', 'ConvenioActividadPrograma
 Route::get('de/convenio-actividad-programacion/{convenio}/create', 'ConvenioActividadProgramacionController@create')->name('convenio-actividad-programacion.create');
 Route::get('de/convenio-actividad-programacion/{convenio}/data', 'ConvenioActividadProgramacionController@show')->name('convenio-actividad-programacion.data');
 Route::post('de/convenio-actividad-programacion/{actividad}/destroy', 'ConvenioActividadProgramacionController@destroy')->name('convenio-actividad-programacion.destroy');
+#4.9. Módulo para el registro de implementación de actividades del Plan de trabajo
+Route::resource('de/convenio-actividad-ejecucion', 'ConvenioActividadEjecucionController')->except(['show', 'create', 'destroy']);
+Route::get('de/convenio-actividad-ejecucion/{convenio}/create', 'ConvenioActividadEjecucionController@create')->name('convenio-actividad-ejecucion.create');
+Route::get('de/convenio-actividad-ejecucion/{convenio}/data', 'ConvenioActividadEjecucionController@show')->name('convenio-actividad-ejecucion.data');
+Route::post('de/convenio-actividad-ejecucion/{actividad}/destroy', 'ConvenioActividadEjecucionController@destroy')->name('convenio-actividad-ejecucion.destroy');
+
+
+
 
 #4.10. Reporte consolidado de convenios interistitucionales
 Route::get('de/convenio-reporte', 'ConvenioMarcoController@viewConsolidadoConvenio')->name('convenio-reporte.index');

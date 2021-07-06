@@ -1,5 +1,5 @@
 <table class="table table-bordered table-sm table-striped table-hover">
-    <thead class="bg-success">
+    <thead class="bg-primary">
         <tr>
             <th class="text-center">Nº de convenio</th>
             <th class="text-center">Tipo de convenio</th>

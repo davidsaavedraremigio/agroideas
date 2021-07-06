@@ -1,5 +1,5 @@
 <table class="table table-bordered table-sm table-striped table-hover">
-    <thead class="bg-success">
+    <thead class="bg-primary">
         <tr>
             <th class="text-center" width="5%"><small>Nº de convenio</small></th>
             <th class="text-center" width="10%"><small>Año suscripción</small></th>

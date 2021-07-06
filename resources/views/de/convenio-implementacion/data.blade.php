@@ -1,5 +1,5 @@
 <table id="TablaConvenioImplementacion" class="table table-striped table-bordered">
-    <thead class="bg-success">
+    <thead class="bg-primary">
         <tr>
             <th class="text-center"><small>Nº</small></th>
             <th class="text-center"><small>Descripción del compromiso</small></th>

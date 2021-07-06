@@ -5,10 +5,10 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-default color-palette-box">
-                <div class="card-header bg-primary">
+                <div class="card-header">
                     <h3 class="card-title">@yield('title')</h3>
                     <div class="card-tools">
-                        <a href="convenio/create" class="btn btn-sm btn-info" title="Realizar nuevo registro"><i class="fas fa-plus-circle"></i><span> Añadir nuevo</span></a>
+                        <a href="convenio/create" class="btn btn-sm btn-primary" title="Realizar nuevo registro"><i class="fas fa-plus-circle"></i><span> Añadir nuevo</span></a>
                     </div>
                 </div>
                 <div class="card-body">

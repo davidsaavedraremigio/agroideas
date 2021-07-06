@@ -13,7 +13,7 @@ class ConvenioActividadEjecucionFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class ConvenioActividadEjecucionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'actividad'         =>  'required',
+            'responsable'       =>  'required',
+            'fecha'             =>  'required',
+            'meta_ejecutada'    =>  'required|numeric',
+            'acciones'          =>  'required|max:3000',
+            'situacion'         =>  'required',
         ];
     }
 }
