@@ -600,7 +600,7 @@ class ExportaExcelController extends Controller
         #3. Creamos el nombre del archivo
         $namefile       =   "Consolidado_Resumen_Convenios_".Carbon::now().".xlsx";
         #4. Generamos el título del Reporte
-        $tituloReporte  =   "Matriz Convenios Interistitucionales";
+        $tituloReporte  =   "Relación de Convenios Interistitucionales";
         #5. Genero la metadata del archivo
         $reporteExcel->getProperties()->setCreator('Oscar Javier Pazos M.')
             ->setLastModifiedBy('Oscar Javier Pazos M.')
@@ -707,6 +707,199 @@ class ExportaExcelController extends Controller
         exit;        
     }
 
+    #5. Obtengo un reporte consolidado de convenios por Tipo, Estado y Periodo
+    public function exportaConsolidadoSeguimientoConvenio($tipo, $estado, $periodo)
+    {
+        #1. Definimos los estilos del documento a exportar
+        $tituloPrincipal = [
+		    'font'	=>	[
+		    			'size'			=>	18,
+						'bold' 			=> TRUE,
+						'italic' 		=> FALSE,
+						'strikethrough' => FALSE,
+						'color' 		=> [
+											'rgb'	=> 'ffffff'
+										]
+					],
+		    'alignment' => [
+				    	'vertical' 		=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+				        'horizontal' 	=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+				        'textRotation' 	=> 0,
+				        'wrapText'     	=> TRUE
+		    		],
+		    'borders' => [
+		                'top' 		=> ['borderStyle' => Border::BORDER_THIN],
+		                'left' 		=> ['borderStyle' => Border::BORDER_THIN],
+		                'right' 	=> ['borderStyle' => Border::BORDER_THIN],
+		                'bottom' 	=> ['borderStyle' => Border::BORDER_THIN],
+		            ],
+		    'fill' 	=> [
+		                'fillType' 	=> Fill::FILL_SOLID,
+		                'color' 	=> ['rgb' => '354049'],
+		            ],
+		];
+		$cabecera = [
+		    'font'	=>	[
+		    			'size'			=>	10,
+						'bold' 			=> TRUE,
+						'italic' 		=> FALSE,
+						'strikethrough' => FALSE,
+						'color' 		=> [
+											'rgb'	=> 'ffffff'
+										]
+					],
+		    'alignment' => [
+				    	'vertical' 		=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+				        'horizontal' 	=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+				        'textRotation' 	=> 0,
+				        'wrapText'     	=> TRUE
+		    		],
+		    'borders' => [
+		                'top' 		=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'left' 		=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'right' 	=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'bottom' 	=> ['borderStyle' => Border::BORDER_MEDIUM],
+		            ],
+		    'fill' 	=> [
+		                'fillType' 	=> Fill::FILL_SOLID,
+		                'color' 	=> ['rgb' => '6915482'],
+		            ],
+        ];
+        $body 	= [
+		    'font'	=>	[
+		    			'size'			=>	8,
+						'bold' 			=> FALSE,
+						'italic' 		=> FALSE,
+						'strikethrough' => FALSE,
+						'color' 		=> [
+											'rgb'	=> '000000'
+										]
+					],
+		    'alignment' => [
+				    	'vertical' 		=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+				        'horizontal' 	=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+				        'textRotation' 	=> 0,
+				        'wrapText'     	=> TRUE
+		    		],
+		    'borders' => [
+		                'top' 		=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'left' 		=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'right' 	=> ['borderStyle' => Border::BORDER_MEDIUM],
+		                'bottom' 	=> ['borderStyle' => Border::BORDER_MEDIUM],
+		            ],
+		    'fill' 	=> [
+		                'fillType' 	=> Fill::FILL_SOLID,
+		                'color' 	=> ['rgb' => 'FFFFFF'],
+		            ],
+        ];     
+        $numerico  = [
+		    'formatCode' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+        ];
+        $justificado 	= [
+		    'font'	=>	[
+		    			'size'			=>	8,
+						'bold' 			=> FALSE,
+						'italic' 		=> FALSE,
+						'strikethrough' => FALSE,
+						'color' 		=> [
+											'rgb'	=> '000000'
+										]
+					],
+		    'alignment' => [
+				    	'vertical' 		=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+				        'horizontal' 	=> \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_JUSTIFY,
+				        'textRotation' 	=> 0,
+				        'wrapText'     	=> TRUE
+		    		],
+		    'fill' 	=> [
+		                'fillType' 	=> Fill::FILL_SOLID,
+		                'color' 	=> ['rgb' => 'FFFFFF'],
+		            ],
+        ];
+        #2. Llamamos a la clase
+        $reporteExcel   =   new Spreadsheet();
+        #3. Creamos el nombre del archivo
+        $namefile       =   "Consolidado_Resumen_Convenios_".Carbon::now().".xlsx";
+        #4. Generamos el título del Reporte
+        $tituloReporte  =   "Convenios: Reporte de seguimiento";
+        #5. Genero la metadata del archivo
+        $reporteExcel->getProperties()->setCreator('Oscar Javier Pazos M.')
+            ->setLastModifiedBy('Oscar Javier Pazos M.')
+            ->setTitle('Office 2007 XLSX Text Document')
+            ->setSubject('Office 2007 XLSX Text Document')
+            ->setDescription('Test document for Office 2007 XLSX, generated using PHP classes.')
+            ->setKeywords('Office 2007 openxml php')
+            ->setCategory('Test result file');
+        #6. Indico el numero de pestaña donde se iniciará el documento
+        $reporteExcel->setActiveSheetIndex(0);
+        #7. Genero los títulos
+        $reporteExcel->getActiveSheet()
+            ->setCellValue('A1', $tituloReporte)
+            ->setCellValue('A2', 'Nº')
+            ->setCellValue('B2', 'TIPO DE CONVENIO')
+            ->setCellValue('C2', 'OBJETIVO DEL CONVENIO')
+            ->setCellValue('D2', 'NOMBRE DE LA INSTITUCION')
+            ->setCellValue('E2', 'COORDINADOR de AGROIDEAS')
+            ->setCellValue('F2', 'REGIÓN')
+            ->setCellValue('G2', 'AVANCES A LA FECHA')
+            ->setCellValue('H2', 'ESTADO ACTUAL')
+            ;
+        #8. Genero el contenido de la tabla 
+        $data           =   ConvenioMarco::getSeguimientoConvenios($tipo, $estado, $periodo);
+        $numFila        =   2;   
+        foreach ($data as $keyNumber => $row) 
+        {
+            $numFila++;
+            $reporteExcel->getActiveSheet()
+                ->setCellValue('A'.$numFila, $row->nro_convenio)
+                ->setCellValue('B'.$numFila, $row->tipo)
+                ->setCellValue('C'.$numFila, $row->objetivo)
+                ->setCellValue('D'.$numFila, $row->institucion)
+                ->setCellValue('E'.$numFila, $row->especialista)
+                ->setCellValue('F'.$numFila, $row->region)
+                ->setCellValue('G'.$numFila, $row->resultados)
+                ->setCellValue('H'.$numFila, $row->estado)
+            ;
+            #Añado un borde para el contenido
+            $reporteExcel->getActiveSheet()->getStyle('A'.($numFila).':H'.($numFila))->getBorders()->getTop()->applyFromArray(
+                [
+                    'borderStyle'   =>  Border::BORDER_DASHDOT,
+                    'color'         =>  [
+                        'rgb'   =>  '808080'
+                    ]
+                ]
+            );
+        } 
+        #9. Defino el ancho de las columnas 
+        $reporteExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+        $reporteExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+        $reporteExcel->getActiveSheet()->getColumnDimension('C')->setWidth(50);
+        $reporteExcel->getActiveSheet()->getColumnDimension('D')->setWidth(50);
+        $reporteExcel->getActiveSheet()->getColumnDimension('E')->setWidth(30);
+        $reporteExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+        $reporteExcel->getActiveSheet()->getColumnDimension('G')->setWidth(50);
+        $reporteExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+        #10. Defino los estilos de la estructura Excel
+        $reporteExcel->getActiveSheet()->mergeCells('A1:H1');
+        $reporteExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray($tituloPrincipal);
+        $reporteExcel->getActiveSheet()->getStyle('A2:H2')->applyFromArray($cabecera);            
+        $reporteExcel->getActiveSheet()->getStyle('A3:H'.$numFila)->applyFromArray($body);
+        #11. Defino el titulo de la pestaña activa
+        $reporteExcel->getActiveSheet()->setTitle('Información Consolidada');
+        #12. Insumos requeridos para la generación del documento
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header("Content-Disposition: attachment;filename=\"$namefile\"");
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+        header('Pragma: public');
+        #13. Genero el archivo requerido
+        $writer     =   IOFactory::createWriter($reporteExcel, 'Xlsx');
+        $writer->save('php://output');
+        exit;                
+    }
 
 
 

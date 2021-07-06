@@ -79,7 +79,7 @@
                 var periodo  =   $("#inputPeriodo").val();
                 $("#data_seguimiento_convenio").html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i><span class='sr-only'>Cargando...</span><h5>Espere un momento por favor, el reporte se esta procesando ...</h5>");
                 $('#data_seguimiento_convenio').load("convenio-seguimiento/"+tipo+"/"+estado+"/"+periodo+"/data");
-                $("#boton").html("<a href='convenio-reporte/"+tipo+"/"+estado+"/"+periodo+"/excel' class='btn btn-warning btn-sm'><i class='fas fa-download'></i> Descargar Consolidado</a>");
+                $("#boton").html("<a href='convenio-seguimiento/"+tipo+"/"+estado+"/"+periodo+"/excel' class='btn btn-warning btn-sm'><i class='fas fa-download'></i> Descargar Consolidado</a>");
             });
         });
     </script>
