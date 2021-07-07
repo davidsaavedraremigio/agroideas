@@ -138,6 +138,10 @@ Route::get('de/convenio/{convenio}/upload', 'ConvenioMarcoController@formUpload'
 Route::post('de/convenio/upload/{convenio}', 'ConvenioMarcoController@upload')->name('convenio-marco.upload');
 Route::get('de/convenio/{convenio}/situacion', 'ConvenioMarcoController@formSituacion')->name('convenio-marco.form-situacion');
 Route::post('de/convenio/situacion/{convenio}', 'ConvenioMarcoController@situacion')->name('convenio-marco.situacion');
+Route::get('de/convenio/{convenio}/pdf', 'ConvenioMarcoController@showPdf')->name('convenio-marco.pdf');
+
+
+
 #4.1. Módulo para el registro de entidades cooperantes del convenio
 Route::resource('de/convenio-cooperante', 'ConvenioMarcoCooperanteController')->except(['show', 'create', 'destroy']);
 Route::get('de/convenio-cooperante/{convenio}/data', 'ConvenioMarcoCooperanteController@show')->name('convenio-cooperante.data');
@@ -183,7 +187,6 @@ Route::resource('de/convenio-actividad-ejecucion', 'ConvenioActividadEjecucionCo
 Route::get('de/convenio-actividad-ejecucion/{convenio}/create', 'ConvenioActividadEjecucionController@create')->name('convenio-actividad-ejecucion.create');
 Route::get('de/convenio-actividad-ejecucion/{convenio}/data', 'ConvenioActividadEjecucionController@show')->name('convenio-actividad-ejecucion.data');
 Route::post('de/convenio-actividad-ejecucion/{actividad}/destroy', 'ConvenioActividadEjecucionController@destroy')->name('convenio-actividad-ejecucion.destroy');
-
 
 
 

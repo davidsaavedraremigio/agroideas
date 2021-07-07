@@ -30,7 +30,7 @@
             <td class="text-center"><small>{{ \Carbon\Carbon::parse($fila->fecha_termino)->format('d/m/Y')}}</small></td>
             <td class="text-center"><small>{{$fila->estado}}</small></td>
             <td class="text-center">
-
+                <a href="{{route("convenio-marco.pdf", $fila->id)}}" class="btn btn-sm btn-info" title="Mostrar reporte"><i class="far fa-file-pdf"></i></a> 
                 @if ($fila->evidencia == '0')
                 <a href="#" class="btn btn-sm btn-success" title="Cargar evidencia" id="btnmodalUploadConvenioMarco" data-toggle="modal" data-target="#modalUploadConvenioMarco" data-id="{{$fila->id}}"><i class="fas fa-arrow-circle-up"></i></a>  
                 @else

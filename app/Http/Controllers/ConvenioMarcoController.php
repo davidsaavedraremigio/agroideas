@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ConvenioMarcoFormRequest;
 use App\Http\Requests\UploadConvenioFormRequest;
 use App\ConvenioMarco;
+use App\ConvenioActividadEjecucion;
 use App\TablaValor;
 use App\Usuario;
 use App\Staff;
@@ -300,5 +301,22 @@ class ConvenioMarcoController extends Controller
         $data   =    ConvenioMarco::getListado($tipo, $periodo, $estado);
         return view('de.convenio-consolidado.data', compact('data'));
     }    
+
+    #20. Muestro un PDF con información del convenio seleccionado
+    public function showPdf($id)
+    {
+        #1. Obtengo las variables solicitadas
+        $query      =   DB::select("SELECT * FROM vw_data_convenios_interistitucionales  WHERE id = $id");
+        $convenio   =   $query[0];
+        $actividades=   ConvenioActividadEjecucion::getData($id);
+        
+        
+        
+        
+        $pdf_name   =   'Prueba.pdf';
+        $template   =   $this->path.'.pdf';
+        $pdf        =   \PDF::loadView($template, compact('convenio', 'actividades'));
+        return $pdf->stream($pdf_name);
+    }
 
 }

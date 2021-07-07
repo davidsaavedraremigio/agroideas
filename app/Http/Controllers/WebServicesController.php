@@ -40,6 +40,7 @@ class WebServicesController extends Controller
                 $respuesta  =   file_get_contents($url);
                 $valores    =   json_decode($respuesta);
                 $array      =   $valores->Data;
+                $estado     =   $valores->OperationCode;
 
                 $data = array(
                     'dni'       =>  $dni,
@@ -50,6 +51,7 @@ class WebServicesController extends Controller
                     'foto'      =>  $array->Foto,
                     'ubigeo'    =>  $array->Ubigeo,
                     'bloqueo'   =>  'readonly',
+                    'estado'    =>  $estado,
                 );
 
                 return json_encode($data);
