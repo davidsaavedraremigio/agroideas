@@ -105,7 +105,6 @@
                     <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard SDA</p></a></li> 
                 </ul>
             </li>
-
         @break
         {{-- Rol Unidades Regionales --}}
         @case(1)
@@ -158,8 +157,34 @@
                 </ul>
             </li>            
         @break
+        {{-- Rol Unidad de UPFP --}}
+        @case(2)
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-calendar-day"></i> <p>Eventos/Compromisos <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("evento.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar"></i><p>Módulo compromisos</p></a></li>
+                    <li class="nav-item"><a href="{{route("evento.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard compromisos</p></a></li>
+                    <li class="nav-item"><a href="{{route("compromiso-reporte.index")}}" class="nav-link"><i class="nav-icon fab fa-font-awesome-flag"></i><p>Estado situacional</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-chalkboard-teacher"></i><p>Capacitaciones <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("capacitacion.index")}}" class="nav-link"><i class="nav-icon fas fa-calendar-plus"></i><p>Programación</p></a></li>
+                    <li class="nav-item"><a href="{{route("pivot-capacitacion.index")}}" class="nav-link"><i class="nav-icon fas fa-database"></i><p>Formato SERVIAGRO</p></a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="{{route("actividad.index")}}" class="nav-link" title="Módulo Actividades"><i class="nav-icon fas fa-mail-bulk"></i><p>Actividades programadas</p></a></li>
+            <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-tractor"></i><p>Reconversión productiva <i class="right fa fa-angle-left right"></i></p></a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item"><a href="{{route("ur.index")}}" class="nav-link"><i class="nav-icon fas fa-tasks"></i><p>Evaluación documentaria</p></a></li>
+                    <li class="nav-item"><a href="{{route("upfp.index")}}" class="nav-link"><i class="nav-icon fas fa-tasks"></i><p>Evaluación técnica</p></a></li> 
+                    <li class="nav-item"><a href="{{route("formulacion.index")}}" class="nav-link"><i class="nav-icon fas fa-id-card"></i><p>Formulación del PRPA</p></a></li>
+                    <li class="nav-item"><a href="{{route("mantenimiento.index")}}" class="nav-link"><i class="nav-icon fas fa-tools"></i><p>Mantenimiento de expedientes</p></a></li> 
+                    <li class="nav-item"><a href="{{route("proyecto-prpa.index")}}" class="nav-link"><i class="nav-icon far fa-id-card"></i><p>Información general</p></a></li> 
+                    <li class="nav-item"><a href="{{route("admision.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard PRPA</p></a></li> 
+                </ul>
+            </li>
+        @break
 
         @default
-            
     @endswitch
 </ul>
