@@ -172,7 +172,6 @@
                     <li class="nav-item"><a href="{{route("pivot-capacitacion.index")}}" class="nav-link"><i class="nav-icon fas fa-database"></i><p>Formato SERVIAGRO</p></a></li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="{{route("actividad.index")}}" class="nav-link" title="Módulo Actividades"><i class="nav-icon fas fa-mail-bulk"></i><p>Actividades programadas</p></a></li>
             <li class="nav-item has-treeview"><a href="#" class="nav-link"><i class="nav-icon fas fa-tractor"></i><p>Reconversión productiva <i class="right fa fa-angle-left right"></i></p></a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item"><a href="{{route("ur.index")}}" class="nav-link"><i class="nav-icon fas fa-tasks"></i><p>Evaluación documentaria</p></a></li>
@@ -183,6 +182,7 @@
                     <li class="nav-item"><a href="{{route("admision.visor")}}" class="nav-link"><i class="nav-icon fas fa-chart-line"></i><p>Dashboard PRPA</p></a></li> 
                 </ul>
             </li>
+            <li class="nav-item"><a href="{{route("actividad.index")}}" class="nav-link" title="Módulo Actividades"><i class="nav-icon fas fa-mail-bulk"></i><p>Actividades programadas</p></a></li>
         @break
 
         @default
